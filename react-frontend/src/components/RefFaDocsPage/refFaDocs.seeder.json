@@ -1,0 +1,11 @@
+[
+    {
+        "filename": "asdfasdf",
+        "bank_id": 1,
+        "facilityId": 1,
+        "start_date": 2,
+        "end_date": 3,
+        "version": 4,
+        "s3_link": "sdfsdfasdf"
+    }
+]

@@ -1,0 +1,15 @@
+[
+    {
+        "name": "asdfasdf",
+        "chatAiId": 1,
+        "bedrock_model_id": "anthropic.claude-3-haiku-20240307-v1:0",
+        "model_params_json": "asdfasdf",
+        "human": "Human: I'm going to give you a document. Then I'm going to ask you a question about it. I'd like you to first write down exact quotes of parts of the document that would help answer the question, and then I'd like you to answer the question using facts from the quoted content. Here is the document:",
+        "task": "First, find the quotes from the document that are most relevant to answering the question, and then print them in numbered order. Quotes should be relatively short.",
+        "no_condition": "If there are no relevant quotes, write \\\"No relevant quotes found.\\\"",
+        "yes_condition": "Then, answer the question, starting with \\\"Answers with citation:\\\". Do not include or reference quote content verbatim in the answer. Don't say \\\"According to Quote [1]\\\" when answering. Instead make references to quotes relevant to each section of the answer solely by adding their bracketed numbers at the end of relevant sentences.",
+        "format": "Thus, the format of your overall response should look like what's shown between the <example></example> tags. Make sure to follow the formatting and spacing exactly.",
+        "example": "[\r\n        \"<example>\",\r\n        \"Relevant extracts:\",\r\n        \"[1] \\\"Company X reported revenue of $12 million in 2021.\\\"\",\r\n        \"[2] \\\"Almost 90% of revene came from widget sales, with gadget sales making up the remaining 10%.\\\"\",\r\n        \"Answers with citation:\",\r\n        \"Company X earned $12 million. [1]\",\r\n        \"Almost 90% of it was from widget sales. [2]\",\r\n        \"</example>\"\r\n    ]",
+        "preamble": "Here is the first question: How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it? Assistant:"
+    }
+]
