@@ -13,7 +13,7 @@ const refFacilities = require("./refFacilities/refFacilities.service.js");
 
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
-    app.configure(users);
+  app.configure(users);
   app.configure(sessions);
   app.configure(chatai);
   app.configure(config);
@@ -24,5 +24,5 @@ module.exports = function (app) {
   app.configure(refFaDocs);
   app.configure(refBanks);
   app.configure(refFacilities);
-    // ~cb-add-configure-service-name~
+  // ~cb-add-configure-service-name~
 };

@@ -1,11 +1,20 @@
 [
-    {
-        "filename": "asdfasdf",
-        "bank_id": 1,
-        "facilityId": 1,
-        "start_date": 2,
-        "end_date": 3,
-        "version": 4,
-        "s3_link": "sdfsdfasdf"
-    }
+  {
+    "filename": "Affin - Facility Agreement (270316).txt",
+    "bankId": "660ce46d542ccd4d376ea642",
+    "facilityid": "660ce47e542ccd4d376ea675",
+    "startDate": "2024-03-01",
+    "endDate": "2025-04-03",
+    "version": 1,
+    "s3Link": "s3://codeb-projects/asl/fa/conventional/raw/txt/cleaned/Affin - Facility Agreement (270316).txt"
+  },
+  {
+    "filename": "Am - Facility Agreement (Body).txt",
+    "bankId": "660ce46d542ccd4d376ea648",
+    "facilityid": "660ce47e542ccd4d376ea675",
+    "startDate": "2024-03-01",
+    "endDate": "2025-04-03",
+    "version": 1,
+    "s3Link": "s3://codeb-projects/asl/fa/conventional/raw/txt/cleaned/Am - Facility Agreement (Body).txt"
+  }
 ]

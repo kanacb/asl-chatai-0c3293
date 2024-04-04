@@ -1,3 +1,9 @@
 .project-item-disabled {
-    color: #b3b3b3 !important;
+  color: #b3b3b3 !important;
+}
+
+.scrollable {
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: start;
 }

@@ -9,14 +9,14 @@ import { Provider } from "react-redux";
 import * as models from "../../../models";
 
 test("renders chatai page", async () => {
-    const store = init({ models });
-    render(
-        <Provider store={store}>
-            <MemoryRouter>
-                <ChataiPage />
-            </MemoryRouter>
-        </Provider>
-    );
-    expect(screen.getByRole("chatai-datatable")).toBeInTheDocument();
-    expect(screen.getByRole("chatai-add-button")).toBeInTheDocument();
+  const store = init({ models });
+  render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <ChataiPage />
+      </MemoryRouter>
+    </Provider>,
+  );
+  expect(screen.getByRole("chatai-datatable")).toBeInTheDocument();
+  expect(screen.getByRole("chatai-add-button")).toBeInTheDocument();
 });

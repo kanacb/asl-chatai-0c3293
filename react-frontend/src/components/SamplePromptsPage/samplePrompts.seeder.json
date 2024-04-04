@@ -1,34 +1,32 @@
 [
-    {
-        "chatAiId": 1,
-        "prompts": "Does reference to the Letter of Offer within this  Agreement cover any renewal, supplement, revision, modification anf amendment and restatement of the same?"
-    },
-    {
-        "chatAiId": 1,
-        "prompts": "Which takes precedence in a conflict between the terms of this Agreement and the Letter of Offer?"
-    },
-    {
-        "prompts": "How would an adverse change in the borrower's financial condition affect the covenants set out in the term loan agreement?"
-    },
-    {
-        "prompts": "Under what circumstances can the Bank accelerate repayment/demand repayment of all sums due and owing by the Borrower under the terms and conditions of the Agreement?"
-    },
-    {
-        "prompts": "Under the terms of this Agreement, what recourse does the Bank have in the event of an adverse change in the Borrower's financial condition?"
-    },
-    {
-        "prompts": "Please provide examples where the Bank can invoke the 'Material Adverse Change' clause in this Agreement?"
-    },
-    {
-        "prompts": "Could this Agreement be syndicated in the future? What would that process entail?"
-    },
-    {
-        "prompts": "Explain each of the cross-default provisions in this Agreement and their implications for the Borrower and the Bank."
-    },
-    {
-        "prompts": "How does the Borrower demonstrate compliance with financial covenants in this Agreement?"
-    },
-    {
-        "prompts": "How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it?"
-    }
+  {
+    "prompts": "Does reference to the Letter of Offer within this  Agreement cover any renewal, supplement, revision, modification anf amendment and restatement of the same?"
+  },
+  {
+    "prompts": "Which takes precedence in a conflict between the terms of this Agreement and the Letter of Offer?"
+  },
+  {
+    "prompts": "How would an adverse change in the borrower's financial condition affect the covenants set out in the term loan agreement?"
+  },
+  {
+    "prompts": "Under what circumstances can the Bank accelerate repayment/demand repayment of all sums due and owing by the Borrower under the terms and conditions of the Agreement?"
+  },
+  {
+    "prompts": "Under the terms of this Agreement, what recourse does the Bank have in the event of an adverse change in the Borrower's financial condition?"
+  },
+  {
+    "prompts": "Please provide examples where the Bank can invoke the 'Material Adverse Change' clause in this Agreement?"
+  },
+  {
+    "prompts": "Could this Agreement be syndicated in the future? What would that process entail?"
+  },
+  {
+    "prompts": "Explain each of the cross-default provisions in this Agreement and their implications for the Borrower and the Bank."
+  },
+  {
+    "prompts": "How does the Borrower demonstrate compliance with financial covenants in this Agreement?"
+  },
+  {
+    "prompts": "How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it?"
+  }
 ]

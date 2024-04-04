@@ -9,13 +9,13 @@ import { Provider } from "react-redux";
 import * as models from "../../../models";
 
 test("renders chatai edit dialog", async () => {
-    const store = init({ models });
-    render(
-        <Provider store={store}>
-            <MemoryRouter>
-                <ChataiEditDialogComponent show={true} />
-            </MemoryRouter>
-        </Provider>
-    );
-    expect(screen.getByRole("chatai-edit-dialog-component")).toBeInTheDocument();
+  const store = init({ models });
+  render(
+    <Provider store={store}>
+      <MemoryRouter>
+        <ChataiEditDialogComponent show={true} />
+      </MemoryRouter>
+    </Provider>,
+  );
+  expect(screen.getByRole("chatai-edit-dialog-component")).toBeInTheDocument();
 });

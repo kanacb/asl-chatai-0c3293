@@ -1,5 +1,3 @@
-const { Service } = require('feathers-mongoose');
+const { Service } = require("feathers-mongoose");
 
-exports.Prompts = class Prompts extends Service {
-  
-};
+exports.Prompts = class Prompts extends Service {};

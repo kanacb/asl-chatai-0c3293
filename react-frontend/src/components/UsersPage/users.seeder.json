@@ -1,1 +1,27 @@
-[]
+[
+    {
+        "name": "Kana",
+        "email": "kana@cloudbasha.com",
+        "password": "asdfasdf"
+    },
+    {
+        "name": "Arun Kumar",
+        "email": "Arun@cloudbasha.com",
+        "password": "asdfasdf"
+    },
+    {
+        "name": "Shamala Mariappan",
+        "email": "shamala@cloudbasha.com",
+        "password": "asdfasdf"
+    },
+    {
+        "name": "Rodney Gerard D'Cruz",
+        "email": "rodney.d'cruz@asl.com.my",
+        "password": "asdfasdf"
+    },
+    {
+        "name": "Christopher Raj",
+        "email": "chrisraj@codebridge.my",
+        "password": "asdfasdf"
+    }
+]

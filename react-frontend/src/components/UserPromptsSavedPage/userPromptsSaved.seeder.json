@@ -1,9 +1,9 @@
 [
-    {
-        "chatAiId": 1,
-        "savedUserId": 1,
-        "configId": 1,
-        "prompt": "fdasdfasdf",
-        "others": "asdfasdfasd"
-    }
+  {
+    "chatAiId": 1,
+    "savedUserId": 1,
+    "configId": 1,
+    "prompt": "fdasdfasdf",
+    "others": "asdfasdfasd"
+  }
 ]

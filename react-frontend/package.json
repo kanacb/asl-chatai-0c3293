@@ -5,8 +5,9 @@
     "dependencies": {
         "@faker-js/faker": "^7.6.0",
         "@feathersjs/authentication-client": "^4.5.11",
-        "@feathersjs/feathers": "^4.5.11",
+        "@feathersjs/feathers": "^4.5.17",
         "@feathersjs/rest-client": "^4.5.11",
+        "@feathersjs/socketio-client": "^5.0.24",
         "@rematch/core": "^2.2.0",
         "@testing-library/jest-dom": "^5.17.0",
         "@testing-library/react": "^13.4.0",
@@ -27,25 +28,26 @@
         "react-router-dom": "^6.15.0",
         "react-scripts": "5.0.1",
         "redux": "^5.0.1",
-        "sass": "^1.66.1"
+        "sass": "^1.66.1",
+        "socket.io-client": "^4.7.5"
     },
     "scripts": {
         "start": "react-scripts start",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
-        "environment" : "npm run --silent cmd && npm install --quiet --no-progress && npm run welcome && npm run format",
+        "environment": "npm run --silent cmd && npm install --quiet --no-progress && npm run welcome && npm run format",
         "format": "prettier ./src/components --write ",
         "format:check": "prettier ./src/components --check \"*/.{js,ts,d.ts}\"",
         "cmd": "(dir 2>&1 *`|npm run moveCMD);&<# rem #>npm run movePS",
         "moveCMD": "if exist .env_example rename .env_example .env",
         "movePS": "if Test-Path -Path .env_example 'Rename-Item -Path .\\.env_example .\\.env'",
         "welcome": "\"echo \"Welcome to CodeBridge Ai Code Generator\" \"",
+        "build:stg": "set \"GENERATE_SOURCEMAP=false\" && env-cmd -f .env.stg react-scripts build",
         "launch": "npm run --silent cmd && npm install --quiet --no-progress && npm run welcome && npm run format && npm run start"
     },
     "eslintConfig": {
-        "extends": [
-        ]
+        "extends": []
     },
     "browserslist": {
         "production": [

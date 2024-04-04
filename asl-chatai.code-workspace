@@ -1,10 +1,11 @@
 {
 	"folders": [
-{"path": "react-frontend"},
-{"path": "nodejs-backend"},
-,
-
-		// ~cb-stack-names~
+		{
+			"path": "react-frontend"
+		},
+		{
+			"path": "nodejs-backend"
+		},
 	],
 	"settings": {}
 }

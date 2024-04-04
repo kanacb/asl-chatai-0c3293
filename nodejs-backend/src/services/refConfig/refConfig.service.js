@@ -1,19 +1,19 @@
-const { RefConfig } = require('./refConfig.class');
-const createModel = require('../../models/refConfig.model');
-const hooks = require('./refConfig.hooks');
+const { RefConfig } = require("./refConfig.class");
+const createModel = require("../../models/refConfig.model");
+const hooks = require("./refConfig.hooks");
 
 module.exports = function (app) {
   const options = {
     Model: createModel(app),
-    paginate: app.get('paginate'),
-    whitelist: ["$populate"]
+    paginate: app.get("paginate"),
+    whitelist: ["$populate"],
   };
 
   // Initialize our service with any options it requires
-  app.use('/refConfig', new RefConfig(options, app));
+  app.use("/refConfig", new RefConfig(options, app));
 
   // Get our initialized service so that we can register hooks
-  const service = app.service('refConfig');
+  const service = app.service("refConfig");
 
   service.hooks(hooks);
 };

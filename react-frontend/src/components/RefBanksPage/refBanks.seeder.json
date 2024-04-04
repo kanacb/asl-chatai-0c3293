@@ -1,46 +1,46 @@
 [
-    {
-        "name": "Maybank Banking Berhad",
-        "abbr": "MBB"
-    },
-    {
-        "name": "Affin Bank Berhad",
-        "abbr": "Affin"
-    },
-    {
-        "name": "Alliance Bank Malaysia",
-        "abbr": "Alliance"
-    },
-    {
-        "name": "AmBank",
-        "abbr": "Am"
-    },
-    {
-        "name": "Hong Leong Bank",
-        "abbr": "HLBB"
-    },
-    {
-        "name": "OCBC",
-        "abbr": "OCBC"
-    },
-    {
-        "name": "Public Bank Berhad",
-        "abbr": "PBB"
-    },
-    {
-        "name": "Sumitomo Mitsui Banking Corporation Malaysia Berhad",
-        "abbr": "SMBC"
-    },
-    {
-        "name": "United Overseas Bank",
-        "abbr": "UOB"
-    },
-    {
-        "name": "RHB Bank",
-        "abbr": "RHB"
-    },
-    {
-        "name": "CIMB Group Holdings Berhad",
-        "abbr": "CIMB"
-    }
+  {
+    "name": "Maybank Banking Berhad",
+    "abbr": "MBB"
+  },
+  {
+    "name": "Affin Bank Berhad",
+    "abbr": "Affin"
+  },
+  {
+    "name": "Alliance Bank Malaysia",
+    "abbr": "Alliance"
+  },
+  {
+    "name": "AmBank",
+    "abbr": "Am"
+  },
+  {
+    "name": "Hong Leong Bank",
+    "abbr": "HLBB"
+  },
+  {
+    "name": "OCBC",
+    "abbr": "OCBC"
+  },
+  {
+    "name": "Public Bank Berhad",
+    "abbr": "PBB"
+  },
+  {
+    "name": "Sumitomo Mitsui Banking Corporation Malaysia Berhad",
+    "abbr": "SMBC"
+  },
+  {
+    "name": "United Overseas Bank",
+    "abbr": "UOB"
+  },
+  {
+    "name": "RHB Bank",
+    "abbr": "RHB"
+  },
+  {
+    "name": "CIMB Group Holdings Berhad",
+    "abbr": "CIMB"
+  }
 ]

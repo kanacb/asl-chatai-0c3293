@@ -1,0 +1,2050 @@
+{
+  "projectName": "asl-chatai",
+  "description": null,
+  "auth": "jwt",
+  "database": {
+    "pathToLogo": {
+      "s": "/assets/applications_logos/mongodb-s.png",
+      "l": "/assets/applications_logos/mongodb.png"
+    },
+    "appName": "mongodb-database",
+    "disabled": false,
+    "type": "database",
+    "name": "mongodb",
+    "label": "MongoDB",
+    "__v": 0,
+    "databaseUrl": "mongodb://127.0.0.1:27017/asl-chatai",
+    "appGenerationTemplates": [],
+    "serviceGenerationTemplates": [],
+    "isHidden": false,
+    "environments": []
+  },
+  "stack": [
+    {
+      "appName": "nodejs-backend",
+      "environments": [
+        {
+          "type": "dev",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "http",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c3295"
+        },
+        {
+          "type": "sit",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c3296"
+        },
+        {
+          "type": "uat",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c3297"
+        },
+        {
+          "type": "stg",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "660752c229532e2c6d0c3298"
+        },
+        {
+          "type": "prod",
+          "settings": {
+            "url": "http://127.0.0.1:3030",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3030,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "660752c229532e2c6d0c3299"
+        }
+      ],
+      "pathToLogo": {
+        "s": "/assets/applications_logos/nodejs-s.png",
+        "l": "/assets/applications_logos/nodejs.png"
+      },
+      "disabled": false,
+      "type": "backend",
+      "name": "nodejs",
+      "label": "Node.js Express Feathers.js",
+      "appGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-package-json",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "660752c229532e2c6d0c329a",
+          "codeChanges": []
+        },
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-mongoose-js",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "660752c229532e2c6d0c329b",
+          "codeChanges": []
+        }
+      ],
+      "serviceGenerationTemplates": [],
+      "schemaGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "nodejs-feathers-mongoose-model-js"
+        }
+      ],
+      "configFileRelativePath": "config/default.json",
+      "skip": false
+    },
+    {
+      "appName": "react-frontend",
+      "environments": [
+        {
+          "type": "dev",
+          "settings": {
+            "url": "http://127.0.0.1:3000",
+            "domain": {
+              "protocol": "http",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c329d"
+        },
+        {
+          "type": "sit",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c329e"
+        },
+        {
+          "type": "uat",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": true
+          },
+          "_id": "660752c229532e2c6d0c329f"
+        },
+        {
+          "type": "stg",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "660752c229532e2c6d0c32a0"
+        },
+        {
+          "type": "prod",
+          "settings": {
+            "url": "",
+            "domain": {
+              "protocol": "https",
+              "host": "127.0.0.1",
+              "port": 3000,
+              "user": "",
+              "password": ""
+            },
+            "debug": false
+          },
+          "_id": "660752c229532e2c6d0c32a1"
+        }
+      ],
+      "pathToLogo": {
+        "s": "/assets/applications_logos/react-s.png",
+        "l": "/assets/applications_logos/react.png"
+      },
+      "disabled": false,
+      "type": "frontend",
+      "name": "react",
+      "label": "React JavaScript",
+      "appGenerationTemplates": [
+        {
+          "dbService": "templates",
+          "name": "cb-react-feathers-template",
+          "repoName": "",
+          "ref": "",
+          "userName": "",
+          "githubRepoLocation": "",
+          "skip": false,
+          "_id": "660752c229532e2c6d0c32a2",
+          "codeChanges": []
+        }
+      ],
+      "serviceGenerationTemplates": [
+        {
+          "templateLocalFile": "",
+          "destFolder": "",
+          "githubRepoLocation": "",
+          "customFunction": "",
+          "customRelationshipFunction": "",
+          "customSinglePageServiceFunction": "",
+          "customSeederFunction": "",
+          "description": "",
+          "renameFile": {
+            "from": "",
+            "to": ""
+          },
+          "_id": "660752c229532e2c6d0c32a3",
+          "changes": []
+        },
+        {
+          "templateLocalFile": "",
+          "destFolder": "",
+          "githubRepoLocation": "",
+          "customFunction": "",
+          "customRelationshipFunction": "",
+          "customSinglePageServiceFunction": "",
+          "customSeederFunction": "",
+          "description": "",
+          "renameFile": {
+            "from": "",
+            "to": ""
+          },
+          "_id": "660752c229532e2c6d0c32a4",
+          "changes": []
+        }
+      ],
+      "schemaGenerationTemplates": [],
+      "skip": false
+    }
+  ],
+  "services": [
+    {
+      "serviceName": "users",
+      "schemaList": [
+        {
+          "fieldName": "name",
+          "type": "String",
+          "display": true,
+          "component": "p",
+          "label": "Email",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "email",
+          "type": "String",
+          "unique": true,
+          "lowercase": true,
+          "display": true,
+          "component": "p",
+          "label": "Email",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "password",
+          "type": "String",
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [],
+      "skip": false
+    },
+    {
+      "serviceName": "sessions",
+      "displayName": "Sessions",
+      "schemaList": [
+        {
+          "fieldName": "loginSession",
+          "type": "String",
+          "unique": true,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Login Session",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32c6"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "userid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "UserId",
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "users",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "login session": 1,
+          "userId": 1
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "chatai",
+      "displayName": "Chatai",
+      "schemaList": [
+        {
+          "fieldName": "name",
+          "type": "String",
+          "unique": true,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Name",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32c8"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "description",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Description",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32c9"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "serviceName",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Service Name",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ca"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "name": "Facility Agreements V 1.0",
+          "description": "sdfasdfa",
+          "service_name": "facilityAgreement"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "config",
+      "displayName": "Config",
+      "schemaList": [
+        {
+          "fieldName": "name",
+          "type": "String",
+          "unique": true,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Name",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32cc"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "chataiid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "ChatAi",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "chatai",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "bedrockModelId",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Bedrock Model Id",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32cd"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "modelParamsJson",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Model Params Json",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ce"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "human",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Human",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32cf"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "task",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Task",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d0"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "noCondition",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "No Condition",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d1"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "yesCondition",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Yes Condition",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d2"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "format",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Format",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d3"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "example",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Example",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d4"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "preamble",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Preamble",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d5"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "name": "asdfasdf",
+          "chatAiId": 1,
+          "bedrock_model_id": "anthropic.claude-3-haiku-20240307-v1:0",
+          "model_params_json": "asdfasdf",
+          "human": "Human: I'm going to give you a document. Then I'm going to ask you a question about it. I'd like you to first write down exact quotes of parts of the document that would help answer the question, and then I'd like you to answer the question using facts from the quoted content. Here is the document:",
+          "task": "First, find the quotes from the document that are most relevant to answering the question, and then print them in numbered order. Quotes should be relatively short.",
+          "no_condition": "If there are no relevant quotes, write \\\"No relevant quotes found.\\\"",
+          "yes_condition": "Then, answer the question, starting with \\\"Answers with citation:\\\". Do not include or reference quote content verbatim in the answer. Don't say \\\"According to Quote [1]\\\" when answering. Instead make references to quotes relevant to each section of the answer solely by adding their bracketed numbers at the end of relevant sentences.",
+          "format": "Thus, the format of your overall response should look like what's shown between the <example></example> tags. Make sure to follow the formatting and spacing exactly.",
+          "example": "[\r\n        \"<example>\",\r\n        \"Relevant extracts:\",\r\n        \"[1] \\\"Company X reported revenue of $12 million in 2021.\\\"\",\r\n        \"[2] \\\"Almost 90% of revene came from widget sales, with gadget sales making up the remaining 10%.\\\"\",\r\n        \"Answers with citation:\",\r\n        \"Company X earned $12 million. [1]\",\r\n        \"Almost 90% of it was from widget sales. [2]\",\r\n        \"</example>\"\r\n    ]",
+          "preamble": "Here is the first question: How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it? Assistant:"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "prompts",
+      "displayName": "Prompts",
+      "schemaList": [
+        {
+          "fieldName": "sessionid",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Sessionid",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d7"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "chataiid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "ChatAi",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "chatai",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "configid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Config",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "config",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "prompt",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Prompt",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d8"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "refDocs",
+          "type": "Array",
+          "required": false,
+          "label": "Docs",
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "responseText",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Response Text",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32d9"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "systemId",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "System Id",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32da"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "type",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Type",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32db"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "role",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Role",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32dc"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "model",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Model",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32dd"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "stopReason",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Stop Reason",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32de"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "stopSequence",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Stop Sequence",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32df"
+          },
+          "sortable": false,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "inputTokens",
+          "type": "Number",
+          "display": true,
+          "component": "badge",
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "outputTokens",
+          "type": "Number",
+          "display": true,
+          "component": "badge",
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "cost",
+          "type": "Number",
+          "display": true,
+          "component": "p",
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "status",
+          "type": "Boolean",
+          "display": true,
+          "component": "tick",
+          "sortable": true,
+          "editable": false,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "error",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Error",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e0"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "sessionId": 1,
+          "chatAiId": 1,
+          "configId": 1,
+          "prompt": "asdfasdf",
+          "ref_docs": "[]",
+          "response_text": "Relevant quotes:\\n\\n[1]",
+          "system_id": "msg_01Uebe3L5WL6KNmg7yx3BjNL",
+          "type": "message",
+          "role": "assistant",
+          "model": "claude-3-haiku-200k-20240307",
+          "stop_reason": "end_turn",
+          "stop_sequence": "null",
+          "input_tokens": 3,
+          "output_tokens": 3,
+          "cost": 3,
+          "status": true,
+          "error": "asdfasdfasdf"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "userPromptsSaved",
+      "displayName": "User Prompts Saved",
+      "schemaList": [
+        {
+          "fieldName": "chataiid",
+          "type": "ObjectId",
+          "label": "ChatAi",
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "chatai",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "saveduserid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "User",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "users",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "configid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Config",
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "config",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "prompt",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Prompt",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e2"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "others",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Others",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e3"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "chatAiId": 1,
+          "savedUserId": 1,
+          "configId": 1,
+          "prompt": "fdasdfasdf",
+          "others": "asdfasdfasd"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "samplePrompts",
+      "displayName": "Sample Prompts",
+      "schemaList": [
+        {
+          "fieldName": "chataiid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "ChatAi",
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "chatai",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "prompts",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Prompts",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e5"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "chatAiId": 1,
+          "prompts": "Does reference to the Letter of Offer within this  Agreement cover any renewal, supplement, revision, modification anf amendment and restatement of the same?"
+        },
+        {
+          "chatAiId": 1,
+          "prompts": "Which takes precedence in a conflict between the terms of this Agreement and the Letter of Offer?"
+        },
+        {
+          "prompts": "How would an adverse change in the borrower's financial condition affect the covenants set out in the term loan agreement?"
+        },
+        {
+          "prompts": "Under what circumstances can the Bank accelerate repayment/demand repayment of all sums due and owing by the Borrower under the terms and conditions of the Agreement?"
+        },
+        {
+          "prompts": "Under the terms of this Agreement, what recourse does the Bank have in the event of an adverse change in the Borrower's financial condition?"
+        },
+        {
+          "prompts": "Please provide examples where the Bank can invoke the 'Material Adverse Change' clause in this Agreement?"
+        },
+        {
+          "prompts": "Could this Agreement be syndicated in the future? What would that process entail?"
+        },
+        {
+          "prompts": "Explain each of the cross-default provisions in this Agreement and their implications for the Borrower and the Bank."
+        },
+        {
+          "prompts": "How does the Borrower demonstrate compliance with financial covenants in this Agreement?"
+        },
+        {
+          "prompts": "How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it?"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "refConfig",
+      "displayName": "Ref Config",
+      "schemaList": [
+        {
+          "fieldName": "chatAiId",
+          "type": "ObjectId",
+          "unique": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "ChatAi",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "chatai",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "name"
+            ]
+          }
+        },
+        {
+          "fieldName": "name",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Name",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e7"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "description",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Description",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e8"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "bedrockModelId",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Bedrock Model Id",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32e9"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "human",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Human",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ea"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "task",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Task",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32eb"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "noCondition",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "No Condition",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ec"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "yesCondition",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Yes Condition",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ed"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "format",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Format",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ee"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "example",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Example",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32ef"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "preamble",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "component": "p",
+          "label": "Preamble",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f0"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "name": "Facility Agreements V 1.0",
+          "description": "sdfasdfa",
+          "bedrock_model_id": "anthropic.claude-3-haiku-20240307-v1:0",
+          "name_1": "ASL Ai Chat v 1.0",
+          "human": "Human: I'm going to give you a document. Then I'm going to ask you a question about it. I'd like you to first write down exact quotes of parts of the document that would help answer the question, and then I'd like you to answer the question using facts from the quoted content. Here is the document:",
+          "task": "First, find the quotes from the document that are most relevant to answering the question, and then print them in numbered order. Quotes should be relatively short.",
+          "no_condition": "If there are no relevant quotes, write \\\"No relevant quotes found.\\\"",
+          "yes_condition": "Then, answer the question, starting with \\\"Answers with citation:\\\". Do not include or reference quote content verbatim in the answer. Don't say \\\"According to Quote [1]\\\" when answering. Instead make references to quotes relevant to each section of the answer solely by adding their bracketed numbers at the end of relevant sentences.",
+          "format": "Thus, the format of your overall response should look like what's shown between the <example></example> tags. Make sure to follow the formatting and spacing exactly.",
+          "example": "[\r\n        \"<example>\",\r\n        \"Relevant extracts:\",\r\n        \"[1] \\\"Company X reported revenue of $12 million in 2021.\\\"\",\r\n        \"[2] \\\"Almost 90% of revene came from widget sales, with gadget sales making up the remaining 10%.\\\"\",\r\n        \"Answers with citation:\",\r\n        \"Company X earned $12 million. [1]\",\r\n        \"Almost 90% of it was from widget sales. [2]\",\r\n        \"</example>\"\r\n    ]",
+          "preamble": "Here is the first question: How is the interest rate charged by the Bank determined in the terms and conditions of this Agreement, and what factors entitle the Bank to vary it? Assistant:"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "refFaDocs",
+      "displayName": "Ref Fa Docs",
+      "schemaList": [
+        {
+          "fieldName": "filename",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Filename",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f2"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "bankId",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Bank",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "refBanks",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "abbr"
+            ]
+          }
+        },
+        {
+          "fieldName": "facilityid",
+          "type": "ObjectId",
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Facility Type",
+          "sortable": true,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "refServiceName": "refFacilities",
+            "relationshipType": "one-to-one",
+            "identifierFieldName": [
+              "type"
+            ]
+          }
+        },
+        {
+          "fieldName": "startDate",
+          "type": "Date",
+          "display": true,
+          "component": "p",
+          "label": "Start Date",
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "endDate",
+          "type": "Date",
+          "display": true,
+          "component": "p",
+          "label": "End Date",
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "version",
+          "type": "Number",
+          "display": true,
+          "label": "Version",
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "args": [],
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "s3Link",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": false,
+          "component": "p",
+          "label": "S3 Link",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f3"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "filename": "asdfasdf",
+          "bank_id": 1,
+          "facilityId": 1,
+          "start_date": 2,
+          "end_date": 3,
+          "version": 4,
+          "s3_link": "sdfsdfasdf"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "refBanks",
+      "displayName": "Ref Banks",
+      "schemaList": [
+        {
+          "fieldName": "name",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Name",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f5"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        },
+        {
+          "fieldName": "abbr",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Abbr",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f6"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "name": "Maybank Banking Berhad",
+          "abbr": "MBB"
+        },
+        {
+          "name": "Affin Bank Berhad",
+          "abbr": "Affin"
+        },
+        {
+          "name": "Alliance Bank Malaysia",
+          "abbr": "Alliance"
+        },
+        {
+          "name": "AmBank",
+          "abbr": "Am"
+        },
+        {
+          "name": "Hong Leong Bank",
+          "abbr": "HLBB"
+        },
+        {
+          "name": "OCBC",
+          "abbr": "OCBC"
+        },
+        {
+          "name": "Public Bank Berhad",
+          "abbr": "PBB"
+        },
+        {
+          "name": "Sumitomo Mitsui Banking Corporation Malaysia Berhad",
+          "abbr": "SMBC"
+        },
+        {
+          "name": "United Overseas Bank",
+          "abbr": "UOB"
+        },
+        {
+          "name": "RHB Bank",
+          "abbr": "RHB"
+        },
+        {
+          "name": "CIMB Group Holdings Berhad",
+          "abbr": "CIMB"
+        }
+      ],
+      "skip": false
+    },
+    {
+      "serviceName": "refFacilities",
+      "displayName": "Ref Facilities",
+      "schemaList": [
+        {
+          "fieldName": "type",
+          "type": "String",
+          "unique": false,
+          "lowercase": false,
+          "display": true,
+          "required": true,
+          "component": "p",
+          "label": "Type",
+          "faker": {
+            "skip": false,
+            "_id": "6607562629532e2c6d0c32f8"
+          },
+          "sortable": false,
+          "editable": true,
+          "lazy": false,
+          "reverse": false,
+          "morph": false,
+          "through": false,
+          "prefix": "",
+          "suffix": "",
+          "args": [],
+          "default": "",
+          "reference": {
+            "identifierFieldName": []
+          }
+        }
+      ],
+      "layout": false,
+      "seeder": [
+        {
+          "type": "ISLAMIC"
+        },
+        {
+          "type": "CONVENTIONAL"
+        }
+      ],
+      "skip": false
+    }
+  ]
+}

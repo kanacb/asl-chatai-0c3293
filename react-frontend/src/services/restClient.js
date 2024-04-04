@@ -1,6 +1,5 @@
 import feathers from '@feathersjs/feathers';
 import rest from '@feathersjs/rest-client';
-
 import auth from '@feathersjs/authentication-client';
 import axios from 'axios';
 

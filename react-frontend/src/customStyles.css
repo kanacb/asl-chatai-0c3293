@@ -16,6 +16,10 @@
     src: local("MarlinGeo-Bold"), url(./assets/fonts/MarlinGeo-Bold.otf) format("opentype");
 }
 
+.full-height {
+    height: 100%;
+  }
+
 .hover:hover {
     cursor: pointer;
 }

@@ -9,7 +9,7 @@
   "authentication": {
     "entity": "user",
     "service": "users",
-    "secret": "~cb-generate-secret~",
+    "secret": "R91pG5sA+3Oc4SDlwElEHqGVGhs=",
     "authStrategies": ["jwt", "local"],
     "jwtOptions": {
       "header": {
@@ -34,5 +34,5 @@
       }
     }
   },
-  "mongodb": "mongodb://localhost:27017/~cb-project-name~"
+  "mongodb": "mongodb://localhost:27017/asl-chatai"
 }
