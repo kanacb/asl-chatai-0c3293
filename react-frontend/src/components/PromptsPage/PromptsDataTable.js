@@ -9,7 +9,7 @@ import moment from "moment";
 
 const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.sessionid}</p>;
-  const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chataiid?.name}</p>;
+  const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate2 = (rowData, { rowIndex }) => <p>{rowData.configid?.name}</p>;
   const pTemplate3 = (rowData, { rowIndex }) => <p>{rowData.prompt}</p>;
   const pTemplate5 = (rowData, { rowIndex }) => <p>{rowData.responseText}</p>;
@@ -75,7 +75,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         style={{ minWidth: "8rem" }}
       />
       <Column
-        field="chataiid"
+        field="chatAiId"
         header="ChatAi"
         body={pTemplate1}
         sortable

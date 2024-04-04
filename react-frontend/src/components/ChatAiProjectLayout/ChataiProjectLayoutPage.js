@@ -52,7 +52,7 @@ const ChataiProjectLayoutPage = (props) => {
   const createPropmtSuccessRecord = (responseObject) => {
     let _data = {
       sessionId: "1",
-      chataiid: "660a84ff899a21d9afef0b29",
+      chatAiId: "660a84ff899a21d9afef0b29",
       configid: "660a8b94899a21d9afef0c77",
       prompt: prompt,
       refDocs: [],
@@ -97,7 +97,7 @@ const ChataiProjectLayoutPage = (props) => {
   const createPropmtFailureRecord = (error) => {
     let _data = {
       sessionId: "1",
-      chataiid: "660a84ff899a21d9afef0b29",
+      chatAiId: "660a84ff899a21d9afef0b29",
       configid: "660a8b94899a21d9afef0c77",
       prompt: "",
       ref_docs: [],

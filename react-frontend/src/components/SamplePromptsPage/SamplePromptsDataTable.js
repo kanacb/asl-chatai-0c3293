@@ -12,7 +12,7 @@ const SamplePromptsDataTable = ({
   onRowDelete,
   onRowClick,
 }) => {
-  const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.chataiid?.name}</p>;
+  const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.prompts}</p>;
 
   const editTemplate = (rowData, { rowIndex }) => (
@@ -53,7 +53,7 @@ const SamplePromptsDataTable = ({
       rowClassName="cursor-pointer"
     >
       <Column
-        field="chataiid"
+        field="chatAiId"
         header="ChatAi"
         body={pTemplate0}
         style={{ minWidth: "8rem" }}

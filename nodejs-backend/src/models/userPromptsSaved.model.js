@@ -4,7 +4,7 @@ module.exports = function (app) {
   const { Schema } = mongooseClient;
   const schema = new Schema(
     {
-      chataiid: { type: Schema.Types.ObjectId, ref: "chatai" },
+      chatAiId: { type: Schema.Types.ObjectId, ref: "chatai" },
       saveduserid: {
         type: Schema.Types.ObjectId,
         ref: "users",

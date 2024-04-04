@@ -24,7 +24,7 @@ const ConfigCreateDialogComponent = (props) => {
   const [_entity, set_entity] = useState({});
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const [chataiid, setChataiid] = useState([]);
+  const [chatAiId, setChataiid] = useState([]);
 
   useEffect(() => {
     set_entity(props.entity);
@@ -51,7 +51,7 @@ const ConfigCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       name: _entity.name,
-      chataiid: _entity.chataiid,
+      chatAiId: _entity.chatAiId,
       bedrockModelId: _entity.bedrockModelId,
       modelParamsJson: _entity.modelParamsJson,
       human: _entity.human,
@@ -72,7 +72,7 @@ const ConfigCreateDialogComponent = (props) => {
           _id: { $in: [_entity._id] },
           $populate: [
             {
-              path: "chataiid",
+              path: "chatAiId",
               service: "chatai",
               select: ["name"],
             },
@@ -123,7 +123,7 @@ const ConfigCreateDialogComponent = (props) => {
   };
   // children dropdown options
 
-  const chataiidOptions = chataiid.map((elem) => ({
+  const chataiidOptions = chatAiId.map((elem) => ({
     name: elem.name,
     value: elem.value,
   }));
@@ -149,24 +149,24 @@ const ConfigCreateDialogComponent = (props) => {
             onChange={(e) => setValByKey("name", e.target.value)}
           />
         </div>
-        <div>
+        {/* <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chataiid?._id}
+            value={_entity?.chatAiId?._id}
             options={chataiidOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("chataiid", e.value)}
+            onChange={(e) => setValByKey("chatAiId", e.value)}
           />
-        </div>
-        <div>
+        </div> */}
+        {/* <div>
           <p className="m-0">Bedrock Model Id:</p>
           <InputText
             className="w-full mb-3"
             value={_entity?.bedrockModelId}
             onChange={(e) => setValByKey("bedrockModelId", e.target.value)}
           />
-        </div>
+        </div> */}
         <div>
           <p className="m-0">Model Params Json:</p>
           <InputText

@@ -29,7 +29,7 @@ const PromptsCreateDialogComponent = (props) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [chataiid, setChataiid] = useState([]);
+  const [chatAiId, setChataiid] = useState([]);
   const [configid, setConfigid] = useState([]);
 
   useEffect(() => {
@@ -42,7 +42,7 @@ const PromptsCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       sessionid: _entity.sessionid,
-      chataiid: _entity.chataiid,
+      chatAiId: _entity.chatAiId,
       configid: _entity.configid,
       prompt: _entity.prompt,
       refDocs: _entity.refDocs,
@@ -72,7 +72,7 @@ const PromptsCreateDialogComponent = (props) => {
           _id: { $in: [result._id] },
           $populate: [
             {
-              path: "chataiid",
+              path: "chatAiId",
               service: "chatai",
               select: ["name"],
             },
@@ -169,7 +169,7 @@ const PromptsCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chataiidOptions = chataiid.map((elem) => ({
+  const chataiidOptions = chatAiId.map((elem) => ({
     name: elem.name,
     value: elem.value,
   }));
@@ -202,11 +202,11 @@ const PromptsCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chataiid}
+            value={_entity?.chatAiId}
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chataiid", e.value)}
+            onChange={(e) => setValByKey("chatAiId", e.value)}
           />
         </div>
         <div>

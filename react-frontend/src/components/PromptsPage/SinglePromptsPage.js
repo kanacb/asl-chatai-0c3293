@@ -11,7 +11,7 @@ const SinglePromptsPage = (props) => {
   const urlParams = useParams();
   const [_entity, set_entity] = useState();
 
-  const [chataiid, setChataiid] = useState([]);
+  const [chatAiId, setChataiid] = useState([]);
   const [configid, setConfigid] = useState([]);
 
   useEffect(() => {
@@ -31,19 +31,19 @@ const SinglePromptsPage = (props) => {
               service: "users",
               select: ["name"],
             },
-            "chataiid",
+            "chatAiId",
             "configid",
           ],
         },
       })
       .then((res) => {
         set_entity(res || {});
-        const chataiid = Array.isArray(res.chataiid)
-          ? res.chataiid.map((elem) => ({ _id: elem._id, name: elem.name }))
-          : res.chataiid
-            ? [{ _id: res.chataiid._id, name: res.chataiid.name }]
+        const chatAiId = Array.isArray(res.chatAiId)
+          ? res.chatAiId.map((elem) => ({ _id: elem._id, name: elem.name }))
+          : res.chatAiId
+            ? [{ _id: res.chatAiId._id, name: res.chatAiId.name }]
             : [];
-        setChataiid(chataiid);
+        setChataiid(chatAiId);
         const configid = Array.isArray(res.configid)
           ? res.configid.map((elem) => ({ _id: elem._id, name: elem.name }))
           : res.configid
@@ -87,7 +87,7 @@ const SinglePromptsPage = (props) => {
           </div>
           <label className="text-sm text-primary">ChatAi</label>
           <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.chataiid?.name}</p>
+            <p className="m-0 ml-3">{_entity?.chatAiId?.name}</p>
           </div>
           <label className="text-sm text-primary">Config</label>
           <div className="ml-3">
@@ -149,7 +149,7 @@ const SinglePromptsPage = (props) => {
           </div>
           <label className="text-sm">ChatAi</label>
           <p>
-            {chataiid.map((elem) => (
+            {chatAiId.map((elem) => (
               <Link key={elem._id} to={`/chatai/${elem._id}`}>
                 <div className="card">
                   <p>{elem.name}</p>

@@ -11,7 +11,7 @@ const SingleUserPromptsSavedPage = (props) => {
   const urlParams = useParams();
   const [_entity, set_entity] = useState();
 
-  const [chataiid, setChataiid] = useState([]);
+  const [chatAiId, setChataiid] = useState([]);
   const [saveduserid, setSaveduserid] = useState([]);
   const [configid, setConfigid] = useState([]);
 
@@ -32,7 +32,7 @@ const SingleUserPromptsSavedPage = (props) => {
               service: "users",
               select: ["name"],
             },
-            "chataiid",
+            "chatAiId",
             "saveduserid",
             "configid",
           ],
@@ -40,12 +40,12 @@ const SingleUserPromptsSavedPage = (props) => {
       })
       .then((res) => {
         set_entity(res || {});
-        const chataiid = Array.isArray(res.chataiid)
-          ? res.chataiid.map((elem) => ({ _id: elem._id, name: elem.name }))
-          : res.chataiid
-            ? [{ _id: res.chataiid._id, name: res.chataiid.name }]
+        const chatAiId = Array.isArray(res.chatAiId)
+          ? res.chatAiId.map((elem) => ({ _id: elem._id, name: elem.name }))
+          : res.chatAiId
+            ? [{ _id: res.chatAiId._id, name: res.chatAiId.name }]
             : [];
-        setChataiid(chataiid);
+        setChataiid(chatAiId);
         const saveduserid = Array.isArray(res.saveduserid)
           ? res.saveduserid.map((elem) => ({ _id: elem._id, name: elem.name }))
           : res.saveduserid
@@ -107,7 +107,7 @@ const SingleUserPromptsSavedPage = (props) => {
           </div>
           <label className="text-sm">ChatAi</label>
           <p>
-            {chataiid.map((elem) => (
+            {chatAiId.map((elem) => (
               <Link key={elem._id} to={`/chatai/${elem._id}`}>
                 <div className="card">
                   <p>{elem.name}</p>

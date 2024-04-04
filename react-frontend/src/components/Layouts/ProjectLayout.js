@@ -73,7 +73,7 @@ const ProjectLayout = (props) => {
           $limit: 10000,
           $populate: [
             {
-              path: "chataiid",
+              path: "chatAiId",
               service: "chatai",
               select: ["name"],
             },

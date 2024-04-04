@@ -45,7 +45,7 @@ const PromptsPage = (props) => {
               select: ["name"],
             },
             {
-              path: "chataiid",
+              path: "chatAiId",
               service: "chatai",
               select: ["name"],
             },

@@ -73,10 +73,16 @@ const SingleRefConfigPage = (props) => {
       </div>
       <div className="grid col-10">
         <div className="card w-full">
-          <label className="text-sm text-primary">ChatAi</label>
-          <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.chatAiId?.name}</p>
-          </div>
+        <label className="text-sm text-primary">ChatAi</label>
+          <p>
+            {chatAiId.map((elem) => (
+              <Link key={elem._id} to={`/chatai/${elem._id}`}>
+                <div className="card">
+                  <p>{elem.name}</p>
+                </div>
+              </Link>
+            ))}
+          </p>
           <label className="text-sm text-primary">Name</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.name}</p>
@@ -84,10 +90,6 @@ const SingleRefConfigPage = (props) => {
           <label className="text-sm text-primary">Description</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.description}</p>
-          </div>
-          <label className="text-sm text-primary">Bedrock Model Id</label>
-          <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.bedrockModelId}</p>
           </div>
           <label className="text-sm text-primary">Human</label>
           <div className="ml-3">
@@ -117,16 +119,6 @@ const SingleRefConfigPage = (props) => {
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.preamble}</p>
           </div>
-          <label className="text-sm">ChatAi</label>
-          <p>
-            {chatAiId.map((elem) => (
-              <Link key={elem._id} to={`/chatai/${elem._id}`}>
-                <div className="card">
-                  <p>{elem.name}</p>
-                </div>
-              </Link>
-            ))}
-          </p>
           <label className="text-sm text-primary">created</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{moment(_entity?.createdAt).fromNow()}</p>

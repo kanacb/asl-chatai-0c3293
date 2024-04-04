@@ -11,7 +11,7 @@ module.exports = function (app) {
         lowercase: false,
         default: "",
       },
-      chataiid: { type: Schema.Types.ObjectId, ref: "chatai", required: true },
+      chatAiId: { type: Schema.Types.ObjectId, ref: "chatai", required: true },
       bedrockModelId: {
         type: String,
         unique: false,

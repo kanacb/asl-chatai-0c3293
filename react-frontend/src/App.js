@@ -10,6 +10,7 @@ import MainLayout from './components/Layouts/MainLayout';
 import LoadingWrapper from './MyRouter/wrappers/LoadingWrapper';
 import ToastWrapper from './MyRouter/wrappers/ToastWrapper';
 import StartupWrapper from './MyRouter/wrappers/StartupWrapper';
+import DevEnvWrapper from './MyRouter/wrappers/DevEnvWrapper';
 
 import 'primereact/resources/primereact.css';
 import 'primeicons/primeicons.css';
@@ -27,12 +28,12 @@ const App = () => {
             <MainLayout>
                 <MyRouter />
                 <AppFooter />
+                
             </MainLayout>
 
             <LoadingWrapper />
             <ToastWrapper />
             <StartupWrapper />
-
             <AppConfigStatic rippleEffect={true} inputStyle={'outlined'} layoutMode={'static'} layoutColorMode={'light'} />
         </Provider>
     );

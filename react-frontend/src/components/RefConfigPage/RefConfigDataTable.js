@@ -75,48 +75,48 @@ const RefConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         body={pTemplate2}
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="bedrockModelId"
         header="Bedrock Model Id"
         body={pTemplate3}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="human"
         header="Human"
         body={pTemplate4}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="task"
         header="Task"
         body={pTemplate5}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="noCondition"
         header="No Condition"
         body={pTemplate6}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="yesCondition"
         header="Yes Condition"
         body={pTemplate7}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="format"
         header="Format"
         body={pTemplate8}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="example"
         header="Example"
         body={pTemplate9}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
       <Column
         field="preamble"
         header="Preamble"

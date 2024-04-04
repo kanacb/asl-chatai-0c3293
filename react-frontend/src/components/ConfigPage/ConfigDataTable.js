@@ -8,7 +8,7 @@ import moment from "moment";
 
 const ConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.name}</p>;
-  const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chataiid?.name}</p>;
+  const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate2 = (rowData, { rowIndex }) => <p>{rowData.bedrockModelId}</p>;
   const pTemplate3 = (rowData, { rowIndex }) => (
     <p>{rowData.modelParamsJson}</p>
@@ -65,60 +65,60 @@ const ConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         style={{ minWidth: "8rem" }}
       />
       <Column
-        field="chataiid"
+        field="chatAiId"
         header="ChatAi"
         body={pTemplate1}
         sortable
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="bedrockModelId"
         header="Bedrock Model Id"
         body={pTemplate2}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="modelParamsJson"
         header="Model Params Json"
         body={pTemplate3}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="human"
         header="Human"
         body={pTemplate4}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="task"
         header="Task"
         body={pTemplate5}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="noCondition"
         header="No Condition"
         body={pTemplate6}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="yesCondition"
         header="Yes Condition"
         body={pTemplate7}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="format"
         header="Format"
         body={pTemplate8}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="example"
         header="Example"
         body={pTemplate9}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
       <Column
         field="preamble"
         header="Preamble"

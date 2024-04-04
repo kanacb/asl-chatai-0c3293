@@ -24,7 +24,7 @@ const ConfigCreateDialogComponent = (props) => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const [chataiid, setChataiid] = useState([]);
+  const [chatAiId, setChataiid] = useState([]);
 
   useEffect(() => {
     // replace this when there is a date field
@@ -36,7 +36,7 @@ const ConfigCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       name: _entity.name,
-      chataiid: _entity.chataiid,
+      chatAiId: _entity.chatAiId,
       bedrockModelId: _entity.bedrockModelId,
       modelParamsJson: _entity.modelParamsJson,
       human: _entity.human,
@@ -60,7 +60,7 @@ const ConfigCreateDialogComponent = (props) => {
           _id: { $in: [result._id] },
           $populate: [
             {
-              path: "chataiid",
+              path: "chatAiId",
               service: "chatai",
               select: ["name"],
             },
@@ -130,7 +130,7 @@ const ConfigCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chataiidOptions = chataiid.map((elem) => ({
+  const chataiidOptions = chatAiId.map((elem) => ({
     name: elem.name,
     value: elem.value,
   }));
@@ -159,11 +159,11 @@ const ConfigCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chataiid}
+            value={_entity?.chatAiId}
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chataiid", e.value)}
+            onChange={(e) => setValByKey("chatAiId", e.value)}
           />
         </div>
         <div>

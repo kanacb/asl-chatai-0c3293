@@ -5,7 +5,7 @@ module.exports = function (app) {
   const schema = new Schema(
     {
       sessionid: { type: String, unique: false, lowercase: false, default: "" },
-      chataiid: { type: Schema.Types.ObjectId, ref: "chatai", required: true },
+      chatAiId: { type: Schema.Types.ObjectId, ref: "chatai", required: true },
       configid: { type: Schema.Types.ObjectId, ref: "config", required: true },
       prompt: { type: String, unique: false, lowercase: false, default: "" },
       refDocs: { type: Array, required: false },
