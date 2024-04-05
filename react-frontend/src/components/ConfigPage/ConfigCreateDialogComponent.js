@@ -36,7 +36,7 @@ const ConfigCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       name: _entity.name,
-      chatAiId: _entity.chatAiId,
+      chatAiId: _entity.chatAiId._id,
       bedrockModelId: _entity.bedrockModelId,
       modelParamsJson: _entity.modelParamsJson,
       human: _entity.human,
@@ -159,11 +159,11 @@ const ConfigCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chatAiId}
+            value={_entity?.chatAiId?._id}
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>

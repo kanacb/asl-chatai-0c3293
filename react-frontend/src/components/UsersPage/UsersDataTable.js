@@ -37,8 +37,10 @@ const UsersDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column
@@ -62,12 +64,14 @@ const UsersDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         field="createdAt"
         header="created"
         body={pCreatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
     </DataTable>

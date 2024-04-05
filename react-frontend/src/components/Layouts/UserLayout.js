@@ -71,6 +71,11 @@ const UserLayout = (props) => {
           to: `/chatai`,
         },
         {
+          label: "List of Prompts",
+          icon: "pi pi-fw pi-book",
+          to: `/prompts`,
+        },
+        {
           label: "Model Config",
           icon: "pi pi-fw pi-th-large",
           to: `/config`,

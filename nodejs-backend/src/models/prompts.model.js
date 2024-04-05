@@ -36,7 +36,12 @@ module.exports = function (app) {
       cost: { type: Number },
       status: { type: Boolean },
       error: { type: String, unique: false, lowercase: false, default: "" },
-      userRemarks: { type: String, unique: false, lowercase: false, default: "" },
+      userRemarks: {
+        type: String,
+        unique: false,
+        lowercase: false,
+        default: "",
+      },
       createdBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
       updatedBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
     },

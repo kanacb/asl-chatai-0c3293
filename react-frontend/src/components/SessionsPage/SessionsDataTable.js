@@ -43,8 +43,10 @@ const SessionsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column
@@ -56,25 +58,28 @@ const SessionsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       <Column
         field="userid"
         header="UserId"
+        sortable
         body={pTemplate1}
         style={{ minWidth: "8rem" }}
       />
 
-      <Column header="Edit" body={editTemplate} />
-      <Column header="Delete" body={deleteTemplate} />
+      {/* <Column header="Edit" body={editTemplate} />
+      <Column header="Delete" body={deleteTemplate} /> */}
       <Column
         field="createdAt"
         header="created"
         body={pCreatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="createdBy"
         header="createdBy"
         body={pCreatedBy}
@@ -85,7 +90,7 @@ const SessionsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         header="updatedBy"
         body={pUpdatedBy}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
     </DataTable>
   );
 };

@@ -42,8 +42,8 @@ const PromptsCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       sessionid: _entity.sessionid,
-      chatAiId: _entity.chatAiId,
-      configid: _entity.configid,
+      chatAiId: _entity.chatAiId?._id,
+      configid: _entity.configid?._id,
       prompt: _entity.prompt,
       refDocs: _entity.refDocs,
       responseText: _entity.responseText,
@@ -169,14 +169,28 @@ const PromptsCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chataiidOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const configidOptions = configid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chataiidOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+  const configidOptions = configid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -206,7 +220,7 @@ const PromptsCreateDialogComponent = (props) => {
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>
@@ -216,7 +230,7 @@ const PromptsCreateDialogComponent = (props) => {
             optionLabel="name"
             optionValue="value"
             options={configidOptions}
-            onChange={(e) => setValByKey("configid", e.value)}
+            onChange={(e) => setValByKey("configid", { _id: e.value })}
           />
         </div>
         <div>

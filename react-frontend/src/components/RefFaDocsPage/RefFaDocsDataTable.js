@@ -12,8 +12,12 @@ const RefFaDocsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const pTemplate2 = (rowData, { rowIndex }) => (
     <p>{rowData.facilityid?.type}</p>
   );
-  const pTemplate3 = (rowData, { rowIndex }) => <p>{rowData.startDate}</p>;
-  const pTemplate4 = (rowData, { rowIndex }) => <p>{rowData.endDate}</p>;
+  const pTemplate3 = (rowData, { rowIndex }) => (
+    <p>{new Date(rowData.startDate).toLocaleDateString("en-GB")}</p>
+  );
+  const pTemplate4 = (rowData, { rowIndex }) => (
+    <p>{new Date(rowData.endDate).toLocaleDateString("en-GB")}</p>
+  );
   const pTemplate6 = (rowData, { rowIndex }) => <p>{rowData.s3Link}</p>;
 
   const editTemplate = (rowData, { rowIndex }) => (
@@ -49,14 +53,17 @@ const RefFaDocsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column
         field="filename"
         header="Filename"
         body={pTemplate0}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
@@ -77,12 +84,14 @@ const RefFaDocsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         field="startDate"
         header="Start Date"
         body={pTemplate3}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="endDate"
         header="End Date"
         body={pTemplate4}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column field="version" header="Version" style={{ minWidth: "8rem" }} />
@@ -99,24 +108,28 @@ const RefFaDocsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         field="createdAt"
         header="created"
         body={pCreatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="createdBy"
         header="createdBy"
         body={pCreatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedBy"
         header="updatedBy"
         body={pUpdatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
     </DataTable>

@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import _ from "lodash";
 import { Button } from "primereact/button";
 import { Badge } from "primereact/badge";
@@ -8,6 +8,8 @@ import { Badge } from "primereact/badge";
 import moment from "moment";
 
 const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
+  const dt = useRef(null);
+  const [refresh, setRefresh] = useState("loading");
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.sessionid}</p>;
   const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate2 = (rowData, { rowIndex }) => <p>{rowData.configid?.name}</p>;
@@ -57,85 +59,112 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const pUpdatedBy = (rowData, { rowIndex }) => (
     <p>{rowData.updatedBy?.name}</p>
   );
+  const paginatorLeft = (
+    <Button
+      type="button"
+      icon="pi pi-refresh"
+      text
+      onClick={() => setRefresh("")}
+    />
+  );
+  const paginatorRight = (
+    <Button
+      type="button"
+      icon="pi pi-download"
+      text
+      onClick={() => exportCSV()}
+    />
+  );
+  const exportCSV = () => {
+    dt.current?.exportCSV();
+  };
 
   return (
     <DataTable
+      ref={dt}
       value={items}
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      rowsPerPageOptions={[10, 50, 250, 500]}
+      size={"small"}
+      paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+      currentPageReportTemplate="{first} to {last} of {totalRecords}"
+      paginatorLeft={paginatorLeft}
+      paginatorRight={paginatorRight}
       rowClassName="cursor-pointer"
     >
-      <Column
+      {/* <Column
         field="sessionid"
         header="Sessionid"
         body={pTemplate0}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="chatAiId"
         header="ChatAi"
         body={pTemplate1}
         sortable
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="configid"
         header="Config"
         body={pTemplate2}
         sortable
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
       <Column
         field="prompt"
         header="Prompt"
         body={pTemplate3}
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="responseText"
         header="Response Text"
         body={pTemplate5}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="systemId"
         header="System Id"
         body={pTemplate6}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="type"
         header="Type"
         body={pTemplate7}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="role"
         header="Role"
         body={pTemplate8}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="model"
         header="Model"
         body={pTemplate9}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="stopReason"
         header="Stop Reason"
         body={pTemplate10}
         style={{ minWidth: "8rem" }}
-      />
-      <Column
+      /> */}
+      {/* <Column
         field="stopSequence"
         header="Stop Sequence"
         body={pTemplate11}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
       <Column
         field="inputTokens"
         header="inputTokens"
@@ -168,32 +197,32 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         style={{ minWidth: "8rem" }}
       />
 
-      <Column header="Edit" body={editTemplate} />
-      <Column header="Delete" body={deleteTemplate} />
+      {/* <Column header="Edit" body={editTemplate} />
+      <Column header="Delete" body={deleteTemplate} /> */}
       <Column
         field="createdAt"
         header="created"
         body={pCreatedAt}
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
       <Column
         field="createdBy"
         header="createdBy"
         body={pCreatedBy}
         style={{ minWidth: "8rem" }}
       />
-      <Column
+      {/* <Column
         field="updatedBy"
         header="updatedBy"
         body={pUpdatedBy}
         style={{ minWidth: "8rem" }}
-      />
+      /> */}
     </DataTable>
   );
 };

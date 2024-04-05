@@ -1,6 +1,6 @@
 import { Column } from "primereact/column";
 import { DataTable } from "primereact/datatable";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import _ from "lodash";
 import { Button } from "primereact/button";
 
@@ -12,6 +12,8 @@ const SamplePromptsDataTable = ({
   onRowDelete,
   onRowClick,
 }) => {
+  const [refresh, setRefresh] = useState("loading");
+  const dt = useRef(null);
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.prompts}</p>;
 
@@ -41,15 +43,41 @@ const SamplePromptsDataTable = ({
   const pUpdatedBy = (rowData, { rowIndex }) => (
     <p>{rowData.updatedBy?.name}</p>
   );
-
+  const paginatorLeft = (
+    <Button
+      type="button"
+      icon="pi pi-refresh"
+      text
+      onClick={() => setRefresh("")}
+    />
+  );
+  const paginatorRight = (
+    <Button
+      type="button"
+      icon="pi pi-download"
+      text
+      onClick={() => exportCSV()}
+    />
+  );
+  const exportCSV = () => {
+    dt.current?.exportCSV();
+  };
   return (
     <DataTable
+      ref={dt}
       value={items}
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      rowsPerPageOptions={[10, 50, 250, 500]}
+      paginatorTemplate="RowsPerPageDropdown FirstPageLink PrevPageLink CurrentPageReport NextPageLink LastPageLink"
+      currentPageReportTemplate="{first} to {last} of {totalRecords}"
+      paginatorLeft={paginatorLeft}
+      paginatorRight={paginatorRight}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column
@@ -62,6 +90,7 @@ const SamplePromptsDataTable = ({
         field="prompts"
         header="Prompts"
         body={pTemplate1}
+        sortable
         style={{ minWidth: "8rem" }}
       />
 
@@ -71,24 +100,28 @@ const SamplePromptsDataTable = ({
         field="createdAt"
         header="created"
         body={pCreatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="createdBy"
         header="createdBy"
         body={pCreatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedBy"
         header="updatedBy"
         body={pUpdatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
     </DataTable>

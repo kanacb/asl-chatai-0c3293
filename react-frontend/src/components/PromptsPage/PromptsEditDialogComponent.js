@@ -27,6 +27,9 @@ const PromptsCreateDialogComponent = (props) => {
   const [chatAiId, setChataiid] = useState([]);
   const [configid, setConfigid] = useState([]);
 
+  const refDocsArray = [];
+  const refDocsOptions = refDocsArray.map((x) => ({ name: x, value: x }));
+
   useEffect(() => {
     set_entity(props.entity);
   }, [props.entity, props.show]);
@@ -141,14 +144,28 @@ const PromptsCreateDialogComponent = (props) => {
   };
   // children dropdown options
 
-  const chataiidOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const configidOptions = configid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chataiidOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+  const configidOptions = configid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog

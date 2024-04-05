@@ -35,7 +35,7 @@ const RefConfigCreateDialogComponent = (props) => {
 
   const onSave = async () => {
     let _data = {
-      chatAiId: _entity.chatAiId,
+      chatAiId: _entity.chatAiId?._id,
       name: _entity.name,
       description: _entity.description,
       bedrockModelId: _entity.bedrockModelId,
@@ -130,10 +130,17 @@ const RefConfigCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chatAiIdOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chatAiIdOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -151,11 +158,11 @@ const RefConfigCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chatAiId}
+            value={_entity?.chatAiId?._id}
             optionLabel="name"
             optionValue="value"
             options={chatAiIdOptions}
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>

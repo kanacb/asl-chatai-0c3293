@@ -52,8 +52,10 @@ const UserPromptsSavedDataTable = ({
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column

@@ -121,10 +121,18 @@ const SessionsCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const useridOptions = userid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const useridOptions = userid
+    .sort((a, b) => a.name.localeCompare(b.name))
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog

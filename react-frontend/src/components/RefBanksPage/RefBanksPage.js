@@ -33,6 +33,7 @@ const RefBanksPage = (props) => {
       .find({
         query: {
           $limit: 10000,
+          $sort: { createdAt: -1 },
           $populate: [
             {
               path: "createdBy",

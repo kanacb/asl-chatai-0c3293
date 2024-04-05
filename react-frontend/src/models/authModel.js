@@ -63,7 +63,7 @@ export const auth = {
                     resolve();
                 } catch (error) {
                     console.log('error', { error });
-                    //dispatch.toast.alert({ type: 'error', message: error.message || 'Failed to reAuthenticate!' });
+                    // dispatch.toast.alert({ type: 'error', message: error.message || 'Failed to reAuthenticate!' });
                     reject(error);
                 }
                 dispatch.loading.hide();

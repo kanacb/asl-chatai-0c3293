@@ -52,8 +52,10 @@ const RefConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       onRowClick={onRowClick}
       scrollable
       rowHover
+      stripedRows
       paginator
       rows={10}
+      size={"small"}
       rowClassName="cursor-pointer"
     >
       <Column
@@ -130,24 +132,28 @@ const RefConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         field="createdAt"
         header="created"
         body={pCreatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedAt"
         header="updated"
         body={pUpdatedAt}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="createdBy"
         header="createdBy"
         body={pCreatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
       <Column
         field="updatedBy"
         header="updatedBy"
         body={pUpdatedBy}
+        sortable
         style={{ minWidth: "8rem" }}
       />
     </DataTable>

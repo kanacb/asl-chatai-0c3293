@@ -37,9 +37,9 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
 
   const onSave = async () => {
     let _data = {
-      chatAiId: _entity.chatAiId,
-      saveduserid: _entity.saveduserid,
-      configid: _entity.configid,
+      chatAiId: _entity.chatAiId?._id,
+      saveduserid: props.user?._id,
+      configid: _entity.configid?._id,
       prompt: _entity.prompt,
       others: _entity.others,
       createdBy: props.user._id,
@@ -180,18 +180,29 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chataiidOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const saveduseridOptions = saveduserid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const configidOptions = configid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chataiidOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+
+  const configidOptions = configid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -209,31 +220,21 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chatAiId}
+            value={_entity?.chatAiId?._id}
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chatAiId", e.value)}
-          />
-        </div>
-        <div>
-          <p className="m-0">User:</p>
-          <Dropdown
-            value={_entity?.saveduserid}
-            optionLabel="name"
-            optionValue="value"
-            options={saveduseridOptions}
-            onChange={(e) => setValByKey("saveduserid", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>
           <p className="m-0">Config:</p>
           <Dropdown
-            value={_entity?.configid}
+            value={_entity?.configid?._id}
             optionLabel="name"
             optionValue="value"
             options={configidOptions}
-            onChange={(e) => setValByKey("configid", e.value)}
+            onChange={(e) => setValByKey("configid", { _id: e.value })}
           />
         </div>
         <div>

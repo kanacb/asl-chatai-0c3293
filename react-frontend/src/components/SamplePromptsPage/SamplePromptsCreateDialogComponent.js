@@ -35,7 +35,7 @@ const SamplePromptsCreateDialogComponent = (props) => {
 
   const onSave = async () => {
     let _data = {
-      chatAiId: _entity.chatAiId,
+      chatAiId: _entity.chatAiId?._id,
       prompts: _entity.prompts,
       createdBy: props.user._id,
       updatedBy: props.user._id,
@@ -121,10 +121,17 @@ const SamplePromptsCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const chataiidOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chataiidOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -142,11 +149,11 @@ const SamplePromptsCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">ChatAi:</p>
           <Dropdown
-            value={_entity?.chatAiId}
+            value={_entity?.chatAiId?._id}
             optionLabel="name"
             optionValue="value"
             options={chataiidOptions}
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>

@@ -30,16 +30,15 @@ const RefFaDocsCreateDialogComponent = (props) => {
 
   useEffect(() => {
     // replace this when there is a date field
-    // const init  = { todate : new Date(), from : new Date()};
-    // set_entity({...init});
-    set_entity({});
+    const init = { startDate: new Date(), endDate: new Date(), version: 1 };
+    set_entity({ ...init });
   }, [props.show]);
 
   const onSave = async () => {
     let _data = {
       filename: _entity.filename,
-      bankId: _entity.bankId,
-      facilityid: _entity.facilityid,
+      bankId: _entity.bankId?._id,
+      facilityid: _entity.facilityid?._id,
       startDate: _entity.startDate,
       endDate: _entity.endDate,
       version: _entity.version,
@@ -155,14 +154,28 @@ const RefFaDocsCreateDialogComponent = (props) => {
     setError("");
   };
 
-  const bankIdOptions = bankId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const facilityidOptions = facilityid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const bankIdOptions = bankId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+  const facilityidOptions = facilityid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -188,31 +201,30 @@ const RefFaDocsCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">Bank:</p>
           <Dropdown
-            value={_entity?.bankId}
+            value={_entity?.bankId?._id}
             optionLabel="name"
             optionValue="value"
             options={bankIdOptions}
-            onChange={(e) => setValByKey("bankId", e.value)}
+            onChange={(e) => setValByKey("bankId", { _id: e.value })}
           />
         </div>
         <div>
           <p className="m-0">Facility Type:</p>
           <Dropdown
-            value={_entity?.facilityid}
+            value={_entity?.facilityid?._id}
             optionLabel="name"
             optionValue="value"
             options={facilityidOptions}
-            onChange={(e) => setValByKey("facilityid", e.value)}
+            onChange={(e) => setValByKey("facilityid", { _id: e.value })}
           />
         </div>
         <div>
           <p className="m-0">Start Date:</p>
           <Calendar
-            dateFormat="dd/mm/yy hh:mm"
-            placeholder={"dd/mm/yy hh:mm"}
+            dateFormat="dd/mm/yy"
+            placeholder={"dd/mm/yy"}
             value={new Date(_entity?.startDate)}
-            onChange={(e) => setValByKey("startDate", e.target.value)}
-            showTime
+            onChange={(e) => setValByKey("startDate", new Date(e.target.value))}
             showIcon
             showButtonBar
           ></Calendar>
@@ -220,11 +232,10 @@ const RefFaDocsCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">End Date:</p>
           <Calendar
-            dateFormat="dd/mm/yy hh:mm"
-            placeholder={"dd/mm/yy hh:mm"}
+            dateFormat="dd/mm/yy"
+            placeholder={"dd/mm/yy"}
             value={new Date(_entity?.endDate)}
-            onChange={(e) => setValByKey("endDate", e.target.value)}
-            showTime
+            onChange={(e) => setValByKey("endDate", new Date(e.target.value))}
             showIcon
             showButtonBar
           ></Calendar>
@@ -233,7 +244,7 @@ const RefFaDocsCreateDialogComponent = (props) => {
           <p className="m-0">Version:</p>
           <InputText
             type="number"
-            className="w-full mb-3"
+            className="w-80 mb-3"
             value={_entity?.version}
             onChange={(e) => setValByKey("version", e.target.value)}
           />

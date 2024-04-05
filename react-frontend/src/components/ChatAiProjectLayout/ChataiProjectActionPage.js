@@ -12,8 +12,6 @@ import { OverlayPanel } from "primereact/overlaypanel";
 import { Slider } from "primereact/slider";
 import { TabView, TabPanel } from "primereact/tabview";
 import { MultiStateCheckbox } from "primereact/multistatecheckbox";
-import { Tooltip } from "primereact/tooltip";
-import { Badge } from "primereact/badge";
 
 const ChataiProjectActionPage = (props) => {
   const navigate = useNavigate();
@@ -142,18 +140,6 @@ const ChataiProjectActionPage = (props) => {
           placeholder="Select an Ai Chat Action"
           style={{ minWidth: "20rem" }}
         />
-
-        <Tooltip target=".custom-target-icon" />
-        <i
-          className="custom-target-icon pi pi-info p-text-secondary p-overlay-badge ml-8"
-          data-pr-tooltip="start here by selecting the kind of questions to ask!"
-          data-pr-position="left"
-          data-pr-at="left+5 top"
-          data-pr-my="left center-5"
-          style={{ fontSize: "0.8rem", cursor: "pointer" }}
-        >
-          {" tooltip"}
-        </i>
       </div>
       <div className="col-offset-6 flex align-items-right justify-content-end">
         <Button

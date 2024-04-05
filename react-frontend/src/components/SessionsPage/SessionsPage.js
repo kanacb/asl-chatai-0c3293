@@ -24,7 +24,6 @@ const SessionsPage = (props) => {
   const [showDeleteAllDialog, setShowDeleteAllDialog] = useState(false);
   const [showSeederDialog, setShowSeederDialog] = useState(false);
   const [selectedEntityIndex, setSelectedEntityIndex] = useState();
-  const urlParams = useParams();
 
   useEffect(() => {
     //on mount
@@ -33,6 +32,7 @@ const SessionsPage = (props) => {
       .find({
         query: {
           $limit: 10000,
+          $sort: { createdAt: -1 },
           $populate: [
             {
               path: "createdBy",
@@ -173,20 +173,20 @@ const SessionsPage = (props) => {
           <h3 className="mb-0 ml-2">Sessions </h3>
         </div>
         <div className="col-6 flex justify-content-end">
-          <Button
+          {/* <Button
             label="add"
             icon="pi pi-plus"
             onClick={() => setShowCreateDialog(true)}
             role="sessions-add-button"
-          />
-          <SplitButton
+          /> */}
+          {/* <SplitButton
             model={menuItems.filter(
               (m) => !(m.icon === "pi pi-trash" && data?.length === 0),
             )}
             dropdownIcon="pi pi-ellipsis-v"
             buttonClassName="hidden"
             menuButtonClassName="ml-1 p-button-text"
-          ></SplitButton>
+          ></SplitButton> */}
         </div>
       </div>
       <div className="grid align-items-center">

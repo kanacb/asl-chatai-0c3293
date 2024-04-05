@@ -51,7 +51,7 @@ const ConfigCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       name: _entity.name,
-      chatAiId: _entity.chatAiId,
+      chatAiId: _entity.chatAiId?._id,
       bedrockModelId: _entity.bedrockModelId,
       modelParamsJson: _entity.modelParamsJson,
       human: _entity.human,
@@ -123,10 +123,17 @@ const ConfigCreateDialogComponent = (props) => {
   };
   // children dropdown options
 
-  const chataiidOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chataiidOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -156,7 +163,7 @@ const ConfigCreateDialogComponent = (props) => {
             options={chataiidOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id : e.value })}
           />
         </div> */}
         {/* <div>

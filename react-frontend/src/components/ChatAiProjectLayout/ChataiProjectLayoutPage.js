@@ -69,7 +69,7 @@ const ChataiProjectLayoutPage = (props) => {
       status: true,
       error: null,
       createdBy: props.user._id,
-      updatedBy: props.user._id
+      updatedBy: props.user._id,
     };
 
     client
@@ -129,7 +129,7 @@ const ChataiProjectLayoutPage = (props) => {
   };
 
   const patchUserRemarks = (userRemarks) => {
-    if(!currentPromptId) {
+    if (!currentPromptId) {
       props.alert({
         title: "Prompt",
         type: "error",
@@ -137,33 +137,33 @@ const ChataiProjectLayoutPage = (props) => {
       });
       return;
     }
-    console.log("currentPromptId",currentPromptId);
-    console.log("userRemarks",userRemarks);
+    console.log("currentPromptId", currentPromptId);
+    console.log("userRemarks", userRemarks);
     client
-    .service("prompts")
-    .patch(currentPromptId, {userRemarks : userRemarks})
-    .then((res) => {
-      console.log({ res });
-      props.alert({
-        title: "ASL Chat Ai",
-        type: "success",
-        message: "Saved user remarks",
+      .service("prompts")
+      .patch(currentPromptId, { userRemarks: userRemarks })
+      .then((res) => {
+        console.log({ res });
+        props.alert({
+          title: "ASL Chat Ai",
+          type: "success",
+          message: "Saved user remarks",
+        });
+      })
+      .catch((error) => {
+        console.log({ error });
+        props.alert({
+          title: "Prompt",
+          type: "error",
+          message: error.message || "Failed to save user remarks",
+        });
       });
-    })
-    .catch((error) => {
-      console.log({ error });
-      props.alert({
-        title: "Prompt",
-        type: "error",
-        message: error.message || "Failed to save user remarks",
-      });
-    });
-  }
+  };
 
   const getClaude3HaikuResponse = async () => {
     const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3haiku";
     // Define the properties and data for the API request
-    requestObject["preamble"] = "Here is the first question: " +  prompt
+    requestObject["preamble"] = "Here is the first question: " + prompt;
     const requestOptions = {
       method: "post",
       url: API_URL,
@@ -198,7 +198,7 @@ const ChataiProjectLayoutPage = (props) => {
         message: error?.message,
       });
       setResponse(
-        "Oops! Something went wrong while retrieving the response. Please try again."
+        "Oops! Something went wrong while retrieving the response. Please try again.",
       );
     } finally {
       setLoading(false);
@@ -219,7 +219,7 @@ const ChataiProjectLayoutPage = (props) => {
       .replaceAll("Relevant quotes", "<b>Relevant quotes</b>")
       .replaceAll(
         "Answers with citation:",
-        ".<br/><br/> <p><b>Answers with citation:</b></p>"
+        ".<br/><br/> <p><b>Answers with citation:</b></p>",
       );
     const intervalId = setInterval(() => {
       if (stopDisplaying) i = stringResponse.length + 1;

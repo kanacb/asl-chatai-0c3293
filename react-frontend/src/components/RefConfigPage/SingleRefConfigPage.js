@@ -73,7 +73,7 @@ const SingleRefConfigPage = (props) => {
       </div>
       <div className="grid col-10">
         <div className="card w-full">
-        <label className="text-sm text-primary">ChatAi</label>
+          <label className="text-sm text-primary">ChatAi</label>
           <p>
             {chatAiId.map((elem) => (
               <Link key={elem._id} to={`/chatai/${elem._id}`}>

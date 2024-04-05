@@ -21,7 +21,9 @@ const ChataiProjectResponsePage = (props) => {
         </div>
         <div className="grid flex justify-content-center">
           <div className="card col-4">Facility Agreement (available)</div>
-          <div className="card col-offset-1 col-4">Assignment & Charge (beta)</div>
+          <div className="card col-offset-1 col-4">
+            Assignment & Charge (beta)
+          </div>
           <div className="card col-4">Power of Attorney(beta)</div>
           <div className="card col-offset-1 col-4">Debenture(beta)</div>
         </div>

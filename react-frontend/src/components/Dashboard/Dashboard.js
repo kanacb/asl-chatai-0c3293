@@ -6,7 +6,7 @@ import welcomeImg from "../../assets/media/welcome-banner.png";
 
 const DivServices = (props) => {
   const [data, setData] = useState([]);
-  const [agg, setAgg] = useState([]);
+  const [agg, setAgg] = useState({});
 
   useEffect(() => {
     //on mount
@@ -32,35 +32,62 @@ const DivServices = (props) => {
       .then((res) => {
         let results = res.data;
         console.log(results);
-        // setData(results);
+        setData(results);
         const today = new Date();
-        const lastWeek = today.setDate(today.getDate() - 7) ;
+        const lastWeek = today.setDate(today.getDate() - 7);
         const cost = results.reduce((acc, val) => acc + val["cost"], 0);
-        const costlastWeek = results.reduce((acc, val) => Date.parse(val["createdAt"]) > lastWeek ? acc + val["cost"] : 0, 0);
-        const countYesterday = results.reduce((acc, val) => Date.parse(val["createdAt"]) > today ? acc + 1 : 0, 0);
-        const inputTokens = results.reduce((acc, val) => val["inputTokens"] ? acc + val["inputTokens"] : 0, 0);
-        const inputTokensLastWeek = results.reduce((acc, val) => val["inputTokens"] && Date.parse(val["createdAt"]) > lastWeek ? acc + val["inputTokens"] : 0 ? val["inputTokens"] : 0, 0);
-        const outputTokens = results.reduce((acc, val) => val["outputTokens"] ? acc + val["outputTokens"] : 0, 0);
-        const outputTokensLastWeek = results.reduce((acc, val) => Date.parse(val["createdAt"]) > lastWeek && val["outputTokens"] ? acc + val["outputTokens"] : 0, 0);
+        const costlastWeek = results.reduce(
+          (acc, val) =>
+            Date.parse(val["createdAt"]) > lastWeek ? acc + val["cost"] : 0,
+          0
+        );
+        const countYesterday = results.reduce(
+          (acc, val) => (Date.parse(val["createdAt"]) > today ? acc + 1 : 0),
+          0
+        );
+        const inputTokens = results.reduce(
+          (acc, val) => (val["inputTokens"] ? acc + val["inputTokens"] : 0),
+          0
+        );
+        const inputTokensLastWeek = results.reduce(
+          (acc, val) =>
+            val["inputTokens"] && Date.parse(val["createdAt"]) > lastWeek
+              ? acc + val["inputTokens"]
+              : 0
+                ? val["inputTokens"]
+                : 0,
+          0
+        );
+        const outputTokens = results.reduce(
+          (acc, val) => (val["outputTokens"] ? acc + val["outputTokens"] : 0),
+          0
+        );
+        const outputTokensLastWeek = results.reduce(
+          (acc, val) =>
+            Date.parse(val["createdAt"]) > lastWeek && val["outputTokens"]
+              ? acc + val["outputTokens"]
+              : 0,
+          0
+        );
         const _agg = {
           count: results.length,
           countYesterday: countYesterday,
           cost: cost.toFixed(2),
-          costLatest: ((costlastWeek/cost) * 100).toFixed(2),
+          costLatest: ((costlastWeek / cost) * 100).toFixed(2),
           inputTokens,
           inputTokensLastWeek,
           outputTokens,
-          outputTokensLastWeek
+          outputTokensLastWeek,
         };
         setAgg(_agg);
       })
       .catch((error) => {
         console.log({ error });
-        // props.alert({
-        //   title: "Prompts",
-        //   type: "error",
-        //   message: error.message || "Failed get prompts",
-        // });
+        props.alert({
+          title: "Prompts",
+          type: "error",
+          message: error.message || "Failed get prompts",
+        });
       });
   }, []);
 
@@ -74,7 +101,13 @@ const DivServices = (props) => {
             style={{ height: "10rem" }}
           >
             <div className="text-900 font-medium text-lg">ASL Chat Ai</div>
-            <div className="mt-5 flex justify-content-end">click here to start!<i className="ml-3 pi pi-fw pi-arrow-right" style={{ fontSize: '1.5rem' }}></i></div>
+            <div className="mt-5 flex justify-content-end">
+              click here to start!
+              <i
+                className="ml-3 pi pi-fw pi-arrow-right"
+                style={{ fontSize: "1.5rem" }}
+              ></i>
+            </div>
           </div>
         </Link>
       </div>
@@ -86,9 +119,7 @@ const DivServices = (props) => {
             <div className="flex justify-content-between mb-3">
               <div>
                 <span className="block text-500 font-medium mb-3">Prompts</span>
-                <div className="text-900 font-medium text-xl">
-                  {agg["count"]}
-                </div>
+                <div className="text-900 font-medium text-xl">{agg?.count}</div>
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -97,7 +128,9 @@ const DivServices = (props) => {
                 <i className="pi pi-send text-blue-500 text-xl"></i>
               </div>
             </div>
-            <span className="text-green-500 font-medium">{agg["countYesterday"]} new </span>
+            <span className="text-green-500 font-medium">
+              {agg?.countYesterday} new{" "}
+            </span>
             <span className="text-500">since yesterday</span>
           </div>
         </div>
@@ -107,7 +140,7 @@ const DivServices = (props) => {
               <div>
                 <span className="block text-500 font-medium mb-3">Cost</span>
                 <div className="text-900 font-medium text-xl">
-                  RM{agg["cost"]}
+                  RM{agg?.cost}
                 </div>
               </div>
               <div
@@ -117,7 +150,9 @@ const DivServices = (props) => {
                 <i className="pi pi-dollar text-orange-500 text-xl"></i>
               </div>
             </div>
-            <span className="text-green-500 font-medium">{agg?.costLatest}% </span>
+            <span className="text-green-500 font-medium">
+              {agg?.costLatest}%{" "}
+            </span>
             <span className="text-500">since last week</span>
           </div>
         </div>
@@ -125,8 +160,12 @@ const DivServices = (props) => {
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
               <div>
-                <span className="block text-500 font-medium mb-3">Input total</span>
-                <div className="text-900 font-medium text-xl">{agg["inputTokens"]}</div>
+                <span className="block text-500 font-medium mb-3">
+                  Input total
+                </span>
+                <div className="text-900 font-medium text-xl">
+                  {agg?.inputTokens}
+                </div>
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-cyan-100 border-round"
@@ -135,7 +174,9 @@ const DivServices = (props) => {
                 <i className="pi pi-arrow-right text-cyan-500 text-xl"></i>
               </div>
             </div>
-            <span className="text-green-500 font-medium">{agg.inputTokensLastWeek} </span>
+            <span className="text-green-500 font-medium">
+              {agg?.inputTokensLastWeek}{" "}
+            </span>
             <span className="text-500">since last week</span>
           </div>
         </div>
@@ -143,8 +184,12 @@ const DivServices = (props) => {
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
               <div>
-                <span className="block text-500 font-medium mb-3">Output total</span>
-                <div className="text-900 font-medium text-xl">{agg["outputTokens"]}</div>
+                <span className="block text-500 font-medium mb-3">
+                  Output total
+                </span>
+                <div className="text-900 font-medium text-xl">
+                  {agg?.outputTokens}
+                </div>
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-purple-100 border-round"
@@ -153,7 +198,9 @@ const DivServices = (props) => {
                 <i className="pi pi-arrow-left text-purple-500 text-xl"></i>
               </div>
             </div>
-            <span className="text-green-500 font-medium">{agg?.outputTokensLastWeek} </span>
+            <span className="text-green-500 font-medium">
+              {agg?.outputTokensLastWeek}{" "}
+            </span>
             <span className="text-500">generated last week</span>
           </div>
         </div>
@@ -165,7 +212,6 @@ const DivServices = (props) => {
 const GetStarted = () => {
   return (
     <div className="w-full flex justify-content-center flex-wrap ">
-
       <div className="col-12 lg:col-6 xl:col-4">
         <Link to="/login">
           <div
@@ -188,6 +234,9 @@ const GetStarted = () => {
 const Dashboard = (props) => {
   useEffect(() => {}, []);
   const url = process.env.REACT_APP_SERVER_URL;
+  const env = process.env.REACT_APP_ENV;
+  if(!props.isLoggedIn) localStorage.clear()
+  
   return (
     <div className="col-12 flex flex-column align-items-center">
       <div className="flex w-10">

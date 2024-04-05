@@ -70,8 +70,7 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
 
   const onSave = async () => {
     let _data = {
-      saveduserid: _entity.saveduserid,
-      configid: _entity.configid,
+      configid: _entity.configid?._id,
       prompt: _entity.prompt,
       others: _entity.others,
     };
@@ -140,15 +139,17 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
     setError("");
   };
   // children dropdown options
-
-  const saveduseridOptions = saveduserid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const configidOptions = configid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const configidOptions = configid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -164,23 +165,13 @@ const UserPromptsSavedCreateDialogComponent = (props) => {
     >
       <div role="userPromptsSaved-edit-dialog-component">
         <div>
-          <p className="m-0">User:</p>
-          <Dropdown
-            value={_entity?.saveduserid?._id}
-            options={saveduseridOptions}
-            optionLabel="name"
-            optionValue="value"
-            onChange={(e) => setValByKey("saveduserid", e.value)}
-          />
-        </div>
-        <div>
           <p className="m-0">Config:</p>
           <Dropdown
             value={_entity?.configid?._id}
             options={configidOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("configid", e.value)}
+            onChange={(e) => setValByKey("configid", { _id: e.value })}
           />
         </div>
         <div>

@@ -33,7 +33,7 @@ const UsersPage = (props) => {
     //on mount
     client
       .service("users")
-      .find({ query: { $limit: 10000 } })
+      .find({ query: { $limit: 10000, $sort: { createdAt: -1 } } })
       .then((res) => {
         let results = res.data;
 

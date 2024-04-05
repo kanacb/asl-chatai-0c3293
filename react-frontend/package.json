@@ -43,7 +43,7 @@
         "moveCMD": "if exist .env_example rename .env_example .env",
         "movePS": "if Test-Path -Path .env_example 'Rename-Item -Path .\\.env_example .\\.env'",
         "welcome": "\"echo \"Welcome to CodeBridge Ai Code Generator\" \"",
-        "build:stg": "set \"GENERATE_SOURCEMAP=false\" && env-cmd -f .env.stg react-scripts build",
+        "build:stg": "set \"GENERATE_SOURCEMAP=false\" && env-cmd -f .env_stg react-scripts build",
         "launch": "npm run --silent cmd && npm install --quiet --no-progress && npm run welcome && npm run format && npm run start"
     },
     "eslintConfig": {

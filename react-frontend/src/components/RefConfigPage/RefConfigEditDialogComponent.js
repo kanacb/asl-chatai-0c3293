@@ -123,10 +123,17 @@ const RefConfigCreateDialogComponent = (props) => {
   };
   // children dropdown options
 
-  const chatAiIdOptions = chatAiId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const chatAiIdOptions = chatAiId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -148,7 +155,7 @@ const RefConfigCreateDialogComponent = (props) => {
             options={chatAiIdOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("chatAiId", e.value)}
+            onChange={(e) => setValByKey("chatAiId", { _id: e.value })}
           />
         </div>
         <div>

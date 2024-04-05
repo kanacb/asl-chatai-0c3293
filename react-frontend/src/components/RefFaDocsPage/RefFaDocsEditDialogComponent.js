@@ -70,8 +70,8 @@ const RefFaDocsCreateDialogComponent = (props) => {
   const onSave = async () => {
     let _data = {
       filename: _entity.filename,
-      bankId: _entity.bankId,
-      facilityid: _entity.facilityid,
+      bankId: _entity.bankId._id,
+      facilityid: _entity.facilityid._id,
       startDate: _entity.startDate,
       endDate: _entity.endDate,
       version: _entity.version,
@@ -143,14 +143,28 @@ const RefFaDocsCreateDialogComponent = (props) => {
   };
   // children dropdown options
 
-  const bankIdOptions = bankId.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
-  const facilityidOptions = facilityid.map((elem) => ({
-    name: elem.name,
-    value: elem.value,
-  }));
+  const bankIdOptions = bankId
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
+  const facilityidOptions = facilityid
+    .map((elem) => ({
+      name: elem.name,
+      value: elem.value,
+    }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        numeric: true,
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <Dialog
@@ -180,7 +194,10 @@ const RefFaDocsCreateDialogComponent = (props) => {
             options={bankIdOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("bankId", e.value)}
+            onChange={(e) => {
+              setValByKey("bankId", { _id: e.value });
+              console.log(e.value);
+            }}
           />
         </div>
         <div>
@@ -190,17 +207,16 @@ const RefFaDocsCreateDialogComponent = (props) => {
             options={facilityidOptions}
             optionLabel="name"
             optionValue="value"
-            onChange={(e) => setValByKey("facilityid", e.value)}
+            onChange={(e) => setValByKey("facilityid", { _id: e.value })}
           />
         </div>
         <div>
           <p className="m-0">Start Date:</p>
           <Calendar
-            dateFormat="dd/mm/yy hh:mm"
-            placeholder={"dd/mm/yy hh:mm"}
+            dateFormat="dd/mm/yy"
+            placeholder={"dd/mm/yy"}
             value={new Date(_entity?.startDate)}
-            onChange={(e) => setValByKey("startDate", e.target.value)}
-            showTime
+            onChange={(e) => setValByKey("startDate", new Date(e.target.value))}
             showIcon
             showButtonBar
           ></Calendar>
@@ -208,11 +224,10 @@ const RefFaDocsCreateDialogComponent = (props) => {
         <div>
           <p className="m-0">End Date:</p>
           <Calendar
-            dateFormat="dd/mm/yy hh:mm"
-            placeholder={"dd/mm/yy hh:mm"}
+            dateFormat="dd/mm/yy"
+            placeholder={"dd/mm/yy"}
             value={new Date(_entity?.endDate)}
-            onChange={(e) => setValByKey("endDate", e.target.value)}
-            showTime
+            onChange={(e) => setValByKey("endDate", new Date(e.target.value))}
             showIcon
             showButtonBar
           ></Calendar>
