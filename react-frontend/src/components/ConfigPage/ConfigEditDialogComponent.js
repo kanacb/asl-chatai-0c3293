@@ -48,7 +48,7 @@ const ConfigCreateDialogComponent = (props) => {
       });
   }, []);
 
-  const onSave = async () => {
+  const onSave = async (input) => {
     let _data = {
       name: _entity.name,
       chatAiId: _entity.chatAiId?._id,
@@ -62,6 +62,8 @@ const ConfigCreateDialogComponent = (props) => {
       example: _entity.example,
       preamble: _entity.preamble,
     };
+
+    if(input) _data = input;
 
     setLoading(true);
     try {

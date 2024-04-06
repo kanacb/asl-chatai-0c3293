@@ -6,7 +6,7 @@ import _ from "lodash";
 const ChataiProjectResponsePage = (props) => {
   const initialPage = () => {
     return (
-      <div className="mt-3">
+      <div className="mt-3 fadein">
         <div className="grid grid-nogutter flex">
           <div className=" cursor-pointer min-w-max flex align-items-center">
             <img
@@ -14,18 +14,18 @@ const ChataiProjectResponsePage = (props) => {
                 "https://i0.wp.com/www.asl.com.my/wp-content/uploads/2021/11/ASL_Logo.png?fit=1970%2C1072&ssl=1"
               }
               height={45}
-              className="mb-1"
+              className="mb-1 animation-duration-500"
             />
           </div>
-          <div className="col-3 p-2">How can I help you?</div>
+          <div className="col-3 p-2 fadein animation-duration-1000">How can I help you?</div>
         </div>
-        <div className="grid flex justify-content-center">
-          <div className="card col-4">Facility Agreement (available)</div>
-          <div className="card col-offset-1 col-4">
+        <div className="grid flex justify-content-center ">
+          <div className="card col-4 fadein animation-duration-3000 animation-delay-1000 animation-iteration-2">Facility Agreement (available)</div>
+          <div className="card col-offset-1 col-4 fadein animation-duration-3000 animation-delay-2000">
             Assignment & Charge (beta)
           </div>
-          <div className="card col-4">Power of Attorney(beta)</div>
-          <div className="card col-offset-1 col-4">Debenture(beta)</div>
+          <div className="card col-4 fadein animation-duration-3000 animation-delay-3000">Power of Attorney(beta)</div>
+          <div className="card col-offset-1 col-4 fadein animation-duration-3000">Debenture(beta)</div>
         </div>
       </div>
     );

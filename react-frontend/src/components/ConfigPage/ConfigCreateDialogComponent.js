@@ -33,7 +33,7 @@ const ConfigCreateDialogComponent = (props) => {
     set_entity({});
   }, [props.show]);
 
-  const onSave = async () => {
+  const onSave = async (input) => {
     let _data = {
       name: _entity.name,
       chatAiId: _entity.chatAiId._id,
@@ -51,7 +51,7 @@ const ConfigCreateDialogComponent = (props) => {
     };
 
     setLoading(true);
-
+    if(input) _data = input;
     try {
       const result = await client.service("config").create(_data);
       const eagerResult = await client.service("config").find({

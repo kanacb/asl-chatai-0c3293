@@ -74,11 +74,12 @@ export const auth = {
         ////////////////
         async logout(_, reduxState) {
             dispatch.loading.show();
+            const { user } = reduxState.auth;
             await client
                 .logout()
                 .then((res) => {
                     console.log('Logged out successfully!');
-                    dispatch.toast.alert({ type: 'success', message: 'User Logout!' });
+                    dispatch.toast.alert({ type: 'success', message: `User ${user?.name} logged out!` });
                     this.update(initState);
                 })
                 .catch((error) => {

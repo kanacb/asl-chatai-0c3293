@@ -232,13 +232,14 @@ const GetStarted = () => {
 };
 
 const Dashboard = (props) => {
-  useEffect(() => {}, []);
   const url = process.env.REACT_APP_SERVER_URL;
   const env = process.env.REACT_APP_ENV;
+  const navbarHeight = '100px';
+  const footerHeight = '60px';
   if(!props.isLoggedIn) localStorage.clear()
   
   return (
-    <div className="col-12 flex flex-column align-items-center">
+    <div className="col-12 flex flex-column align-items-center" style={{ minHeight : `calc(100vh - ${navbarHeight} - ${footerHeight})`}}>
       <div className="flex w-10">
         <div className=" w-8">
           <h4 className="ml-4">App is Ready</h4>
@@ -251,31 +252,6 @@ const Dashboard = (props) => {
           <p>You are ready to go!</p>
         </div>
       </div>
-      {/* {props.isLoggedIn ? null : (
-        <div className="card w-10 my-6">
-          <h4>REST API Ready</h4>
-          <p className="underline m-0">e.g. Authentication</p>
-          <p>
-            POST {`${url}`}/authentication{" "}
-            {`{ "email": "example@email.com",    "password": "123456" }`}
-          </p>
-          <p className="underline m-0">e.g. CRUD</p>
-          <p className="m-0">
-            GET {`=>`} GET {`${url}`}/users/{`<userId>`}
-          </p>
-          <p className="m-0">
-            CREATE {`=>`} POST {`${url}`}/users`{" "}
-            {`{ "email": "example2@email.com",    "password": "456789" }`}
-          </p>
-          <p className="m-0">
-            PATCH {`=>`} PATCH {`${url}`}/users/{`<userId>`}`{" "}
-            {`{ "name": "Thomas Smith" }`}
-          </p>
-          <p className="m-0">
-            DELETE {`=>`} DELETE {`${url}`}/users/{`<userId>`}
-          </p>
-        </div>
-      )} */}
     </div>
   );
 };
