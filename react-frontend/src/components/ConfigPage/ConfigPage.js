@@ -55,7 +55,6 @@ const ConfigPage = (props) => {
       })
       .then((res) => {
         let results = res.data;
-
         setData(results);
       })
       .catch((error) => {

@@ -48,7 +48,8 @@ const MyRouter = () => {
                     <Route path="/users/:singleUsersId" exact element={<SingleUsersPage />} />
                     <Route path="/sessions" exact element={<SessionsUserLayoutPage />} />
                     <Route path="/sessions/:singleSessionsId" exact element={<SingleSessionsPage />} />
-                    <Route path="/chataiProject" exact element={<ChataiProjectLayoutPage />} />
+                    <Route path="/chataiProject" element={<ChataiProjectLayoutPage />} />
+                    <Route path="/chataiProject/:promptId" element={<ChataiProjectLayoutPage />} />
                     <Route path="/chatai" exact element={<ChataiUserLayoutPage />} />
                     <Route path="/chatai/:singleChataiId" exact element={<SingleChataiPage />} />
                     <Route path="/config" exact element={<ConfigUserLayoutPage />} />

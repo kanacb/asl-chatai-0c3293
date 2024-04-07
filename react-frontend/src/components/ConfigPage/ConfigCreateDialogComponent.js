@@ -252,6 +252,8 @@ const ConfigCreateDialogComponent = (props) => {
   );
 };
 
+
+
 const mapState = (state) => {
   const { user } = state.auth;
   return { user };
@@ -261,3 +263,4 @@ const mapDispatch = (dispatch) => ({
 });
 
 export default connect(mapState, mapDispatch)(ConfigCreateDialogComponent);
+

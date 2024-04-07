@@ -1,18 +1,17 @@
 import React, { useRef, useEffect, useState } from "react";
 import { connect } from "react-redux";
-import client from "../../services/restClient";
 import _ from "lodash";
 import { Button } from "primereact/button";
 import { CascadeSelect } from "primereact/cascadeselect";
 import { OverlayPanel } from "primereact/overlaypanel";
 
 import ChataiProjectActionBehaviorsPage from "./ChataiProjectActionBehaviorsPage";
-import ChataiProjectActionTemperaturPage from "./ChataiProjectActionTemperaturPage";
+import ChataiProjectActionTemperaturPage from "./ChataiProjectActionTemperaturePage";
 import ChataiProjectActionFADocsPage from "./ChataiProjectActionFADocsPage";
 
 const ChataiProjectActionPage = (props) => {
-  const opConfig = useRef();
-  const opFAConfig = useRef();
+  const opTemperature = useRef();
+  const opFABehavior = useRef();
   const opFACDocsConfig = useRef();
   const chatAis = [
     {
@@ -131,7 +130,7 @@ const ChataiProjectActionPage = (props) => {
 
   return (
     <div className="grid flex w-full m-3 grid-nogutter">
-      <div className="col-3">
+      <div className="col-8">
         <CascadeSelect
           value={props.selectedModel}
           onChange={(e) => {
@@ -148,8 +147,11 @@ const ChataiProjectActionPage = (props) => {
           itemTemplate={chatAiOptionTemplate}
           style={{ maxWidth: "fit-content" }}
         />
+        <div className="m-1 overflow-auto">
+          {props.selectedModel?.description}
+        </div>
       </div>
-      <div className="col-offset-6 flex align-items-right justify-content-end">
+      <div className="col-offset-1 flex align-items-right justify-content-end">
         <Button
           icon="pi pi-fw pi-refresh"
           className="mb-1 mr-2"
@@ -183,7 +185,7 @@ const ChataiProjectActionPage = (props) => {
           text
           severity="primary"
           aria-label="config"
-          onClick={(e) => opConfig.current.toggle(e)}
+          onClick={(e) => opTemperature.current.toggle(e)}
         />
         <Button
           icon="pi pi-fw pi-cog"
@@ -194,27 +196,9 @@ const ChataiProjectActionPage = (props) => {
           text
           severity="primary"
           aria-label="fa"
-          onClick={(e) => opFAConfig.current.toggle(e)}
+          onClick={(e) => opFABehavior.current.toggle(e)}
         />
       </div>
-      <OverlayPanel
-        ref={opConfig}
-        pt={{
-          root: { className: "surface-ground" },
-        }}
-        className="zoomindown animation-duration-500"
-      >
-        <ChataiProjectActionTemperaturPage />
-      </OverlayPanel>
-      <OverlayPanel
-        ref={opFAConfig}
-        pt={{
-          root: { className: "surface-ground" },
-        }}
-        className="fadeinup animation-duration-500"
-      >
-        <ChataiProjectActionBehaviorsPage />
-      </OverlayPanel>
       <OverlayPanel
         ref={opFACDocsConfig}
         pt={{
@@ -222,6 +206,24 @@ const ChataiProjectActionPage = (props) => {
         }}
       >
         <ChataiProjectActionFADocsPage />
+      </OverlayPanel>
+      <OverlayPanel
+        ref={opTemperature}
+        pt={{
+          root: { className: "surface-ground" },
+        }}
+        className="zoomindown animation-duration-500"
+      >
+        <ChataiProjectActionTemperaturPage  />
+      </OverlayPanel>
+      <OverlayPanel
+        ref={opFABehavior}
+        pt={{
+          root: { className: "surface-ground" },
+        }}
+        className="fadeinup animation-duration-500"
+      >
+        <ChataiProjectActionBehaviorsPage setSelectedConfigId={props.setSelectedConfigId} selectedConfigId={props.selectedConfigId} />
       </OverlayPanel>
     </div>
   );

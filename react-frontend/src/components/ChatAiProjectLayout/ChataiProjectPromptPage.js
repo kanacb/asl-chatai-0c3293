@@ -62,72 +62,36 @@ const ChataiProjectPromptPage = (props) => {
         rows={2}
         cols={70}
       />
-      {props.isDisplaying ? (
-        <Button
-          label="Stop"
-          icon="pi pi-stop-circle"
-          className="m-2"
-          size="small"
-          iconPos="right"
-          rounded
-          text
-          severity="danger"
-          aria-label="Stop"
-          disabled={true}
-          onClick={() => {
-            props.setStopDisplaying(true);
-          }}
-        />
-      ) : (
-        <Button
-          label="Run"
-          icon="pi pi-send"
-          className="m-2"
-          size="small"
-          iconPos="right"
-          rounded
-          text
-          severity="danger"
-          aria-label="Run"
-          disabled={!props.prompt}
-          onClick={() => {
-            props.getChatAiResponse();
-            props.setIsDisplaying(true);
-          }}
-        />
-      )}
-      <InputTextarea
-        onChange={(e) => setSuggestions(e.target.value)}
-        placeholder="Enter your remarks to improve the ASL Chat Ai ..."
-        rows={2}
-        cols={70}
-      />
+
       <Button
-        label="Save"
-        icon="pi pi-save"
+        label="Run"
+        icon="pi pi-send"
         className="m-2"
         size="small"
         iconPos="right"
         rounded
         text
         severity="danger"
-        aria-label="Save"
+        aria-label="Run"
+        disabled={!props.prompt}
         onClick={() => {
-          props.patchUserRemarks(suggestions);
+          props.getChatAiResponse();
         }}
       />
-      {/* <FileUpload
+
+      <FileUpload
         mode="basic"
         chooseLabel="upload file"
         className="mt-3"
-        name="demo[]"
+        name="files[]"
         url="/api/upload"
         accept="image/*"
+        removeIcon
         maxFileSize={1000000}
-        onUpload={onUpload}
+        onUpload={() => onUpload()}
         disabled={true}
-      /> */}
-      {/* <Mention
+      />
+      <Mention
         value={value}
         onChange={(e) => setValue(e.target.value)}
         suggestions={suggestions}
@@ -136,9 +100,10 @@ const ChataiProjectPromptPage = (props) => {
         className="ml-3"
         placeholder="Enter @ to mention people"
         rows={1}
-        cols={10}
+        cols={30}
+        disabled={true}
         itemTemplate={itemTemplate}
-      /> */}
+      />
     </div>
   );
 };

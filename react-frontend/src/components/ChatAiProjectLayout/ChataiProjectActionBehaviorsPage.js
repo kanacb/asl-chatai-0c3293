@@ -4,11 +4,12 @@ import client from "../../services/restClient";
 import { InputText } from "primereact/inputtext";
 import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
-import ConfigCreateDialogComponent from "../ConfigPage/ConfigCreateDialogComponent";
 
 const ChataiProjectActionBehaviorsPage = (props) => {
-  const [selectedConfig, setSelectedConfig] = useState({});
   const [refUserConfig, setRefUserConfig] = useState([]);
+  const [maxCount, setMaxCount] = useState(0);
+  const [count, setCount] = useState(0);
+  const [saveAs, setSaveAs] = useState("");
   const [name, setName] = useState();
   const [human, setHuman] = useState();
   const [noCondition, setNoCondition] = useState();
@@ -21,7 +22,29 @@ const ChataiProjectActionBehaviorsPage = (props) => {
   useEffect(() => {
     //on mount
     getUserConfig();
-  }, []);
+  }, [saveAs]);
+
+  const onBack = () => {
+    const currentCount = count - 1;
+    if (currentCount <= 0) {
+      setCount(0);
+      setBehaviorForm(refUserConfig[0]);
+    } else {
+      setCount(currentCount);
+      setBehaviorForm(refUserConfig[currentCount]);
+    }
+  };
+
+  const onFront = () => {
+    const currentCount = count + 1;
+    if (currentCount > maxCount - 1) {
+      setCount(0);
+      setBehaviorForm(refUserConfig[0]);
+    } else {
+      setCount(currentCount);
+      setBehaviorForm(refUserConfig[currentCount]);
+    }
+  };
 
   const setBehaviorForm = (config) => {
     setName(config.name);
@@ -31,7 +54,20 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     setTask(config?.task);
     setExample(config?.example);
     setPreamble(config?.preamble);
-    setSelectedConfig(config);
+    props.setSelectedConfigId(config._id);
+  };
+
+  const getBehaviorForm = (config) => {
+    config.name = name;
+    config.human = human;
+    config.noCondition = noCondition;
+    config.yesCondition = yesCondition;
+    config.task = task;
+    config.example = example;
+    config.preamble = preamble;
+    config.updatedBy = props.user._id;
+    config._id = null;
+    return config;
   };
 
   const getUserConfig = () => {
@@ -43,6 +79,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
         if (results && results.length > 0) {
           setRefUserConfig(results);
           setBehaviorForm(results[0]);
+          setMaxCount(results.length);
         } else {
           getRefConfig();
         }
@@ -66,6 +103,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
         if (results && results.length > 0) {
           setRefUserConfig(results);
           setBehaviorForm(results[0]);
+          setMaxCount(results.length);
         }
       })
       .catch((error) => {
@@ -78,18 +116,68 @@ const ChataiProjectActionBehaviorsPage = (props) => {
       });
   };
 
+  const onSaveAs = () => {
+    const serviceName = "config";
+    const selectedConfigObjectAry = refUserConfig.filter(
+      (conf) => conf._id === props.selectedConfigId
+    );
+    const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);
+    console.log("selectedConfigObject", selectedConfigObject);
+    client
+      .service(serviceName)
+      .create(selectedConfigObject)
+      .then((results) => {
+        console.log(results);
+      })
+      .catch((error) => {
+        console.log({ error });
+        props.alert({
+          title: serviceName,
+          type: `error`,
+          message: error.message || `Failed on Save As ${serviceName}`,
+        });
+      });
+  };
+
+  const onPatch = () => {
+    const serviceName = "config";
+    const selectedConfigObjectAry = refUserConfig.filter(
+      (conf) => conf._id === props.selectedConfigId
+    );
+
+    const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);
+    console.log("patch", "selectedConfigObject", selectedConfigObject);
+    client
+      .service(serviceName)
+      .patch(props.selectedConfigId, selectedConfigObject)
+      .then((results) => {
+        console.log(results);
+      })
+      .catch((error) => {
+        console.log({ error });
+        props.alert({
+          title: serviceName,
+          type: `error`,
+          message: error.message || `Failed on Update ${serviceName}`,
+        });
+      });
+  };
+
   return (
     <div className="card grid grid-nogutter flex" style={{ width: "40vw" }}>
       <div className="col-6">
         <h3>Control behaviors </h3>
       </div>
       <div className="col-6 flex justify-content-end">
-        <i className="pi pi-fw pi-angle-left mt-4"></i>
-        <span className="mt-4">{` ${refUserConfig?.length} `}</span>
-        <i className="pi pi-fw pi-angle-right mt-4"></i>
+        <i className="pi pi-fw pi-angle-left mt-4" onClick={() => onBack()}></i>
+        <span className="mt-4">{`item ${count + 1} of ${refUserConfig?.length} `}</span>
+        <i
+          className="pi pi-fw pi-angle-right mt-4"
+          onClick={() => onFront()}
+        ></i>
         {isEdit ? (
           <Button
-            label="Save"
+            label={saveAs !== "" ? "Save As" : "Update"}
             icon="pi pi-save"
             className="m-2"
             size="small"
@@ -99,8 +187,8 @@ const ChataiProjectActionBehaviorsPage = (props) => {
             severity="danger"
             aria-label="Save"
             onClick={() => {
-              // ConfigCreateDialogComponent.onSave(refUserConfig[0]);
-              setEdit(false)
+              saveAs !== "" ? onSaveAs() : onPatch();
+              setEdit(false);
             }}
           />
         ) : (
@@ -119,7 +207,6 @@ const ChataiProjectActionBehaviorsPage = (props) => {
         )}
       </div>
       {isEdit ? (
-        
         <div className="col-12 fadein animation-duration-2000">
           <label id="label_name" className="mb-2 flex justify-content-start">
             Name <small className="ml-3 mt-1">(short identifier)</small>:
@@ -127,7 +214,10 @@ const ChataiProjectActionBehaviorsPage = (props) => {
           <InputText
             className="w-full"
             value={name}
-            onChange={(e) => setName(e.target.value)}
+            onChange={(e) => {
+              setName(e.target.value);
+              setSaveAs(e.value);
+            }}
             disabled={!isEdit}
           />
         </div>

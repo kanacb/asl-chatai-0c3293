@@ -2,9 +2,10 @@ import React, { useState, useEffect, useRef } from "react";
 import "./ProjectLayout.css";
 import client from "../../services/restClient";
 import { connect } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { AppMenu } from "../Layouts/AppMenu";
 import { Button } from "primereact/button";
+import moment from "moment";
 
 const leftMenuStyle = {
   open: { transform: "translateX(0)" },
@@ -22,6 +23,8 @@ const ProjectLayout = (props) => {
   const urlParams = useParams();
   const copyTooltipRef = useRef();
   const location = useLocation();
+  const today = new Date();
+  const [promptDate, setDate] = useState(today);
 
   useEffect(() => {
     // Handler to call on window resize
@@ -62,7 +65,7 @@ const ProjectLayout = (props) => {
     userPrompts.on("created", (newPrompt) => {
       setPrompts((prevPrompts) => {
         if (Array.isArray(prevPrompts) && !prevPrompts?.includes(newPrompt))
-          [newPrompt, ...prevPrompts];
+          [...prevPrompts, newPrompt];
       });
     });
     //on mount
@@ -71,6 +74,7 @@ const ProjectLayout = (props) => {
       .find({
         query: {
           $limit: 10000,
+          $sort: { createdAt: -1 },
           $populate: [
             {
               path: "chatAiId",
@@ -107,6 +111,7 @@ const ProjectLayout = (props) => {
           label: "Data Management",
           icon: "pi pi-fw pi-users",
           to: `/users`,
+          className: "fadein animation-duration-1000",
         },
       ],
     },
@@ -123,9 +128,9 @@ const ProjectLayout = (props) => {
       element.className = element.className.replace(
         new RegExp(
           "(^|\\b)" + className.split(" ").join("|") + "(\\b|$)",
-          "gi",
+          "gi"
         ),
-        " ",
+        " "
       );
   };
 
@@ -151,11 +156,17 @@ const ProjectLayout = (props) => {
           onMenuItemClick={onMenuItemClick}
           layoutColorMode={"light"}
         />
-        <h6>My Chats</h6>
+        <h6>MY CHATS</h6>
 
         {prompts?.map((prompt, i) => (
-          <div>
-            {i + 1}. {prompt?.prompt}
+          <div className="fadein animation-duration-1000">
+            <small className="text-500">
+              {moment(prompt.createdAt).fromNow()}
+            </small>
+            <br></br>
+            <Link key={prompt?._id} to={`/chataiProject/${prompt?._id}`}>
+              {i + 1}. {prompt?.prompt}
+            </Link>
           </div>
         ))}
       </div>

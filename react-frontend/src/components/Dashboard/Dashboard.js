@@ -31,7 +31,6 @@ const DivServices = (props) => {
       })
       .then((res) => {
         let results = res.data;
-        console.log(results);
         setData(results);
         const today = new Date();
         const lastWeek = today.setDate(today.getDate() - 7);

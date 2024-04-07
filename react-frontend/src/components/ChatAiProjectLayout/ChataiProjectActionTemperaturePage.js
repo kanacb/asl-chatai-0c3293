@@ -5,10 +5,10 @@ import { Chip } from "primereact/chip";
 import { Slider } from "primereact/slider";
 
 const ChataiProjectActionTemperaturPage = (props) => {
-    const [temperature, setTemperature] = useState(1);
-    const [topP, setTopP] = useState(0.9999);
-    const [topK, setTopK] = useState(500);
-    const [maxLength, setMaxLength] = useState(4096);
+    const [temperature, setTemperature] = useState(50);
+    const [topP, setTopP] = useState(50);
+    const [topK, setTopK] = useState(50);
+    const [maxLength, setMaxLength] = useState(50);
 
 return (
     <div className="card grid grid-nogutter " style={{ maxWidth: '300px'}}>
@@ -23,7 +23,7 @@ return (
       <Slider
         value={temperature}
         onChange={(e) => setTemperature(e.value)}
-        step={0.1}
+        step={0.2}
       />
     </div>
 
