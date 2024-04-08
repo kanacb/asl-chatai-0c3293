@@ -23,7 +23,10 @@ const ChataiProjectActionFADocsPage = (props) => {
       .find({ query: { $limit: 10000 } })
       .then((res) => {
         let results = res.data;
-        setRefFaDocs(results);
+        if(results){
+          setRefFaDocs(results);
+          props.setNumFiles(results.length);
+        }
       })
       .catch((error) => {
         console.log({ error });

@@ -26,8 +26,8 @@
   "scripts": {
     "test": "npm run lint && npm run mocha",
     "lint": "eslint src/. test/. --config .eslintrc.json --fix",
-    "dev": "nodemon src/",
-    "start": "node src/",
+    "dev": "nodemon src/ --host 0.0.0.0",
+    "start": "node src/ --host 0.0.0.0",
     "format": "prettier ./src --write ",
     "format:check": "prettier ./src --check \"*/.{js,ts,d.ts}\"",
     "mongodump" : "mongodump --uri=mongodb://localhost:27017 -d nodejs-backend ",

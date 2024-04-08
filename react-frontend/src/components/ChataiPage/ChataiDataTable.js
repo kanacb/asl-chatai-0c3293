@@ -3,6 +3,7 @@ import { DataTable } from "primereact/datatable";
 import React, { useState } from "react";
 import _ from "lodash";
 import { Button } from "primereact/button";
+import moment from "moment";
 
 const ChataiDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.name}</p>;

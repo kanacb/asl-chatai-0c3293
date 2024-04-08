@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import client from "../../services/restClient";
 import welcomeImg from "../../assets/media/welcome-banner.png";
+import LineDemo from "./LineDemo";
 
 const DivServices = (props) => {
   const [data, setData] = useState([]);
@@ -33,38 +34,39 @@ const DivServices = (props) => {
         let results = res.data;
         setData(results);
         const today = new Date();
-        const lastWeek = today.setDate(today.getDate() - 7);
-        const cost = results.reduce((acc, val) => acc + val["cost"], 0);
-        const costlastWeek = results.reduce(
-          (acc, val) =>
-            Date.parse(val["createdAt"]) > lastWeek ? acc + val["cost"] : 0,
-          0
-        );
+        let yesterday = today.setDate(today.getDate() - 1);
+        yesterday = new Date(yesterday);
+        let lastWeek = today.setDate(today.getDate() - 3);
+        lastWeek = new Date(lastWeek);
+        const cost = results.reduce((acc, val) => acc + val?.cost, 0);
+        const costlastWeek = results.reduce((acc, val) => 
+          new Date(val?.createdAt) > lastWeek ? acc + val?.cost : 0
+        , 0);
         const countYesterday = results.reduce(
-          (acc, val) => (Date.parse(val["createdAt"]) > today ? acc + 1 : 0),
+          (acc, val) => (new Date(val?.createdAt) > today ? acc + 1 : 0),
           0
         );
         const inputTokens = results.reduce(
-          (acc, val) => (val["inputTokens"] ? acc + val["inputTokens"] : 0),
+          (acc, val) => (val?.inputTokens ? acc + val?.inputTokens : 0),
           0
         );
         const inputTokensLastWeek = results.reduce(
           (acc, val) =>
-            val["inputTokens"] && Date.parse(val["createdAt"]) > lastWeek
-              ? acc + val["inputTokens"]
+            val?.inputTokens && new Date(val?.createdAt) > lastWeek
+              ? acc + val?.inputTokens
               : 0
-                ? val["inputTokens"]
+                ? val?.inputTokens
                 : 0,
           0
         );
         const outputTokens = results.reduce(
-          (acc, val) => (val["outputTokens"] ? acc + val["outputTokens"] : 0),
+          (acc, val) => (val?.outputTokens ? acc + val?.outputTokens : 0),
           0
         );
         const outputTokensLastWeek = results.reduce(
           (acc, val) =>
-            Date.parse(val["createdAt"]) > lastWeek && val["outputTokens"]
-              ? acc + val["outputTokens"]
+            new Date(val?.createdAt) > lastWeek && val?.outputTokens
+              ? acc + val?.outputTokens
               : 0,
           0
         );
@@ -72,11 +74,21 @@ const DivServices = (props) => {
           count: results.length,
           countYesterday: countYesterday,
           cost: cost.toFixed(2),
-          costLatest: ((costlastWeek / cost) * 100).toFixed(2),
-          inputTokens,
-          inputTokensLastWeek,
-          outputTokens,
-          outputTokensLastWeek,
+          costLatest: ((costlastWeek / cost) * 100).toFixed(2).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+          }),
+          inputTokens: inputTokens.toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+          }),
+          inputTokensLastWeek: inputTokensLastWeek.toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+          }),
+          outputTokens: outputTokens.toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+          }),
+          outputTokensLastWeek: outputTokensLastWeek.toLocaleString("en-US", {
+            minimumFractionDigits: 0,
+          }),
         };
         setAgg(_agg);
       })
@@ -152,7 +164,7 @@ const DivServices = (props) => {
             <span className="text-green-500 font-medium">
               {agg?.costLatest}%{" "}
             </span>
-            <span className="text-500">since last week</span>
+            <span className="text-500">last week</span>
           </div>
         </div>
         <div className="col-12 md:col-6 lg:col-3">
@@ -176,7 +188,7 @@ const DivServices = (props) => {
             <span className="text-green-500 font-medium">
               {agg?.inputTokensLastWeek}{" "}
             </span>
-            <span className="text-500">since last week</span>
+            <span className="text-500"> last week</span>
           </div>
         </div>
         <div className="col-12 md:col-6 lg:col-3">
@@ -203,6 +215,9 @@ const DivServices = (props) => {
             <span className="text-500">generated last week</span>
           </div>
         </div>
+      </div>
+      <div className="w-full" >
+      <LineDemo className="max-h-30rem" ></LineDemo>
       </div>
     </div>
   );
@@ -233,12 +248,15 @@ const GetStarted = () => {
 const Dashboard = (props) => {
   const url = process.env.REACT_APP_SERVER_URL;
   const env = process.env.REACT_APP_ENV;
-  const navbarHeight = '100px';
-  const footerHeight = '60px';
-  if(!props.isLoggedIn) localStorage.clear()
-  
+  const navbarHeight = "100px";
+  const footerHeight = "60px";
+  if (!props.isLoggedIn) localStorage.clear();
+
   return (
-    <div className="col-12 flex flex-column align-items-center" style={{ minHeight : `calc(100vh - ${navbarHeight} - ${footerHeight})`}}>
+    <div
+      className="col-12 flex flex-column align-items-center"
+      style={{ minHeight: `calc(100vh - ${navbarHeight} - ${footerHeight})` }}
+    >
       <div className="flex w-10">
         <div className=" w-8">
           <h4 className="ml-4">App is Ready</h4>

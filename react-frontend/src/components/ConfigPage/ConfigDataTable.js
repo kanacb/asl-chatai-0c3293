@@ -3,7 +3,6 @@ import { DataTable } from "primereact/datatable";
 import React, { useState } from "react";
 import _ from "lodash";
 import { Button } from "primereact/button";
-
 import moment from "moment";
 
 const ConfigDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {

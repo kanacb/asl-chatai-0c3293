@@ -29,9 +29,11 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     if (currentCount <= 0) {
       setCount(0);
       setBehaviorForm(refUserConfig[0]);
+      props.setNumConfig(0);
     } else {
       setCount(currentCount);
       setBehaviorForm(refUserConfig[currentCount]);
+      props.setNumConfig(currentCount);
     }
   };
 
@@ -40,9 +42,11 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     if (currentCount > maxCount - 1) {
       setCount(0);
       setBehaviorForm(refUserConfig[0]);
+      props.setNumConfig(0);
     } else {
       setCount(currentCount);
       setBehaviorForm(refUserConfig[currentCount]);
+      props.setNumConfig(currentCount);
     }
   };
 
@@ -80,8 +84,10 @@ const ChataiProjectActionBehaviorsPage = (props) => {
           setRefUserConfig(results);
           setBehaviorForm(results[0]);
           setMaxCount(results.length);
+          props.setNumConfig(count + 1);
         } else {
           getRefConfig();
+          props.setNumConfig(1);
         }
       })
       .catch((error) => {

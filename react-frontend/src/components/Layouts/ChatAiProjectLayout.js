@@ -3,7 +3,7 @@ import "./ProjectLayout.css";
 import client from "../../services/restClient";
 import { connect } from "react-redux";
 import { Link, useLocation, useParams } from "react-router-dom";
-import { AppMenu } from "../Layouts/AppMenu";
+import { AppMenu } from "./AppMenu";
 import { Button } from "primereact/button";
 import moment from "moment";
 
@@ -17,7 +17,7 @@ const mainLayoutStyle = {
   close: { marginLeft: 0 },
 };
 
-const ProjectLayout = (props) => {
+const ChatAiProjectLayout = (props) => {
   const [mobileMenuActive, setMobileMenuActive] = useState(false);
   const [prompts, setPrompts] = useState([]);
   const urlParams = useParams();
@@ -62,12 +62,12 @@ const ProjectLayout = (props) => {
 
   const userPrompts = client.service("prompts");
   useEffect(() => {
-    userPrompts.on("created", (newPrompt) => {
-      setPrompts((prevPrompts) => {
-        if (Array.isArray(prevPrompts) && !prevPrompts?.includes(newPrompt))
-          [...prevPrompts, newPrompt];
-      });
-    });
+    // userPrompts.on("created", (newPrompt) => {
+    //   setPrompts((prevPrompts) => {
+    //     if (Array.isArray(prevPrompts) && !prevPrompts?.includes(newPrompt))
+    //       [...prevPrompts, newPrompt];
+    //   });
+    // });
     //on mount
     client
       .service("prompts")
@@ -75,6 +75,7 @@ const ProjectLayout = (props) => {
         query: {
           $limit: 10000,
           $sort: { createdAt: -1 },
+          createdBy: props.user._id,
           $populate: [
             {
               path: "chatAiId",
@@ -105,7 +106,7 @@ const ProjectLayout = (props) => {
 
   const menu = [
     {
-      label: "Ai Chat Bot",
+      label: "ASL Ai Chat Engine",
       items: [
         {
           label: "Data Management",
@@ -156,14 +157,21 @@ const ProjectLayout = (props) => {
           onMenuItemClick={onMenuItemClick}
           layoutColorMode={"light"}
         />
-        <h6>MY CHATS</h6>
-
+        <small className="font-bold">My Ai Chats</small>
         {prompts?.map((prompt, i) => (
-          <div className="fadein animation-duration-1000">
-            <small className="text-500">
-              {moment(prompt.createdAt).fromNow()}
-            </small>
-            <br></br>
+          <div className="w-full">
+            <div className="flex justify-content-end">
+              <small className="text-500">
+                {prompts[i - 1] &&
+                moment(prompt.createdAt).fromNow() !=
+                  moment(prompts[i - 1].createdAt).fromNow()
+                  ? moment(prompt.createdAt).fromNow()
+                  : i === 0
+                    ? moment(prompt.createdAt).fromNow()
+                    : null}
+              </small>
+              <br></br>
+            </div>
             <Link key={prompt?._id} to={`/chataiProject/${prompt?._id}`}>
               {i + 1}. {prompt?.prompt}
             </Link>
@@ -184,11 +192,13 @@ const ProjectLayout = (props) => {
 };
 
 const mapState = (state) => {
+  const { user } = state.auth;
   const { menuOpen } = state.layout;
-  return { menuOpen };
+  return { menuOpen, user };
 };
+
 const mapDispatch = (dispatch) => ({
   setMenuOpen: (bool) => dispatch.layout.setMenuOpen(bool),
 });
 
-export default connect(mapState, mapDispatch)(ProjectLayout);
+export default connect(mapState, mapDispatch)(ChatAiProjectLayout);

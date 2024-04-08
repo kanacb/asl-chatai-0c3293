@@ -4,7 +4,7 @@ import _ from "lodash";
 import { Button } from "primereact/button";
 import { CascadeSelect } from "primereact/cascadeselect";
 import { OverlayPanel } from "primereact/overlaypanel";
-
+import { Badge } from "primereact/badge";
 import ChataiProjectActionBehaviorsPage from "./ChataiProjectActionBehaviorsPage";
 import ChataiProjectActionTemperaturPage from "./ChataiProjectActionTemperaturePage";
 import ChataiProjectActionFADocsPage from "./ChataiProjectActionFADocsPage";
@@ -13,6 +13,9 @@ const ChataiProjectActionPage = (props) => {
   const opTemperature = useRef();
   const opFABehavior = useRef();
   const opFACDocsConfig = useRef();
+  const [numFiles, setNumFiles] = useState(2);
+  const [numTemp, setNumTemp] = useState(0.5);
+  const [numConfig, setNumConfig] = useState(0);
   const chatAis = [
     {
       name: "Facility Agreement",
@@ -107,8 +110,16 @@ const ChataiProjectActionPage = (props) => {
 
   useEffect(() => {
     //on mount
-    props.setSelectedModel(chatAis[0]?.actions[0]?.models[0]);
-  }, []);
+    if (!props.selectedModel) {
+      props.setSelectedModel(chatAis[0]?.actions[0]?.models[0]);
+    } else {
+      props.setSelectedModel(props.selectedModel);
+    }
+    props.displayLikeChatGPT(
+      props.selectedModel?.description,
+      props.setDescriptionOnAction
+    );
+  }, [props.selectedModel]);
 
   const chatAiOptionTemplate = (option) => {
     return (
@@ -135,7 +146,6 @@ const ChataiProjectActionPage = (props) => {
           value={props.selectedModel}
           onChange={(e) => {
             props.setSelectedModel(e.value);
-            console.log(e.value);
           }}
           options={chatAis}
           optionLabel="cname"
@@ -147,15 +157,13 @@ const ChataiProjectActionPage = (props) => {
           itemTemplate={chatAiOptionTemplate}
           style={{ maxWidth: "fit-content" }}
         />
-        <div className="m-1 overflow-auto">
-          {props.selectedModel?.description}
-        </div>
+        <div className="m-1 overflow-auto">{props.descriptionOnAction}</div>
       </div>
-      <div className="col-offset-1 flex align-items-right justify-content-end">
+      <div className="col-3 flex justify-content-end">
         <Button
           icon="pi pi-fw pi-refresh"
-          className="mb-1 mr-2"
-          size="large"
+          className="mb-1 mt-2"
+          size="small"
           rounded
           text
           severity="primary"
@@ -166,8 +174,8 @@ const ChataiProjectActionPage = (props) => {
         />
         <Button
           icon="pi pi-fw pi-file-import"
-          className="mb-1 mr-2"
-          size="large"
+          className="mb-1"
+          size="small"
           tooltip="control documents"
           tooltipOptions={{ position: "mouse" }}
           rounded
@@ -175,29 +183,43 @@ const ChataiProjectActionPage = (props) => {
           severity="primary"
           aria-label="docs"
           onClick={(e) => opFACDocsConfig.current.toggle(e)}
-        />
+        >
+          <span>
+            <Badge value={numFiles} severity="success"></Badge>
+          </span>
+        </Button>
+
         <Button
           icon="pi pi-fw pi-sliders-h"
-          className="mb-1 mr-2"
-          size="large"
+          className="mb-1"
+          size="small"
           tooltipOptions={{ position: "mouse" }}
           rounded
           text
           severity="primary"
           aria-label="config"
           onClick={(e) => opTemperature.current.toggle(e)}
-        />
+        >
+          <span>
+            <Badge value={numTemp} severity="info"></Badge>
+          </span><small>&#8451;</small>
+        </Button>
         <Button
           icon="pi pi-fw pi-cog"
-          className="mb-1 mr-2"
-          size="large"
+          className="mb-1"
+          size="small"
           tooltipOptions={{ position: "mouse" }}
           rounded
           text
           severity="primary"
           aria-label="fa"
           onClick={(e) => opFABehavior.current.toggle(e)}
-        />
+        >
+          {" "}
+          <span>
+            <Badge value={numConfig+1} severity="warning"></Badge>
+          </span>
+        </Button>
       </div>
       <OverlayPanel
         ref={opFACDocsConfig}
@@ -205,7 +227,7 @@ const ChataiProjectActionPage = (props) => {
           root: { className: "surface-ground" },
         }}
       >
-        <ChataiProjectActionFADocsPage />
+        <ChataiProjectActionFADocsPage setNumFiles={(e) => setNumFiles(e)} />
       </OverlayPanel>
       <OverlayPanel
         ref={opTemperature}
@@ -214,7 +236,7 @@ const ChataiProjectActionPage = (props) => {
         }}
         className="zoomindown animation-duration-500"
       >
-        <ChataiProjectActionTemperaturPage  />
+        <ChataiProjectActionTemperaturPage setNumTemp={(t) => setNumTemp(t)}  />
       </OverlayPanel>
       <OverlayPanel
         ref={opFABehavior}
@@ -223,7 +245,11 @@ const ChataiProjectActionPage = (props) => {
         }}
         className="fadeinup animation-duration-500"
       >
-        <ChataiProjectActionBehaviorsPage setSelectedConfigId={props.setSelectedConfigId} selectedConfigId={props.selectedConfigId} />
+        <ChataiProjectActionBehaviorsPage
+          setSelectedConfigId={props.setSelectedConfigId}
+          selectedConfigId={props.selectedConfigId}
+          setNumConfig={(c)=>setNumConfig(c)}
+        />
       </OverlayPanel>
     </div>
   );

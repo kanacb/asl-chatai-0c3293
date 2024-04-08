@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import client from "../../services/restClient";
 import _ from "lodash";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
-import ProjectLayout from "../Layouts/ProjectLayout";
+import ProjectLayout from "../Layouts/ChatAiProjectLayout";
 import { Skeleton } from "primereact/skeleton";
 import ChataiProjectActionPage from "./ChataiProjectActionPage";
 import ChataiProjectResponsePage from "./ChataiProjectResponsePage";
 import ChataiProjectPromptPage from "./ChataiProjectPromptPage";
 import requestObject from "./requestObject.json";
-import responseObject from "./responseObject.json";
+// import responseObject from "./responseObject.json";
 import { ProgressSpinner } from "primereact/progressspinner";
 
 const ChataiProjectLayoutPage = (props) => {
@@ -21,6 +21,7 @@ const ChataiProjectLayoutPage = (props) => {
   const [openFAChatAiConfig, setOpenFAChatAiConfig] = useState(false);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState(null);
+  const [descriptionOnAction, setDescriptionOnAction] = useState();
   const [prompt, setPrompt] = useState("");
   const [responsePrompt, setResponsePrompt] = useState("");
   const [responseRemarks, setResponseRemarks] = useState("");
@@ -89,7 +90,7 @@ const ChataiProjectLayoutPage = (props) => {
       stopSequence: responseObject["stop_sequence"],
       inputTokens: responseObject["input_tokens"],
       outputTokens: responseObject["output_tokens"],
-      cost: responseObject["output_tokens"] * 0.005,
+      cost: responseObject["output_tokens"] * 0.005 + responseObject["input_tokens"] * 0.001,
       status: true,
       error: null,
       createdBy: props.user._id,
@@ -187,6 +188,8 @@ const ChataiProjectLayoutPage = (props) => {
     const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3haiku";
     // Define the properties and data for the API request
     requestObject["preamble"] = `Here is the first question: ${prompt} \\n Assistant:`;
+    
+    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
     const requestOptions = {
       method: "post",
       url: API_URL,
@@ -198,6 +201,7 @@ const ChataiProjectLayoutPage = (props) => {
 
     setLoading(true);
     setResponse("");
+    setResponsePrompt(prompt);
 
     try {
       const responseText = await axios(requestOptions);
@@ -295,7 +299,9 @@ const ChataiProjectLayoutPage = (props) => {
                 setPrompt(prompt);
                 setResponse("");
               }}
-              displayLikeChatGPT={(t) => displayLikeChatGPT(t)}
+              displayLikeChatGPT={(t,s) => displayLikeChatGPT(t,s)}
+              descriptionOnAction={descriptionOnAction}
+              setDescriptionOnAction={(d) => setDescriptionOnAction(d)}
             />
           </div>
           <div
