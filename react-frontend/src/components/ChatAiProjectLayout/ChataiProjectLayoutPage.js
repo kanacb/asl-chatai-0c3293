@@ -167,7 +167,7 @@ const ChataiProjectLayoutPage = (props) => {
       .service("prompts")
       .patch(_data?.currentPromptId, _data?.data)
       .then((res) => {
-        console.log({ res });
+        // console.log({ res });
         props.alert({
           title: "ASL Chat Ai",
           type: "success",
@@ -317,6 +317,7 @@ const ChataiProjectLayoutPage = (props) => {
               response={response}
               responsePrompt={responsePrompt}
               responseRemarks={responseRemarks}
+              currentPromptId={currentPromptId}
               error={error}
               patchResponse={(_data, success, failure) =>
                 patchResponse(_data, success, failure)

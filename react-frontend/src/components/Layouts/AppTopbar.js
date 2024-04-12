@@ -26,7 +26,7 @@ const AppTopbar = (props) => {
       template: (item) => {
         return (
           <ul className="p-menu-list p-reset border-top-1 border-200">
-            <li className="p-menu-list p-reset">
+            <li className="p-menu-list p-reset" key={item.label}>
               <a className="p-menuitem-link" onClick={onLogout} role="menuitem">
                 <span
                   className={"p-menuitem-icon pi pi-sign-out text-primary"}

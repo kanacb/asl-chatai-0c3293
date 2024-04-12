@@ -94,6 +94,32 @@ const LoginPage = (props) => {
                 onClick={login}
               ></Button>
             </div>
+            <div className="w-full mb-4">
+              <div className="flex">
+                <p className="m-0">Or login with</p>
+                <hr
+                  style={{
+                    width: "60%",
+                    marginLeft: "5%",
+                    marginTop: "4%",
+                    borderTop: "1px solid #000",
+                  }}
+                />
+              </div>
+              {/* <div className="w-full flex justify-content-center mt-3">
+                <GoogleOauth props={props} type={"login"} />
+              </div> */}
+              GOOGLE - Coming soon
+              {/* <div className="w-full flex justify-content-center mt-3">
+                <FacebookOauth props={props} type={"login"} />
+              </div> */}
+              {/* <div className="w-full flex justify-content-center mt-3">
+                <GithubOauth props={props} type={"login"} />
+              </div> */}
+              {/* <div className="w-full flex justify-content-center mt-3">
+                <AppleOauth props={props} type={"login"} />
+              </div> */}
+            </div>
             <div className="w-full flex flex-column align-items-center">
               <div className="w-full flex justify-content-between">
                 {/* <Link to="/signup">Don't have an account?</Link> */}

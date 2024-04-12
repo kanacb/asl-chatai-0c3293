@@ -217,7 +217,7 @@ const DivServices = (props) => {
         </div>
       </div>
       <div className="w-full" >
-      <LineDemo className="max-h-30rem" ></LineDemo>
+        <LineDemo />
       </div>
     </div>
   );

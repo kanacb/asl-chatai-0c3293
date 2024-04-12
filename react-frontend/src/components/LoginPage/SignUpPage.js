@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
-// import { deviceDetect } from "react-device-detect";
+
 const SignUpPage = (props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -145,6 +145,21 @@ const SignUpPage = (props) => {
                 className="p-button-raised p-button-rounded"
                 onClick={signup}
               ></Button>
+            </div>
+          </div>
+          <div className="flex flex-column align-items-center mt-3">
+            <div className="col-12 lg:col-8">
+              <div className="flex">
+                <p className="m-0">Or Signup with</p>
+                <hr
+                  style={{
+                    width: "60%",
+                    marginLeft: "5%",
+                    marginTop: "3%",
+                    borderTop: "1px solid #000",
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Chart } from "primereact/chart";
+import { ChartService } from "../../services/chartService";
 
 export default function LineDemo() {
   const [chartData, setChartData] = useState({});
@@ -12,69 +13,156 @@ export default function LineDemo() {
       "--text-color-secondary"
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
-    const data = {
-      labels: ["1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th"],
-      datasets: [
-        {
-          label: "Input Tokens",
-          data: [65, 59, 80, 81, 56, 55, 40],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue("--blue-500"),
-          tension: 0.4,
-        },
-        {
-          label: "Output",
-          data: [28, 48, 40, 19, 86, 27, 90],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue("--green-500"),
-          tension: 0.4,
-        },
-        {
-          label: "Cost",
-          data: [2.8, 3.8, 4.0, 4.9, 8.6, 9.7, 12.0],
-          fill: false,
-          borderColor: documentStyle.getPropertyValue("--red-500"),
-          tension: 0.4,
-        },
-      ],
-    };
-    const options = {
-      maintainAspectRatio: false,
-      aspectRatio: 0.5,
-      plugins: {
-        legend: {
-          labels: {
-            color: textColor,
+    ChartService("prompts", "days", [
+      "cost",
+      "inputTokens",
+      "outputTokens",
+    ]).then((chartService) => {
+      // console.log(chartService);
+      const data = {
+        labels: chartService.labels,
+        datasets: [
+          {
+            label: "Cost",
+            data: chartService.datasets[0].points,
+            fill: false,
+            yAxisID: "y",
+            borderColor: documentStyle.getPropertyValue("--red-500"),
+            tension: 0.4,
+          },
+          {
+            label: "Input",
+            data: chartService.datasets[1].points,
+            fill: false,
+            yAxisID: "y1",
+            borderColor: documentStyle.getPropertyValue("--blue-500"),
+            tension: 0.4,
+          },
+          {
+            label: "Output",
+            data: chartService.datasets[2].points,
+            fill: false,
+            yAxisID: "y2",
+            borderColor: documentStyle.getPropertyValue("--green-500"),
+            tension: 0.4,
+          },
+        ],
+      };
+      const options = {
+        animations: {
+          tension: {
+            duration: 1000,
+            easing: "linear",
+            from: 0.5,
+            to: 0,
+            loop: true,
           },
         },
-      },
-      scales: {
-        x: {
-          ticks: {
-            color: textColorSecondary,
+        maintainAspectRatio: false,
+        aspectRatio: 0.5,
+        plugins: {
+          legend: {
+            labels: {
+              color: textColor,
+            },
           },
-          grid: {
-            color: surfaceBorder,
+          subtitle: {
+            display: true,
+            text: "Cost of Ai Chat",
           },
-        },
-        y: {
-          ticks: {
-            color: textColorSecondary,
-          },
-          grid: {
-            color: surfaceBorder,
-          },
-        },
-      },
-    };
+          // title: {
+          //   display: true,
+          //   text: "Custom Chart Title",
+          // },
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.dataset.label || "";
 
-    setChartData(data);
-    setChartOptions(options);
+                if (label) {
+                  label += ": ";
+                }
+                if (context.parsed.y !== null) {
+                  if (context.dataset.label === "Cost") {
+                    label += new Intl.NumberFormat("en-US", {
+                      style: "currency",
+                      currency: "USD",
+                    }).format(context.parsed.y);
+                  } else {
+                    label += new Intl.NumberFormat("en-US", {
+                      style: "decimal",
+                    }).format(context.parsed.y);
+                  }
+                }
+                return label;
+              },
+            },
+          },
+        },
+        scales: {
+          x: {
+            title: "date",
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+          },
+          y: {
+            ticks: {
+              color: textColorSecondary,
+              callback: function (value, index, ticks) {
+                return "RM" + value;
+              },
+            },
+            grid: {
+              color: surfaceBorder,
+            },
+            title: "cost",
+          },
+          y1: {
+            type: "linear",
+            display: true,
+            position: "right",
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              drawOnChartArea: false,
+              color: surfaceBorder,
+            },
+            text: "input",
+          },
+          y2: {
+            label: "Output",
+            type: "linear",
+            display: true,
+            position: "right",
+            ticks: {
+              color: textColorSecondary,
+            },
+            grid: {
+              drawOnChartArea: false,
+              color: surfaceBorder,
+            },
+            text: ["output"],
+          },
+        },
+      };
+      setChartData(data);
+      setChartOptions(options);
+    });
   }, []);
 
   return (
-    <div className="card">
-      <Chart type="line" data={chartData} options={chartOptions} />
+    <div className="card chart-container">
+      <Chart
+        type="line"
+        className="max-h-15rem"
+        data={chartData}
+        options={chartOptions}
+      />
     </div>
   );
 }

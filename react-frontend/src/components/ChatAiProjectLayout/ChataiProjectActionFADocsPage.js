@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import client from "../../services/restClient";
 import { TabView, TabPanel } from "primereact/tabview";
 import { MultiStateCheckbox } from "primereact/multistatecheckbox";
+import { Checkbox } from 'primereact/checkbox';
 
 const ChataiProjectActionFADocsPage = (props) => {
   const [refFaDocs, setRefFaDocs] = useState([]);
@@ -48,7 +49,8 @@ const ChataiProjectActionFADocsPage = (props) => {
                 className="flex align-self-auto  justify-content-start font-bold border-round m-2"
                 style={{ minWidth: "200px", minHeight: "10px" }}
               >
-                <MultiStateCheckbox
+                {/* <MultiStateCheckbox
+                  key={i}
                   value={multiStateCheckbox}
                   onChange={(e) =>
                     setMultiStateCheckbox([
@@ -58,8 +60,9 @@ const ChataiProjectActionFADocsPage = (props) => {
                   }
                   options={optionsMultiSelect}
                   optionValue="value"
-                />
-                <span className="ml-3">{doc.filename}</span>
+                /> */}
+                <Checkbox inputId={doc?._id}  checked={true}/>
+                <label htmlFor={doc?._id} className="ml-3">{doc.filename}</label>
               </div>
             ))}
           </div>

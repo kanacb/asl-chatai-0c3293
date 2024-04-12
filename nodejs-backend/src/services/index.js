@@ -1,4 +1,5 @@
 const users = require("./users/users.service.js");
+const userProfile = require("./userProfile/userProfile.service.js");
 const sessions = require("./sessions/sessions.service.js");
 const chatai = require("./chatai/chatai.service.js");
 const config = require("./config/config.service.js");
@@ -14,6 +15,7 @@ const refFacilities = require("./refFacilities/refFacilities.service.js");
 // eslint-disable-next-line no-unused-vars
 module.exports = function (app) {
   app.configure(users);
+  app.configure(userProfile);
   app.configure(sessions);
   app.configure(chatai);
   app.configure(config);

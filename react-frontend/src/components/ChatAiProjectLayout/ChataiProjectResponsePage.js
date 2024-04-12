@@ -98,6 +98,7 @@ const ChataiProjectResponsePage = (props) => {
         <div className="grid">
           <div className="col-1 vertical-align-middle">
             <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-up-button`}
               label="Up"
               icon={up ? "pi pi-thumbs-up-fill" : "pi pi-thumbs-up"}
               className="m-2"
@@ -110,17 +111,22 @@ const ChataiProjectResponsePage = (props) => {
               onClick={() => {
                 setThumbs("up");
                 setDown(null);
+                console.log(props.currentPromptId);
                 props.patchResponse(
                   {
-                    currentPromptId: urlParams.promptId,
-                    data: { thumbsUp: up===null },
+                    currentPromptId:
+                      urlParams.promptId || props.currentPromptId,
+                    data: { thumbsUp: up === null },
                   },
-                  up===null ? "Saved user Thumbs Up, thank you." : "Write your remarks on how to improve!",
+                  up === null
+                    ? "Saved user Thumbs Up, thank you."
+                    : "Write your remarks on how to improve!",
                   "Failed to save thumbs up"
                 );
               }}
             />
             <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-down-button`}
               label="Down"
               icon={down ? "pi pi-thumbs-down-fill" : "pi pi-thumbs-down"}
               className="m-2"
@@ -135,15 +141,19 @@ const ChataiProjectResponsePage = (props) => {
                 setUp(null);
                 props.patchResponse(
                   {
-                    currentPromptId: urlParams.promptId,
-                    data: { thumbsDown: down===null },
+                    currentPromptId:
+                      urlParams.promptId || props.currentPromptId,
+                    data: { thumbsDown: down === null },
                   },
-                  down===null ? "Saved user Thumbs Down, thank you." : "Write your remarks on how to improve!",
+                  down === null
+                    ? "Saved user Thumbs Down, thank you."
+                    : "Write your remarks on how to improve!",
                   "Failed to save thumbs down"
                 );
               }}
             />
             <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-rem-button`}
               label="Remarks"
               icon="pi pi-book"
               className="m-2"
@@ -158,6 +168,7 @@ const ChataiProjectResponsePage = (props) => {
               }}
             />
             <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-cp-button`}
               label="Copy"
               icon="pi pi-copy"
               className="m-2"
@@ -171,7 +182,8 @@ const ChataiProjectResponsePage = (props) => {
                 copyToClipBoard();
                 props.patchResponse(
                   {
-                    currentPromptId: urlParams.promptId,
+                    currentPromptId:
+                      urlParams.promptId || props.currentPromptId,
                     data: { copied: true },
                   },
                   "Saved copied",
@@ -180,6 +192,7 @@ const ChataiProjectResponsePage = (props) => {
               }}
             />
             <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-em-button`}
               label="Email"
               icon="pi pi-envelope"
               className="m-2"
@@ -193,7 +206,8 @@ const ChataiProjectResponsePage = (props) => {
                 window.location = emailTo;
                 props.patchResponse(
                   {
-                    currentPromptId: urlParams.promptId,
+                    currentPromptId:
+                      urlParams.promptId || props.currentPromptId,
                     data: { emailed: true },
                   },
                   "Saved user Email To",
@@ -230,7 +244,7 @@ const ChataiProjectResponsePage = (props) => {
               onClick={() =>
                 props.patchResponse(
                   {
-                    currentPromptId: urlParams.promptId,
+                    currentPromptId: urlParams.promptId || props.response?._id,
                     data: { userRemarks: remarks },
                   },
                   "Saved user Remarks",

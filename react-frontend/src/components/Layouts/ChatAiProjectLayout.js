@@ -20,11 +20,9 @@ const mainLayoutStyle = {
 const ChatAiProjectLayout = (props) => {
   const [mobileMenuActive, setMobileMenuActive] = useState(false);
   const [prompts, setPrompts] = useState([]);
-  const urlParams = useParams();
   const copyTooltipRef = useRef();
   const location = useLocation();
   const today = new Date();
-  const [promptDate, setDate] = useState(today);
 
   useEffect(() => {
     // Handler to call on window resize
@@ -61,13 +59,19 @@ const ChatAiProjectLayout = (props) => {
   };
 
   const userPrompts = client.service("prompts");
+  userPrompts.on("created", (newPrompt) => {
+    setPrompts((prevPrompts) => {
+      if(!Array.isArray(prevPrompts)) return [];
+      if (
+        prevPrompts?.length > 0 &&
+        !prevPrompts?.includes(newPrompt)
+      )
+        return [newPrompt, ...prevPrompts];
+      else return prevPrompts;
+    });
+  });
+
   useEffect(() => {
-    // userPrompts.on("created", (newPrompt) => {
-    //   setPrompts((prevPrompts) => {
-    //     if (Array.isArray(prevPrompts) && !prevPrompts?.includes(newPrompt))
-    //       [...prevPrompts, newPrompt];
-    //   });
-    // });
     //on mount
     client
       .service("prompts")
