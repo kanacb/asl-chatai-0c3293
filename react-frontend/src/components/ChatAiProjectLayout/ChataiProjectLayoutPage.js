@@ -104,7 +104,7 @@ const ChataiProjectLayoutPage = (props) => {
         // console.log({ res });
         setCurrentPromptId(res["_id"]);
         props.alert({
-          title: "ASL Chat Ai",
+          title: "Legal GenAi",
           type: "success",
           message: "Saved Prompt",
         });
@@ -169,7 +169,7 @@ const ChataiProjectLayoutPage = (props) => {
       .then((res) => {
         // console.log({ res });
         props.alert({
-          title: "ASL Chat Ai",
+          title: "Legal GenAi",
           type: "success",
           message: success,
         });
@@ -213,7 +213,7 @@ const ChataiProjectLayoutPage = (props) => {
       // displayLikeChatGPT(sample);
       props.alert({
         type: "success",
-        title: "Succesful response from ASL Chat Ai",
+        title: "Succesful response from Legal GenAi",
         message: "prompt sent successfully",
       });
     } catch (error) {
@@ -251,7 +251,7 @@ const ChataiProjectLayoutPage = (props) => {
   return (
     <ProjectLayout>
       {loading ? (
-        <Dialog header="ASL Chat Ai in Progress" visible={loading}>
+        <Dialog header="Legal GenAi in Progress" visible={loading}>
           {" "}
           <div className="flex justify-content-center align-items-vertical">
             <ProgressSpinner

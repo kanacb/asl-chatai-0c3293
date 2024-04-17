@@ -6,6 +6,7 @@ import _ from "lodash";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Editor } from "primereact/editor";
+import "./ChatAiProjectLayout.css";
 
 const ChataiProjectResponsePage = (props) => {
   const [up, setUp] = useState(null);
@@ -56,20 +57,25 @@ const ChataiProjectResponsePage = (props) => {
     return (
       <div className="mt-3 fadein">
         <div className="grid grid-nogutter flex">
-          <div className=" cursor-pointer min-w-max flex align-items-center">
+          <div className="col-7 cursor-pointer min-w-max flex align-items-center container">
             <img
-              src={
-                "https://i0.wp.com/www.asl.com.my/wp-content/uploads/2021/11/ASL_Logo.png?fit=1970%2C1072&ssl=1"
-              }
-              height={45}
+              src="https://media.licdn.com/dms/image/D5612AQH0Ok7g3XGBsw/article-cover_image-shrink_720_1280/0/1694753996052?e=1718841600&v=beta&t=hqnaIjOcwF35BUbblP5rfTBlQv3LnRTUrehDWvitilE"
+              height={280}
               className="mb-1 animation-duration-500"
-            />
+            />{" "}
+            <p className="bottom-right">
+              <a target="_blanck" href="https://www.linkedin.com/pulse/ai-lawyers-how-generative-transforming-legal-industry-avishkaram/">
+                Read More
+              </a>
+            </p>
           </div>
-          <div className="col-3 p-2 fadein animation-duration-1000">
-            How can I help you?
+          <div className="col-5 min-h-max p-2 fadein animation-duration-1000 flex flex-wrap align-items-center">
+            <span className="vertical-align-middle">
+              <h3>How can I help you?</h3>
+            </span>
           </div>
         </div>
-        <div className="grid flex justify-content-center ">
+        <div className="grid flex justify-content-center mt-5">
           <div className="card col-4 fadein animation-duration-3000 animation-delay-1000 animation-iteration-2">
             Facility Agreement (available)
           </div>

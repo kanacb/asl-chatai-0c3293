@@ -58,53 +58,69 @@ const UserLayout = (props) => {
 
   const menu = [
     {
-      label: "Dashboard",
+      label: "Dashboards",
       items: [
         {
-          label: "ASL Ai Chat Bot",
+          label: "Go To Gen Ai Chat",
           icon: "pi pi-fw pi-briefcase",
           to: `/chataiProject`,
         },
+      ],
+    },
+    {
+      label: "Gen Ai Management",
+      items: [
         {
-          label: "List Ai Chats",
-          icon: "pi pi-fw pi-hourglass",
-          to: `/chatai`,
-        },
-        {
-          label: "List of Prompts",
+          label: "History of Prompts",
           icon: "pi pi-fw pi-book",
           to: `/prompts`,
         },
         {
-          label: "Model Config",
+          label: "Gen Ai Engines",
+          icon: "pi pi-fw pi-hourglass",
+          to: `/chatai`,
+        },
+
+        {
+          label: "Gen Ai Models",
           icon: "pi pi-fw pi-th-large",
           to: `/config`,
         },
+        {
+          label: "Documents",
+          icon: "pi pi-fw pi-file-word",
+          to: `/refFaDocs`,
+        },
+      ],
+    },
+    {
+      label: "Data Management",
+      items: [
         {
           label: "Sample Prompts",
           icon: "pi pi-fw pi-check-square",
           to: `/samplePrompts`,
         },
         {
-          label: "Reference Config",
+          label: "Configuration",
           icon: "pi pi-fw pi-cog",
           to: `/refConfig`,
         },
         {
-          label: "FA Docs",
-          icon: "pi pi-fw pi-file-word",
-          to: `/refFaDocs`,
-        },
-        {
-          label: "Banks",
+          label: "Reference Banks",
           icon: "pi pi-fw pi-building",
           to: `/refBanks`,
         },
         {
-          label: "Facilities",
+          label: "Reference Facilities",
           icon: "pi pi-fw pi-map",
           to: `/refFacilities`,
         },
+      ],
+    },
+    {
+      label: "User Management",
+      items: [
         {
           label: "Users",
           icon: "pi pi-fw pi-users",
@@ -130,9 +146,9 @@ const UserLayout = (props) => {
       element.className = element.className.replace(
         new RegExp(
           "(^|\\b)" + className.split(" ").join("|") + "(\\b|$)",
-          "gi",
+          "gi"
         ),
-        " ",
+        " "
       );
   };
 

@@ -13,7 +13,7 @@ const AppFooter = (props) => {
         className="mr-2"
       />
       <small>
-        <span className="font-bold ml-1">CodeBridge &copy; 2024</span>
+        <span className="font-bold ml-1">CodeBridge Ai &copy; 2024</span>
       </small>
       <small className="ml-8"><b>last updated:</b>{" "}{upd}</small>
     </div>

@@ -6,6 +6,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import { AppMenu } from "./AppMenu";
 import { Button } from "primereact/button";
 import moment from "moment";
+import llmIcon from "../../assets/images/llm.png";
 
 const leftMenuStyle = {
   open: { transform: "translateX(0)" },
@@ -110,11 +111,11 @@ const ChatAiProjectLayout = (props) => {
 
   const menu = [
     {
-      label: "ASL Ai Chat Engine",
+      label: "Dashboard",
       items: [
         {
-          label: "Data Management",
-          icon: "pi pi-fw pi-users",
+          label: "Gen Ai Manager",
+          iconAsImg: llmIcon,
           to: `/users`,
           className: "fadein animation-duration-1000",
         },
@@ -161,7 +162,7 @@ const ChatAiProjectLayout = (props) => {
           onMenuItemClick={onMenuItemClick}
           layoutColorMode={"light"}
         />
-        <small className="font-bold">My Ai Chats</small>
+        <small className="font-bold">My Gen Ai Chats</small>
         {prompts?.map((prompt, i) => (
           <div className="w-full">
             <div className="flex justify-content-end">

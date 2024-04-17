@@ -54,14 +54,9 @@ const AppTopbar = (props) => {
   return (
     <div className="layout-topbar">
       <Link to="/">
-        <div className="cursor-pointer min-w-max flex align-items-end">
-          <img
-            src={
-              "https://i0.wp.com/www.asl.com.my/wp-content/uploads/2021/11/ASL_Logo.png?fit=1970%2C1072&ssl=1"
-            }
-            height={30}
-            className="mb-1"
-          />
+        <div className="cursor-pointer min-w-max flex align-items-end container">
+          <img src={process.env.REACT_APP_LOGO} height={40} className="" />
+          <p className="centered m-0">GenAi</p>
         </div>
       </Link>
 

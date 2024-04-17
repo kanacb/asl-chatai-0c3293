@@ -27,11 +27,15 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const badgeTemplate13 = (rowData, { rowIndex }) => (
     <Badge value={rowData.outputTokens}></Badge>
   );
-  const pTemplate14 = (rowData, { rowIndex }) => <p>{rowData.cost}</p>;
-  const tickTemplate15 = (rowData, { rowIndex }) => (
-    <i className={`pi ${rowData.status ? "pi-check" : "pi-times"}`}></i>
+  const pTemplate14 = (rowData, { rowIndex }) => (
+    <p className=" flex justify-content-end mr-5">
+      RM{rowData.cost.toFixed(2)}
+    </p>
   );
-  const pTemplate16 = (rowData, { rowIndex }) => <p>{rowData.error}</p>;
+  const tickTemplate15 = (rowData, { rowIndex }) => (
+    <i className={`flex justify-content-center pi ${rowData.status ? "pi-check" : "pi-times"}`}></i>
+  );
+  const pTemplate16 = (rowData, { rowIndex }) => <p>{rowData.error ? rowData.error : "none"}</p>;
 
   const editTemplate = (rowData, { rowIndex }) => (
     <Button
@@ -119,7 +123,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       /> */}
       <Column
         field="prompt"
-        header="Prompt"
+        header="Engineered Prompts"
         body={pTemplate3}
         style={{ minWidth: "8rem" }}
       />
@@ -172,6 +176,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         style={{ minWidth: "8rem" }}
       />
       <Column
+        
         field="outputTokens"
         header="outputTokens"
         body={badgeTemplate13}
@@ -192,7 +197,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       />
       <Column
         field="error"
-        header="Error"
+        header="error"
         body={pTemplate16}
         style={{ minWidth: "8rem" }}
       />

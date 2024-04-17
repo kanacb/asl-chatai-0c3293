@@ -111,7 +111,7 @@ const DivServices = (props) => {
             className="card mb-0 flex flex-column align-items-center justify-content-center hover zoom"
             style={{ height: "10rem" }}
           >
-            <div className="text-900 font-medium text-lg">ASL Chat Ai</div>
+            <div className="text-900 font-medium text-lg">Legal GenAi</div>
             <div className="mt-5 flex justify-content-end">
               click here to start!
               <i
@@ -124,7 +124,7 @@ const DivServices = (props) => {
       </div>
       {/* ~cb-add-services-card~ */}
 
-      <div className="grid mt-8">
+      <div className="grid mt-2">
         <div className="col-12 md:col-6 lg:col-3">
           <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
             <div className="flex justify-content-between mb-3">
@@ -164,7 +164,7 @@ const DivServices = (props) => {
             <span className="text-green-500 font-medium">
               {agg?.costLatest}%{" "}
             </span>
-            <span className="text-500">last week</span>
+            <span className="text-500">since last week</span>
           </div>
         </div>
         <div className="col-12 md:col-6 lg:col-3">
@@ -188,7 +188,7 @@ const DivServices = (props) => {
             <span className="text-green-500 font-medium">
               {agg?.inputTokensLastWeek}{" "}
             </span>
-            <span className="text-500"> last week</span>
+            <span className="text-500">add last week</span>
           </div>
         </div>
         <div className="col-12 md:col-6 lg:col-3">
@@ -204,7 +204,7 @@ const DivServices = (props) => {
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-purple-100 border-round"
-                style={{ width: "2.5rem", height: "2.5rem" }}
+                style={{ width: "2rem", height: "2rem" }}
               >
                 <i className="pi pi-arrow-left text-purple-500 text-xl"></i>
               </div>
@@ -259,13 +259,13 @@ const Dashboard = (props) => {
     >
       <div className="flex w-10">
         <div className=" w-8">
-          <h4 className="ml-4">App is Ready</h4>
+          <h4 className="ml-4">GenAi is Ready</h4>
           {props.isLoggedIn ? DivServices() : GetStarted()}
         </div>
         <div className="w-4 flex flex-column align-items-center">
           <img src={welcomeImg} alt="welcome" className="h-30rem" />
           <p className="text-3xl m-0">Welcome to </p>
-          <p className="text-7xl m-0">ASL Chat Ai!</p>
+          <p className="text-7xl m-0">Legal GenAi!</p>
           <p>You are ready to go!</p>
         </div>
       </div>

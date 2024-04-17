@@ -3,7 +3,7 @@
     "name": "Facility Agreements V 1.0",
     "description": "sdfasdfa",
     "bedrock_model_id": "anthropic.claude-3-haiku-20240307-v1:0",
-    "name_1": "ASL Ai Chat v 1.0",
+    "name_1": "Legal GenAi v 1.0",
     "human": "Human: I'm going to give you a document. Then I'm going to ask you a question about it. I'd like you to first write down exact quotes of parts of the document that would help answer the question, and then I'd like you to answer the question using facts from the quoted content. Here is the document:",
     "task": "First, find the quotes from the document that are most relevant to answering the question, and then print them in numbered order. Quotes should be relatively short.",
     "no_condition": "If there are no relevant quotes, write \\\"No relevant quotes found.\\\"",

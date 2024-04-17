@@ -58,7 +58,7 @@ const ChataiProjectPromptPage = (props) => {
       <InputTextarea
         value={props.prompt}
         onChange={(e) => props.setPrompt(e.target.value)}
-        placeholder="Message ASL ChatAi here ..."
+        placeholder="Message Legal GenAi here ..."
         rows={2}
         cols={70}
       />

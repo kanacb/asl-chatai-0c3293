@@ -81,7 +81,7 @@ const SinglePromptsPage = (props) => {
       </div>
       <div className="grid col-10">
         <div className="card w-full">
-          <label className="text-sm text-primary">Sessionid</label>
+          {/* <label className="text-sm text-primary">Sessionid</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.sessionid}</p>
           </div>
@@ -92,20 +92,59 @@ const SinglePromptsPage = (props) => {
           <label className="text-sm text-primary">Config</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.configid?.name}</p>
-          </div>
+          </div> */}
           <label className="text-sm text-primary">Prompt</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.prompt}</p>
           </div>
           <label className="text-sm text-primary">Response Text</label>
           <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.responseText}</p>
+            <p
+              className="m-0 ml-3 scrollable"
+              dangerouslySetInnerHTML={{ __html: _entity?.responseText }}
+            ></p>
           </div>
-          <label className="text-sm text-primary">System Id</label>
+          <label className="text-sm text-primary">Remarks</label>
+          <div className="ml-3">
+            <p className="m-0 ml-3">
+              {_entity?.userRemarks ? _entity?.userRemarks : "No remarks"}
+            </p>
+          </div>
+          <label className="text-sm text-primary">Thumbs</label>
+          <span className="ml-3">
+            {_entity?.thumbsUp ? (
+              <i
+                className="pi pi-thumbs-up-fill"
+                style={{ color: "green" }}
+              ></i>
+            ) : (
+              <i
+                className="pi pi-thumbs-down-fill"
+                style={{ color: "red" }}
+              ></i>
+            )}
+          </span>
+          <label className="ml-3 text-sm text-primary">Copied</label>
+          <span className="ml-3">
+            {_entity?.copied ? (
+              <i className="pi pi-check-square" style={{ color: "green" }}></i>
+            ) : (
+              <i className="pi pi-times-circle" style={{ color: "red" }}></i>
+            )}
+          </span>
+          <label className="ml-3 text-sm text-primary">Emailed</label>
+          <span className="ml-3">
+            {_entity?.emailed ? (
+              <i className="pi pi-check-square" style={{ color: "green" }}></i>
+            ) : (
+              <i className="pi pi-times-circle" style={{ color: "red" }}></i>
+            )}
+          </span>
+          {/* <label className="text-sm text-primary">System Id</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.systemId}</p>
-          </div>
-          <label className="text-sm text-primary">Type</label>
+          </div> */}
+          {/* <label className="text-sm text-primary">Type</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.type}</p>
           </div>
@@ -116,6 +155,9 @@ const SinglePromptsPage = (props) => {
           <label className="text-sm text-primary">Model</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{_entity?.model}</p>
+          </div> */}
+          <div className="ml-3">
+            <p className="m-0 ml-3"></p>
           </div>
           <label className="text-sm text-primary">Stop Reason</label>
           <div className="ml-3">
@@ -135,19 +177,21 @@ const SinglePromptsPage = (props) => {
           </div>
           <label className="text-sm text-primary">cost</label>
           <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.cost}</p>
+            <p className="m-0 ml-3">{_entity?.cost.toFixed(2)}</p>
           </div>
           <label className="text-sm text-primary">status</label>
           <div className="ml-3">
             <i
-              className={`pi ${_entity?.status ? "pi-check" : "pi-times"}`}
+              className={`m-0 ml-3 pi ${_entity?.status ? "pi-check" : "pi-times"}`}
             ></i>
           </div>
           <label className="text-sm text-primary">Error</label>
           <div className="ml-3">
-            <p className="m-0 ml-3">{_entity?.error}</p>
+            <p className="m-0 ml-3">
+              {_entity?.error ? _entity?.error : "No errors found"}
+            </p>
           </div>
-          <label className="text-sm">ChatAi</label>
+          {/* <label className="text-sm">ChatAi</label>
           <p>
             {chatAiId.map((elem) => (
               <Link key={elem._id} to={`/chatai/${elem._id}`}>
@@ -156,8 +200,8 @@ const SinglePromptsPage = (props) => {
                 </div>
               </Link>
             ))}
-          </p>
-          <label className="text-sm">Config</label>
+          </p> */}
+          {/* <label className="text-sm">Config</label>
           <p>
             {configid.map((elem) => (
               <Link key={elem._id} to={`/config/${elem._id}`}>
@@ -166,7 +210,7 @@ const SinglePromptsPage = (props) => {
                 </div>
               </Link>
             ))}
-          </p>
+          </p> */}
           <label className="text-sm text-primary">created</label>
           <div className="ml-3">
             <p className="m-0 ml-3">{moment(_entity?.createdAt).fromNow()}</p>

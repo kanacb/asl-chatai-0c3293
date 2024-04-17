@@ -18,52 +18,40 @@ const ChataiProjectActionPage = (props) => {
   const [numConfig, setNumConfig] = useState(0);
   const chatAis = [
     {
-      name: "Facility Agreement",
-      code: "FA",
+      name: "Query Answering",
+      code: "QA",
       actions: [
         {
-          name: "Legal Query",
+          name: "Factual Queries",
           models: [
             {
               description:
-                "Raise a question and get the answer in a simple easy to use interface to assist in daily tasks.",
-              cname: "ASL FA Ai Chat v 1.0",
-              code: "anthropic.claude-3-haiku-20240307-v1:0",
-              disabled: false,
-            },
-          ],
-        },
-        {
-          name: "Legal ChatBot",
-          models: [
-            {
-              description:
-                "A conversational interface to assistant and enhance the experience of your customers",
-              cname: "ASL FA Ai Chat v 1.0",
+                "LLMs can answer factual questions by understanding the context provided in the query and generating relevant responses.",
+              cname: "Factual Query CB 20240307-v1",
               code: "anthropic.claude-3-haiku-20240307-v1:0",
               disabled: true,
             },
           ],
         },
         {
-          name: "Contextual Comparison",
+          name: "Specific Queries",
           models: [
             {
               description:
-                "Contextual comparison involves evaluating facility agreements of provider banks, ensuring legal tasks align with constitutional requirements of financial institutions, safeguarding compliance and mitigating legal risks effectively.",
-              cname: "ASL FA Ai Chat v 1.0",
+                "Techniques like prompt engineering can be used to fine-tune the model for specific question-answering tasks.",
+              cname: "Specific Query CB 20240307-v1",
               code: "anthropic.claude-3-haiku-20240307-v1:0",
               disabled: true,
             },
           ],
         },
         {
-          name: "Constitutional Ai Search Engine",
+          name: "Untrained Queries",
           models: [
             {
               description:
-                "A Constitutional Ai engine aids legal counsels by leveraging advanced algorithms to search vast legal databases, swiftly identifying relevant case law, statutes, and precedents to tackle complex legal issues effectively.",
-              cname: "ASL FA Ai Chat v 1.0",
+                "Zero-shot or few-shot learning approaches enable LLMs to answer questions even if they haven't been explicitly trained on the specific task.",
+              cname: "Untrained Query CB 20240307-v1",
               code: "anthropic.claude-3-haiku-20240307-v1:0",
               disabled: true,
             },
@@ -72,39 +60,88 @@ const ChataiProjectActionPage = (props) => {
       ],
     },
     {
-      name: "Assignment & Charge",
-      code: "AC",
-      actions: [],
+      name: "Comparison",
+      code: "CM",
+      actions: [
+        {
+          name: "Different concepts",
+          models: [
+            {
+              description:
+                "LLMs can compare different entities or concepts by analyzing the similarities and differences in the context.",
+              cname: "Comparison concepts 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+        {
+          name: "Generated summaries",
+          models: [
+            {
+              description:
+                "For textual comparison, LLMs can generate descriptions or summaries of each entity and then compare the generated texts.",
+              cname: "Comparison generated 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+        {
+          name: "Specific types",
+          models: [
+            {
+              description:
+                "By providing prompts or examples, LLMs can be fine-tuned to perform specific types of comparisons, such as sentiment analysis or product reviews.",
+              cname: "Comparison specific 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+      ],
     },
     {
-      name: "Charge Annexure",
-      code: "CA",
-      actions: [],
-    },
-    {
-      name: "Debenture",
-      code: "DE",
-      actions: [],
-    },
-    {
-      name: "Guarantee",
-      code: "GU",
-      actions: [],
-    },
-    {
-      name: "Power of Attorney",
-      code: "PA",
-      actions: [],
-    },
-    {
-      name: "Set-Off",
-      code: "SO",
-      actions: [],
-    },
-    {
-      name: "SME (Docs)",
-      code: "SM",
-      actions: [],
+      name: "Text Generation",
+      code: "TG",
+      actions: [
+        {
+          name: "Contextually relevant",
+          models: [
+            {
+              description:
+                "LLMs excel at generating coherent and contextually relevant text based on a given prompt or input.",
+              cname: "Generate context 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+        {
+          name: "Content creation",
+          models: [
+            {
+              description:
+                "Text generation can be used for various applications such as content creation, storytelling, code generation, dialogue generation, and more.",
+              cname: "Generate content 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+        {
+          name: "Specific tasks",
+          models: [
+            {
+              description:
+                "Fine-tuning the model on specific datasets or tasks can improve the quality and relevance of generated text for particular domains.",
+              cname: "Generate specific 20240307-v1",
+              code: "anthropic.claude-3-haiku-20240307-v1:0",
+              disabled: true,
+            },
+          ],
+        },
+      ],
     },
   ];
 
@@ -157,27 +194,29 @@ const ChataiProjectActionPage = (props) => {
           itemTemplate={chatAiOptionTemplate}
           style={{ maxWidth: "fit-content" }}
         />
-        <div className="m-1 overflow-auto">{props.descriptionOnAction}</div>
-      </div>
-      <div className="col-3 flex justify-content-end">
         <Button
           icon="pi pi-fw pi-refresh"
-          className="mb-1 mt-2"
+          className="mt-1"
           size="small"
           rounded
           text
+          tooltip="reset"
+          tooltipOptions={{ position: "bottom" }}
           severity="primary"
           aria-label="refresh"
           onClick={() => {
             props.setPrompt("");
           }}
         />
+        <div className="m-1 overflow-auto">{props.descriptionOnAction}</div>
+      </div>
+      <div className="col-3 flex justify-content-end">
         <Button
           icon="pi pi-fw pi-file-import"
           className="mb-1"
           size="small"
-          tooltip="control documents"
-          tooltipOptions={{ position: "mouse" }}
+          tooltip="documents"
+          tooltipOptions={{ position: "bottom" }}
           rounded
           text
           severity="primary"
@@ -193,7 +232,8 @@ const ChataiProjectActionPage = (props) => {
           icon="pi pi-fw pi-sliders-h"
           className="mb-1"
           size="small"
-          tooltipOptions={{ position: "mouse" }}
+          tooltip="halication"
+          tooltipOptions={{ position: "bottom" }}
           rounded
           text
           severity="primary"
@@ -202,13 +242,15 @@ const ChataiProjectActionPage = (props) => {
         >
           <span>
             <Badge value={numTemp} severity="info"></Badge>
-          </span><small>&#8451;</small>
+          </span>
+          <small>&#8451;</small>
         </Button>
         <Button
           icon="pi pi-fw pi-cog"
           className="mb-1"
           size="small"
-          tooltipOptions={{ position: "mouse" }}
+          tooltip="prompting"
+          tooltipOptions={{ position: "bottom" }}
           rounded
           text
           severity="primary"
@@ -217,7 +259,7 @@ const ChataiProjectActionPage = (props) => {
         >
           {" "}
           <span>
-            <Badge value={numConfig+1} severity="warning"></Badge>
+            <Badge value={numConfig + 1} severity="warning"></Badge>
           </span>
         </Button>
       </div>
@@ -236,7 +278,7 @@ const ChataiProjectActionPage = (props) => {
         }}
         className="zoomindown animation-duration-500"
       >
-        <ChataiProjectActionTemperaturPage setNumTemp={(t) => setNumTemp(t)}  />
+        <ChataiProjectActionTemperaturPage setNumTemp={(t) => setNumTemp(t)} />
       </OverlayPanel>
       <OverlayPanel
         ref={opFABehavior}
@@ -248,7 +290,7 @@ const ChataiProjectActionPage = (props) => {
         <ChataiProjectActionBehaviorsPage
           setSelectedConfigId={props.setSelectedConfigId}
           selectedConfigId={props.selectedConfigId}
-          setNumConfig={(c)=>setNumConfig(c)}
+          setNumConfig={(c) => setNumConfig(c)}
         />
       </OverlayPanel>
     </div>
