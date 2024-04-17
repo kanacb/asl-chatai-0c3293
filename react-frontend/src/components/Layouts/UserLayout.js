@@ -61,14 +61,14 @@ const UserLayout = (props) => {
       label: "Dashboards",
       items: [
         {
-          label: "Go To Gen Ai Chat",
+          label: "Go To GenAi Chat",
           icon: "pi pi-fw pi-briefcase",
           to: `/chataiProject`,
         },
       ],
     },
     {
-      label: "Gen Ai Management",
+      label: "GenAi Management",
       items: [
         {
           label: "History of Prompts",
@@ -76,13 +76,13 @@ const UserLayout = (props) => {
           to: `/prompts`,
         },
         {
-          label: "Gen Ai Engines",
+          label: "GenAi Engines",
           icon: "pi pi-fw pi-hourglass",
           to: `/chatai`,
         },
 
         {
-          label: "Gen Ai Models",
+          label: "GenAi Models",
           icon: "pi pi-fw pi-th-large",
           to: `/config`,
         },

@@ -114,7 +114,7 @@ const ChatAiProjectLayout = (props) => {
       label: "Dashboard",
       items: [
         {
-          label: "Gen Ai Manager",
+          label: "GenAi Manager",
           iconAsImg: llmIcon,
           to: `/users`,
           className: "fadein animation-duration-1000",
@@ -162,7 +162,7 @@ const ChatAiProjectLayout = (props) => {
           onMenuItemClick={onMenuItemClick}
           layoutColorMode={"light"}
         />
-        <small className="font-bold">My Gen Ai Chats</small>
+        <small className="font-bold">My GenAi Chats</small>
         {prompts?.map((prompt, i) => (
           <div className="w-full">
             <div className="flex justify-content-end">

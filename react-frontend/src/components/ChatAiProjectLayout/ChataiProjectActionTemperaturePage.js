@@ -18,8 +18,9 @@ const ChataiProjectActionTemperaturPage = (props) => {
           id="label_temperature"
           className="mb-2 flex justify-content-center"
         >
-          Temperature {(temperature * 0.01).toFixed(2)}
+          temp. {(temperature * 0.01).toFixed(2)}
         </label>
+        <span>strict</span>
         <Slider
           value={temperature}
           onChange={(e) => {
@@ -28,6 +29,7 @@ const ChataiProjectActionTemperaturPage = (props) => {
           }}
           step={0.2}
         />
+        <span className="flex justify-content-end">hallucinate</span>
       </div>
 
       <div className="col-12 mt-2">

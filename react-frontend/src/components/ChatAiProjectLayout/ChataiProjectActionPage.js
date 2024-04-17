@@ -196,7 +196,7 @@ const ChataiProjectActionPage = (props) => {
         />
         <Button
           icon="pi pi-fw pi-refresh"
-          className="mt-1"
+          className="ml-3 mt-1"
           size="small"
           rounded
           text
@@ -232,7 +232,7 @@ const ChataiProjectActionPage = (props) => {
           icon="pi pi-fw pi-sliders-h"
           className="mb-1"
           size="small"
-          tooltip="halication"
+          tooltip="hallucinate"
           tooltipOptions={{ position: "bottom" }}
           rounded
           text

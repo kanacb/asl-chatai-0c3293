@@ -55,7 +55,7 @@ const AppTopbar = (props) => {
     <div className="layout-topbar">
       <Link to="/">
         <div className="cursor-pointer min-w-max flex align-items-end container">
-          <img src={process.env.REACT_APP_LOGO} height={40} className="" />
+          <img src={process.env.REACT_APP_LOGO} height={40} className="op-5" />
           <p className="centered m-0">GenAi</p>
         </div>
       </Link>
