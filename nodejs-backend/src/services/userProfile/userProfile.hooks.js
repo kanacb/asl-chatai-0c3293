@@ -5,16 +5,16 @@ const { hashPassword, protect } =
 module.exports = {
   before: {
     all: [],
-    find: [authenticate("jwt")],
+    find: [],
     get: [authenticate("jwt")],
-    create: [hashPassword("password")],
-    update: [authenticate("jwt"), hashPassword("password")],
-    patch: [authenticate("jwt"), hashPassword("password")],
+    create: [],
+    update: [authenticate("jwt")],
+    patch: [authenticate("jwt")],
     remove: [authenticate("jwt")],
   },
 
   after: {
-    all: [protect("password")],
+    all: [],
     find: [],
     get: [],
     create: [],

@@ -32,25 +32,28 @@ const ChataiProjectLayoutPage = (props) => {
   const [documents, setDocuments] = useState([]);
   const [numConfig, setNumConfig] = useState(0);
   const [refUserConfig, setRefUserConfig] = useState([]);
-  const [temperature, setTemperature] = useState(50);
-  const [topP, setTopP] = useState(50);
-  const [topK, setTopK] = useState(50);
-  const [maxLength, setMaxLength] = useState(50);
+  const [temperature, setTemperature] = useState(0.5);
+  const [topP, setTopP] = useState(0.5);
+  const [topK, setTopK] = useState(250);
+  const [maxLength, setMaxLength] = useState(2048);
   const [showBottomScroller, setBottomScroller] = useState(false);
   const sample =
     'Relevant extracts: [1] "The Borrower must pay interest on all principal sums of moneys lent or advanced by the Bank to the Borrower or otherwise owing or payable by the Borrower to the Bank under each Facility. Such interest will, except where otherwise provided in this Agreement or decided by the Bank pursuant to this Agreement, be calculated (as well after as before any court order or judgment and even if the banker-customer relationship between the Bank and the Borrower has ceased or been terminated): (a) at the prescribed interest rate for that Facility stated in the relevant Letter of Offer, or if not stated in the relevant Letter of Offer, at such interest rate for that Facility as may be prescribed by the Bank in its discretion from time to time; (b) with daily or monthly or other rest periods stated in the Letter of Offer, or if not stated in the relevant Letter of Offer, with such rest periods as the Bank may from time to time decide in its discretion; and (c) in accordance with the Bank\'s usual practice from time to time or otherwise in such manner as the Bank may from time to time decide, having regard to, amongst other things, the nature of that Facility." [2] "Regardless of the prescribed interest rate for each Facility stated or mentioned in the relevant Letter of Offer or decided by the Bank from time to time pursuant to this Agreement and regardless of whatever else stated or implied in this Agreement or any Letter of Offer, the Bank is entitled at any time and from time to time, to vary the prescribed interest rate for any Facility as the Bank thinks fit in its discretion, whether: (a) by varying the Base Rate or Base Lending Rate or any other reference rate (if any) used in determining the prescribed interest rate for that Facility, as the case may be; (b) by varying the interest margin/spread comprised in the prescribed interest rate for that Facility; (c) by changing the reference rate used in determining the prescribed interest rate for that Facility (for example, if the reference rate for determining the prescribed interest rate for that Facility is the Base Lending Rate, by changing such reference rate from the Base Lending Rate to the Base Rate or the Effective Cost of Funds (defined below) as the Bank deems fit in its discretion, or vice versa); (d) by a combination of any two or more of the above." Answers with citation: The interest rate on the Facilities is determined based on the prescribed interest rate stated in the Letter of Offer, or if not stated in the Letter of Offer, the interest rate prescribed by the Bank at its discretion. [1] The Bank has the absolute right to vary the prescribed interest rate at any time for any Facility by changing the Base Rate, Base Lending Rate, interest margin, or reference rate used to determine the rate. [2] The Bank can make these variations in its sole discretion. [2]';
   const pageEndRef = useRef(null);
 
   const scrollToBottom = () => {
-    pageEndRef.current?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+    pageEndRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+      inline: "nearest",
+    });
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     const scrollHeight = pageEndRef.current.scrollHeight;
-    const height = pageEndRef.current.clientHeight
+    const height = pageEndRef.current.clientHeight;
     setBottomScroller(scrollHeight > height);
-  },[])
-
+  }, []);
 
   function stringToHTML(inputText) {
     const ind = inputText.indexOf("Answers with citation:");
@@ -86,8 +89,8 @@ const ChataiProjectLayoutPage = (props) => {
 
   useEffect(() => {
     //on mount
-    getUserConfig();
-    if (urlParams.promptId) {
+
+    if (urlParams?.promptId) {
       client
         .service("prompts")
         .find({ query: { $limit: 10000, _id: urlParams.promptId } })
@@ -96,6 +99,13 @@ const ChataiProjectLayoutPage = (props) => {
           // setSelectedModel(results[0]);
           // displayLikeChatGPT(results[0]?.responseText);
           setData(results[0]);
+          if (results[0]?.params) {
+            const params = JSON.parse(results[0]?.params);
+            setTemperature(params?.temperature);
+            setTopP(params?.top_p);
+            setTopK(params?.top_k);
+            setMaxLength(params?.max_tokens_to_sample);
+          }
           setResponse(stringToHTML(results[0]?.responseText));
           setResponsePrompt(results[0]?.prompt);
           setResponseRemarks(results[0]?.userRemarks);
@@ -108,7 +118,7 @@ const ChataiProjectLayoutPage = (props) => {
             message: error.message || "Failed get chatai",
           });
         });
-    }
+    } else getUserConfig();
   }, [urlParams?.promptId]);
 
   const getUserConfig = () => {
@@ -119,6 +129,20 @@ const ChataiProjectLayoutPage = (props) => {
         const results = res.data;
         setRefUserConfig(results);
       });
+  };
+
+  const getParamsClaude3Haiku = (type = "string") => {
+    const paramObj = {
+      temperature,
+      top_k: topK,
+      top_p: topP,
+      max_tokens_to_sample: maxLength,
+      stop_sequences: ["Human:"],
+    };
+    if (type !== "string") {
+      return paramObj;
+    }
+    return JSON.stringify(paramObj);
   };
 
   const createPropmtSuccessRecord = (responseObject) => {
@@ -142,6 +166,7 @@ const ChataiProjectLayoutPage = (props) => {
         responseObject["input_tokens"] * 0.001,
       status: true,
       error: null,
+      params: getParamsClaude3Haiku(),
       createdBy: props.user._id,
       updatedBy: props.user._id,
     };
@@ -187,6 +212,7 @@ const ChataiProjectLayoutPage = (props) => {
       cost: 0,
       status: false,
       error: error.message,
+      params: getParamsClaude3Haiku(),
     };
 
     client
@@ -240,13 +266,7 @@ const ChataiProjectLayoutPage = (props) => {
     requestObject["documents"] = requestObjectJson.documents;
     requestObject["no_condition"] = requestObject.noCondition;
     requestObject["yes_condition"] = requestObject.yesCondition;
-    requestObject.params = {
-      temperature,
-      top_k: topK,
-      top_p: topP,
-      max_tokens_to_sample: maxLength,
-      stop_sequences: ["Human:"],
-    };
+    requestObject.params = getParamsClaude3Haiku("object");
     // console.log(numConfig, refUserConfig, requestObject);
     // return;
     requestObject["preamble"] =

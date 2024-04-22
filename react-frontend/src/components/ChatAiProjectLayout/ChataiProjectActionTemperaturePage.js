@@ -1,64 +1,97 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Chip } from "primereact/chip";
 import { Slider } from "primereact/slider";
+import { Button } from "primereact/button";
 
 const ChataiProjectActionTemperaturPage = (props) => {
-
-
+  const reset = () => {
+    props.setTemperature(50);
+    props.setTopK(50);
+    props.setTopP(50);
+    props.setMaxLength(50);
+    props.setNumTemp(50);
+  };
   return (
     <div className="card grid grid-nogutter " style={{ maxWidth: "300px" }}>
-      <h3>The parameters</h3>
+      <div className="col-11">
+        <h3>The parameters</h3>
+      </div>
+      <div className="col-1">
+        <Button
+          icon="pi pi-fw pi-refresh"
+          className=""
+          size="small"
+          rounded
+          text
+          tooltip="reset"
+          tooltipOptions={{ position: "bottom" }}
+          severity="primary"
+          aria-label="refresh"
+          onClick={reset}
+        />
+      </div>
+
       <div className="col-12">
         <label
           id="label_temperature"
           className="mb-2 flex justify-content-center"
         >
-          temp. {(temperature * 0.01).toFixed(2)}
+          temp. {(props?.temperature).toFixed(2)} &#176;C
         </label>
-        <span>strict</span>
+        <span className="text-sm">strict=0</span>
         <Slider
-          value={temperature}
-          onChange={(e) => {
-            setTemperature(e.value);
-            props.setNumTemp(((e.value / 100) * 1).toFixed(2));
-          }}
+          value={(props.temperature * 100)}
+          onChange={(e) => props.setTemperature((e.value / 100))}
           step={0.2}
         />
-        <span className="flex justify-content-end">hallucinate</span>
+        <span className="flex justify-content-end text-sm">hallucinate=1</span>
       </div>
 
       <div className="col-12 mt-2">
         <label id="label_topK" className="mb-2 flex justify-content-center">
-          TopK {(topK * 0.01).toFixed(2)}
+          TopK {props.topK.toFixed(0)}
         </label>
-        <Slider value={topK} onChange={(e) => setTopK(e.value)} step={1} />
+        <span className="text-sm">0</span>
+        <Slider
+          value={props.topK / 5}
+          onChange={(e) => props.setTopK((e.value * 5))}
+          step={10}
+        /><span className="flex justify-content-end text-sm">500</span>
       </div>
 
       <div className="col-12 mt-2">
         <label id="label_topP" className="mb-2 flex justify-content-center">
-          TopP {(topP * 10).toFixed(0)}
+          TopP {props.topP.toFixed(2)}
         </label>
-        <Slider value={topP} onChange={(e) => setTopP(e.value)} step={0.1} />
+        <span className="text-sm">0</span>
+        <Slider
+          value={props.topP * 100}
+          onChange={(e) => props.setTopP(e.value * 0.01)}
+          step={0.1}
+        /><span className="flex justify-content-end text-sm">1</span>
       </div>
       <div className="col-12 mt-2">
         <label id="label_topP" className="mb-2 flex justify-content-center">
-          Max length {((maxLength / 100) * 4096).toFixed(0)}
+          Max length {props.maxLength.toFixed(0)}
         </label>
+        <span className="text-sm">0</span>
         <Slider
-          value={maxLength}
-          onChange={(e) => setMaxLength(e.value)}
-          step={0.255}
-        />
+          value={((props.maxLength / 4096) * 100)}
+          onChange={(e) =>
+            props.setMaxLength((e.value / 100) * 4096)
+          }
+          step={4/5}
+        /><span className="flex justify-content-end text-sm">4096</span>
       </div>
       <div className="col-12 mt-2">
         <label id="label_stop" className="mb-2 flex justify-content-center">
           Stop Sequence{" "}
           <span className="ml-1">
-            <i
+            {/* <i
               className="pi pi-fw pi-plus"
               style={{ color: "var(--primary-color)", fontSize: "1.5rem" }}
-            ></i>
+            ></i> */}
           </span>
         </label>
         <Chip label="Human" />
@@ -77,5 +110,5 @@ const mapDispatch = (dispatch) => ({
 
 export default connect(
   mapState,
-  mapDispatch,
+  mapDispatch
 )(ChataiProjectActionTemperaturPage);

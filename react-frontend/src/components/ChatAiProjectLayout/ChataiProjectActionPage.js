@@ -282,7 +282,17 @@ const ChataiProjectActionPage = (props) => {
         }}
         className="zoomindown animation-duration-500"
       >
-        <ChataiProjectActionTemperaturPage setNumTemp={setNumTemp} />
+        <ChataiProjectActionTemperaturPage
+          temperature={props.temperature}
+          setTemperature={props.setTemperature}
+          topP={props.topP}
+          setTopP={props.setTopP}
+          topK={props.topK}
+          setTopK={props.setTopK}
+          maxLength={props.maxLength}
+          setMaxLength={props.setMaxLength}
+          setNumTemp={setNumTemp}
+        />
       </OverlayPanel>
       <OverlayPanel
         ref={opFABehavior}

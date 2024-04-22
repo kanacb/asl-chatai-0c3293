@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Button } from "primereact/button";
 import { useNavigate } from "react-router-dom";
 import { auth, providerForGoogle } from "./Firebase.config";
+import client from "../../services/restClient";
 import { signInWithPopup } from "firebase/auth";
 
 const GoogleOauth = (props) => {
@@ -16,12 +17,14 @@ const GoogleOauth = (props) => {
   //handle google Oauth
   const handleGoogleOauth = () => {
     signInWithPopup(auth, providerForGoogle).then(async (data) => {
-      const email = data?.user?.providerData[0]?.email
-        ? data?.user?.providerData[0].email
-        : data?.user?.email;
+      const email = data?.user?.providerData[0]?.email;
 
       if (!email) {
-        props.alert({ type: "error", title: "Login", message: "Invalid" });
+        props.alert({
+          type: "error",
+          title: "Login",
+          message: "Invalid CODE: 001500",
+        });
         return;
       }
 
@@ -31,28 +34,39 @@ const GoogleOauth = (props) => {
           email: email,
         },
       });
-      const userInvited = await client.service("userInvitation").find({
+      const userInvited = await client.service("userInvitations").find({
         query: {
           $limit: 1,
           email: email,
         },
       });
 
-      if (
-        userExist?.data?.length === 0 &&
-        userInvited?.data?.length === 1 &&
-        userInvited?.data[0]?.accepted
-      ) {
-        signUp(data);
-        return;
+      if (userExist?.data?.length === 0 && userInvited?.data?.length === 1) {
+        if (!userInvited?.data[0]?.accepted) {
+          signUp(data, userInvited);
+        }
+        else {
+          props.alert({
+            type: "error",
+            title: "Login",
+            message: "Invalid CODE: 001502",
+          });
+        }
       } else {
-        props.alert({ type: "error", title: "Login", message: error.message });
-        return;
+        if (userInvited?.data[0]?.accepted) login(data);
+        else {
+          props.alert({
+            type: "error",
+            title: "Login",
+            message: "opps, login by invitation only",
+          });
+        }
       }
     });
 
     const login = (data) => {
-      const password = data.user.uid;
+      const password = data?.user?.providerData[0]?.uid;
+      const email = data?.user?.providerData[0]?.email;
       props
         .loginForOAuth({ email, password })
         .then(() => {
@@ -64,28 +78,19 @@ const GoogleOauth = (props) => {
             title: "Login",
             message: error.message,
           });
-          props.alert({
-            type: "error",
-            title: "Login",
-            message: error.message,
-          });
           navigate("/login");
         });
     };
 
-    const signUp = (data) => {
+    const signUp = async (data, userInvited) => {
       const name = data?.user?.providerData[0]?.displayName;
-      const email = data?.user?.providerData[0]?.email
-        ? data?.user?.providerData[0].email
-        : data?.user?.email;
-      const password = data.user.uid;
-      const imageUrl = data?.user?.providerData[0]?.photoURL
-        ? data?.user?.providerData[0].photoURL
-        : data?.user?.photoURL;
+      const email = data?.user?.providerData[0]?.email;
+      const password = data?.user?.providerData[0]?.uid;
+      const imageUrl = data?.user?.providerData[0]?.photoURL;
       const provider = data?.user?.providerData[0]?.providerId;
-      const uId = data?.user?.uid;
+      const uId = data?.user?.providerData[0]?.uid;
 
-      props
+      return await props
         .createUserForOauth({
           name,
           email,
@@ -96,8 +101,9 @@ const GoogleOauth = (props) => {
         })
         .then((res) => {
           login(data);
+          client.service('userInvitations').patch(userInvited?.data[0]?._id,{ accepted : true});
         })
-        .catch(() => {
+        .catch((error) => {
           props.alert({
             type: "error",
             title: "Login",

@@ -152,7 +152,7 @@ const UserInvitationsPage = (props) => {
         <div className="mt-5">
             <div className="grid">
                 <div className="col-6 flex justify-content-start">
-                    <h3 className="mb-0 ml-2">UserInvitations </h3>
+                    <h3 className="mb-0 ml-2">Invitations </h3>
                 </div>
                 <div className="col-6 flex justify-content-end">
                     <Button label="add" icon="pi pi-plus" onClick={() => setShowCreateDialog(true)} role="userInvitations-add-button"/>

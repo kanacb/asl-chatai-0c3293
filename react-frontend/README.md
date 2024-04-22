@@ -48,6 +48,9 @@ See the section about [running tests](#running-tests) for more information.
 
 ### `npm run build`
 
+pm2 restart ecosystem.config.js --env stg
+
+
 Builds the app for production to the `build` folder.<br>
 It correctly bundles React in production mode and optimizes the build for the best performance.
 

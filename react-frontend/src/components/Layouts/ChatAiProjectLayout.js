@@ -24,7 +24,8 @@ const ChatAiProjectLayout = (props) => {
   const copyTooltipRef = useRef();
   const location = useLocation();
   const today = new Date();
-
+  const urlParams = useParams();
+  
   useEffect(() => {
     // Handler to call on window resize
     const handleResize = () => {
@@ -174,8 +175,8 @@ const ChatAiProjectLayout = (props) => {
               </small>
               <br></br>
             </div>
-            <Link key={`link-${i}`} to={`/chataiProject/${prompt?._id}`}>
-              {i + 1}. {prompt?.prompt}
+            <Link key={`link-${i}`} to={`/chataiProject/${prompt?._id}` } className={urlParams.promptId === prompt?._id ? 'font-bold' : ""}>
+              {i + 1}. {prompt?.prompt} 
             </Link>
           </div>
         ))}

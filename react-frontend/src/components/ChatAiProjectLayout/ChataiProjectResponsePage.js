@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from "react";
+import React, { useState, useEffect } from "react";
 import "../Layouts/ProjectLayout.css";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -17,13 +17,20 @@ const ChataiProjectResponsePage = (props) => {
   const [remarks, setRemarks] = useState(props.data?.userRemarks);
   const urlParams = useParams();
 
+  useEffect(() => {
+    setDown(false);
+    setUp(false);
+    if(props?.data){
+      if(props?.data.thumbsUp) setUp(true);
+      if(props?.data.thumbsDown) setDown(true);
+    }
+  },[urlParams.promptId])
+
   const emailToFunction = () => {
     const userEmail = props.user.email;
     const content = `Prompt:%20${props.data?.prompt}%20Response:%20${props.data?.responseText}`;
     return `mailto:${userEmail}?subject=ASL&body=${content}`;
   };
-
-
 
   const copyToClipBoard = () => {
     const content = `Prompt: ${props.responsePrompt}/n Response: ${props.stringToCRLF(props.response)}`;
@@ -36,6 +43,8 @@ const ChataiProjectResponsePage = (props) => {
   };
 
   const setThumbs = (like) => {
+    setDown(false);
+    setUp(false);
     if (like === "up") {
       if (up === null) setUp(true);
       else if (up === true) setUp(false);
@@ -112,21 +121,7 @@ const ChataiProjectResponsePage = (props) => {
                 props.scrollToBottom();
               }}
             ></Button>
-            <Button
-              key={`${urlParams.promptId || props?.currentPromptId}-remarks-button`}
-              label="View"
-              icon="pi pi-arrows-alt"
-              className="m-2"
-              size="small"
-              iconPos="left"
-              text
-              disabled={!props.data.userRemarks}
-              severity="primary"
-              aria-label="View"
-              onClick={() => {
-                setShowRemarks(true);
-              }}
-            />
+
           </div>
           <div className="col-10">
             <div
@@ -211,6 +206,21 @@ const ChataiProjectResponsePage = (props) => {
                 setShowRemarksEditor(true);
               }}
             />
+                        <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-remarks-button`}
+              label="View"
+              icon="pi pi-arrows-alt"
+              className="m-2"
+              size="small"
+              iconPos="left"
+              text
+              disabled={!props.data.userRemarks}
+              severity="primary"
+              aria-label="Rem"
+              onClick={() => {
+                setShowRemarks(true);
+              }}
+            />
             <Button
               key={`${urlParams.promptId || props?.currentPromptId}-cp-button`}
               label="Copy"
@@ -276,7 +286,7 @@ const ChataiProjectResponsePage = (props) => {
         </div>
 
         <Dialog
-          header="My Remarks"
+          header="Write Remarks"
           visible={showRemarksEditor}
           style={{ width: "50vw" }}
           onHide={() => setShowRemarksEditor(false)}
@@ -306,9 +316,14 @@ const ChataiProjectResponsePage = (props) => {
           </div>
         </Dialog>
         <Dialog
-          header="Remarks"
+          header="View Remarks"
           visible={showRemarks}
-          style={{ width: "fit-content", maxWidth: '80vw', height : 'fit-content', maxHeight: '80vh' }}
+          style={{
+            width: "fit-content",
+            maxWidth: "80vw",
+            height: "fit-content",
+            maxHeight: "80vh",
+          }}
           onHide={() => setShowRemarks(false)}
         >
           <p
