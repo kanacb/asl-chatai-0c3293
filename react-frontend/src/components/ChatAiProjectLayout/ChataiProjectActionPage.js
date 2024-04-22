@@ -15,7 +15,7 @@ const ChataiProjectActionPage = (props) => {
   const opFACDocsConfig = useRef();
   const [numFiles, setNumFiles] = useState(2);
   const [numTemp, setNumTemp] = useState(0.5);
-  const [numConfig, setNumConfig] = useState(0);
+
   const chatAis = [
     {
       name: "Query Answering",
@@ -259,7 +259,7 @@ const ChataiProjectActionPage = (props) => {
         >
           {" "}
           <span>
-            <Badge value={numConfig + 1} severity="warning"></Badge>
+            <Badge value={props.numConfig + 1} severity="warning"></Badge>
           </span>
         </Button>
       </div>
@@ -269,7 +269,11 @@ const ChataiProjectActionPage = (props) => {
           root: { className: "surface-ground" },
         }}
       >
-        <ChataiProjectActionFADocsPage setNumFiles={(e) => setNumFiles(e)} />
+        <ChataiProjectActionFADocsPage
+          documents={props.documents}
+          setDocuments={props.setDocuments}
+          setNumFiles={setNumFiles}
+        />
       </OverlayPanel>
       <OverlayPanel
         ref={opTemperature}
@@ -278,7 +282,7 @@ const ChataiProjectActionPage = (props) => {
         }}
         className="zoomindown animation-duration-500"
       >
-        <ChataiProjectActionTemperaturPage setNumTemp={(t) => setNumTemp(t)} />
+        <ChataiProjectActionTemperaturPage setNumTemp={setNumTemp} />
       </OverlayPanel>
       <OverlayPanel
         ref={opFABehavior}
@@ -290,7 +294,9 @@ const ChataiProjectActionPage = (props) => {
         <ChataiProjectActionBehaviorsPage
           setSelectedConfigId={props.setSelectedConfigId}
           selectedConfigId={props.selectedConfigId}
-          setNumConfig={(c) => setNumConfig(c)}
+          refUserConfig={props.refUserConfig}
+          setNumConfig={props.setNumConfig}
+          setRefUserConfig={props.setRefUserConfig}
         />
       </OverlayPanel>
     </div>

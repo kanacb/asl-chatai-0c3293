@@ -32,6 +32,7 @@ import SingleRefBanksPage from "../components/RefBanksPage/SingleRefBanksPage";
 import RefFacilitiesUserLayoutPage from '../components/RefFacilitiesPage/UserLayoutPage';
 import SingleRefFacilitiesPage from "../components/RefFacilitiesPage/SingleRefFacilitiesPage";
 import ChataiProjectLayoutPage from '../components/ChatAiProjectLayout/ChataiProjectLayoutPage';
+import UserInvitationsPage from '../components/UserInvitationsPage/UserLayoutPage';
 // ~cb-add-import~
 
 const MyRouter = () => {
@@ -46,6 +47,8 @@ const MyRouter = () => {
                 <Route path="/account" exact element={<Account />} />
                     <Route path="/users" exact element={<UsersPage />} />
                     <Route path="/users/:singleUsersId" exact element={<SingleUsersPage />} />
+                    <Route path="/invitees" exact element={<UserInvitationsPage />} />
+                    <Route path="/invitees/:singleInviteesId" exact element={<SingleUsersPage />} />
                     <Route path="/sessions" exact element={<SessionsUserLayoutPage />} />
                     <Route path="/sessions/:singleSessionsId" exact element={<SingleSessionsPage />} />
                     <Route path="/chataiProject" element={<ChataiProjectLayoutPage />} />

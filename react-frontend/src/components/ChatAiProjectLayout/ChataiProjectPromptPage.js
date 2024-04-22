@@ -55,18 +55,22 @@ const ChataiProjectPromptPage = (props) => {
 
   return (
     <div className="overflow-hidden flex justify-content-start m-3">
-      <InputTextarea
-        value={props.prompt}
-        onChange={(e) => props.setPrompt(e.target.value)}
-        placeholder="Message Legal GenAi here ..."
-        rows={2}
-        cols={70}
-      />
-
+      <div className="flex flex-column gap-2">
+        <label htmlFor="prompt" className="font-bold text-xl">Prompt:</label>
+        <InputTextarea
+          id="prompt"
+          autoResize 
+          value={props.prompt}
+          onChange={(e) => props.setPrompt(e.target.value)}
+          placeholder="Prompt the GenAi here ..."
+          rows={1}
+          cols={80}
+        />
+      </div>
       <Button
         label="Run"
         icon="pi pi-send"
-        className="m-2"
+        className={`m-2 ${props.prompt ? 'zoomin animation-duration-1000 animation-delay-100 animation-iteration-3 text-xl' : ''}`}
         size="small"
         iconPos="right"
         rounded
@@ -81,7 +85,7 @@ const ChataiProjectPromptPage = (props) => {
 
       <FileUpload
         mode="basic"
-        chooseLabel="upload file"
+        chooseLabel="upload image"
         className="mt-3"
         name="files[]"
         url="/api/upload"

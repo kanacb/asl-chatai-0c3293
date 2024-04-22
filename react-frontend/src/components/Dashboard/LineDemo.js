@@ -10,7 +10,7 @@ export default function LineDemo() {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue("--text-color");
     const textColorSecondary = documentStyle.getPropertyValue(
-      "--text-color-secondary"
+      "--text-color-secondary",
     );
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
     ChartService("prompts", "days", [

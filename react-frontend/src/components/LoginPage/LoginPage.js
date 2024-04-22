@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { InputText } from "primereact/inputtext";
 import { Button } from "primereact/button";
 import { Link, useNavigate } from "react-router-dom";
+import GoogleOauth from "./GoogleOauth";
 
 const LoginPage = (props) => {
   const [email, setEmail] = useState("");
@@ -106,10 +107,10 @@ const LoginPage = (props) => {
                   }}
                 />
               </div>
-              {/* <div className="w-full flex justify-content-center mt-3">
+              <div className="w-full flex justify-content-center mt-3">
                 <GoogleOauth props={props} type={"login"} />
-              </div> */}
-              GOOGLE - Coming soon
+              </div>
+
               {/* <div className="w-full flex justify-content-center mt-3">
                 <FacebookOauth props={props} type={"login"} />
               </div> */}

@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect  } from "react";
 import "../Layouts/ProjectLayout.css";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import _ from "lodash";
+import { Divider } from "primereact/divider";
 import { Button } from "primereact/button";
 import { Dialog } from "primereact/dialog";
 import { Editor } from "primereact/editor";
 import "./ChatAiProjectLayout.css";
 
 const ChataiProjectResponsePage = (props) => {
-  const [up, setUp] = useState(null);
-  const [down, setDown] = useState(null);
+  const [up, setUp] = useState(props.data?.thumbsUp || false);
+  const [down, setDown] = useState(props.data?.thumbsDown || false);
   const [showRemarks, setShowRemarks] = useState(false);
-  const [remarks, setRemarks] = useState(false);
-  const [emailTo, setEmailTo] = useState(false);
+  const [showRemarksEditor, setShowRemarksEditor] = useState(false);
+  const [remarks, setRemarks] = useState(props.data?.userRemarks);
   const urlParams = useParams();
 
   const emailToFunction = () => {
     const userEmail = props.user.email;
-    let promptInnerHTML = document.getElementById("prompt");
-    if (promptInnerHTML) promptInnerHTML = promptInnerHTML.innerHTML;
-    let responseInnerHTML = document.getElementById("response");
-    if (responseInnerHTML) responseInnerHTML = responseInnerHTML.innerHTML;
-    const content = `Prompt:%20${promptInnerHTML}%20Response:%20${responseInnerHTML}`;
+    const content = `Prompt:%20${props.data?.prompt}%20Response:%20${props.data?.responseText}`;
     return `mailto:${userEmail}?subject=ASL&body=${content}`;
   };
 
-  useEffect(() => {
-    const emailToString = emailToFunction();
-    setEmailTo(emailToString);
-  });
+
 
   const copyToClipBoard = () => {
-    const content = `Prompt: ${props.responsePrompt}/n Response: ${props.response}`;
+    const content = `Prompt: ${props.responsePrompt}/n Response: ${props.stringToCRLF(props.response)}`;
     navigator.clipboard.writeText(content);
     props.alert({
       type: "success",
@@ -63,30 +57,35 @@ const ChataiProjectResponsePage = (props) => {
               height={280}
               className="mb-1 animation-duration-500"
             />{" "}
-            <p className="bottom-right">
-              <a target="_blanck" href="https://www.linkedin.com/pulse/ai-lawyers-how-generative-transforming-legal-industry-avishkaram/">
+            <p className="bottom-center">
+              <a
+                className="p-button p-button-secondary text-1xl"
+                s
+                target="_blanck"
+                href="https://www.linkedin.com/pulse/ai-lawyers-how-generative-transforming-legal-industry-avishkaram/"
+              >
                 Read More
               </a>
             </p>
           </div>
           <div className="col-5 min-h-max p-2 fadein animation-duration-1000 flex flex-wrap align-items-center">
             <span className="vertical-align-middle">
-              <h3>How can I help you?</h3>
+              <h2>What's your objective?</h2>
             </span>
           </div>
         </div>
         <div className="grid flex justify-content-center mt-5">
-          <div className="card col-4 fadein animation-duration-3000 animation-delay-1000 animation-iteration-2">
-            Facility Agreement (available)
+          <div className="card col-4 scalein animation-ease-in animation-duration-3000 animation-delay-100 animation-iteration-infinite">
+            Facility Agreement Ai Agent
           </div>
-          <div className="card col-offset-1 col-4 fadein animation-duration-3000 animation-delay-2000">
-            Assignment & Charge (beta)
+          <div className="card col-offset-1 col-4 scalein animation-ease-in animation-duration-3000 animation-delay-300 animation-iteration-infinite">
+            Assignment & Charge Ai Agent
           </div>
-          <div className="card col-4 fadein animation-duration-3000 animation-delay-3000">
-            Power of Attorney(beta)
+          <div className="card col-4 scalein animation-ease-in animation-duration-3000 animation-delay-600 animation-iteration-infinite">
+            Power of Attorney Ai Agent
           </div>
-          <div className="card col-offset-1 col-4 fadein animation-duration-3000">
-            Debenture(beta)
+          <div className="card col-offset-1 col-4 scalein animation-ease-in animation-duration-3000 animation-delay-1000 animation-iteration-infinite">
+            Debenture Ai Agent
           </div>
         </div>
       </div>
@@ -95,13 +94,53 @@ const ChataiProjectResponsePage = (props) => {
 
   const responsePage = () => {
     return (
-      <>
-        <div id="prompt" className="m-3">
-          <b>Prompt:</b>
-          <p>{props.responsePrompt}</p>
-        </div>
+      <div>
+        <div className="grid p-0">
+          <div className="col-1 vertical-align-middle">
+            <Button
+              label="Re-Run"
+              icon="pi pi-play-circle"
+              className="m-2"
+              size="small"
+              iconPos="left"
+              text
+              disabled={!props.data.prompt}
+              severity="primary"
+              aria-label="ReRun"
+              onClick={() => {
+                props.setPrompt(props.data.prompt);
+                props.scrollToBottom();
+              }}
+            ></Button>
+            <Button
+              key={`${urlParams.promptId || props?.currentPromptId}-remarks-button`}
+              label="View"
+              icon="pi pi-arrows-alt"
+              className="m-2"
+              size="small"
+              iconPos="left"
+              text
+              disabled={!props.data.userRemarks}
+              severity="primary"
+              aria-label="View"
+              onClick={() => {
+                setShowRemarks(true);
+              }}
+            />
+          </div>
+          <div className="col-10">
+            <div
+              id="prompt"
+              className="p-5 border-x-1 border-round-3xl border-blue-500"
+            >
+              <b>Prompt:</b>
+              <p className="mt-2 ml-8 line-height-4 white-space-normal">
+                {props.responsePrompt}
+              </p>
+            </div>
+          </div>
+          <div className="col-offset-1"></div>
 
-        <div className="grid">
           <div className="col-1 vertical-align-middle">
             <Button
               key={`${urlParams.promptId || props?.currentPromptId}-up-button`}
@@ -117,7 +156,6 @@ const ChataiProjectResponsePage = (props) => {
               onClick={() => {
                 setThumbs("up");
                 setDown(null);
-                console.log(props.currentPromptId);
                 props.patchResponse(
                   {
                     currentPromptId:
@@ -170,7 +208,7 @@ const ChataiProjectResponsePage = (props) => {
               severity="primary"
               aria-label="Remarks"
               onClick={() => {
-                setShowRemarks(true);
+                setShowRemarksEditor(true);
               }}
             />
             <Button
@@ -197,45 +235,51 @@ const ChataiProjectResponsePage = (props) => {
                 );
               }}
             />
-            <Button
-              key={`${urlParams.promptId || props?.currentPromptId}-em-button`}
-              label="Email"
-              icon="pi pi-envelope"
-              className="m-2"
-              size="small"
-              iconPos="left"
-              rounded
-              text
-              severity="primary"
-              aria-label="Email"
-              onClick={() => {
-                window.location = emailTo;
-                props.patchResponse(
-                  {
-                    currentPromptId:
-                      urlParams.promptId || props.currentPromptId,
-                    data: { emailed: true },
-                  },
-                  "Saved user Email To",
-                  "Failed to save user email to"
-                );
-              }}
-            />
+
+            {/* <div className="flex flex-row">
+            <i
+              className="ml-4 mt-1 pi pi-envelope"
+              style={{ fontSize: "0.8rem", color: 'var(--primary-color)' }}
+            ></i>
+              <a
+                className="ml-3"
+                icon="pi pi-users"
+                key={`${urlParams.promptId || props?.currentPromptId}-em-button`}
+                href={emailToFunction()}
+                // href="mailto:kana@gmail.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  props.patchResponse(
+                    {
+                      currentPromptId:
+                        urlParams.promptId || props.currentPromptId,
+                      data: { emailed: true },
+                    },
+                    "Saved user Email To",
+                    "Failed to save user email to"
+                  );
+                }}
+              >
+                <small>Email</small>
+              </a>
+            </div> */}
           </div>
-          <div className="col-11">
+          <div className="col-10 ml-2 border-x-2 border-round-3xl border-red-500">
             <div
               id="response"
-              className="m-3 scrollable"
+              className="scrollable line-height-4 white-space-normal list-decimal"
               dangerouslySetInnerHTML={{ __html: props.response }}
             ></div>
           </div>
+          <div className="col-offset-1"></div>
         </div>
 
         <Dialog
           header="My Remarks"
-          visible={showRemarks}
+          visible={showRemarksEditor}
           style={{ width: "50vw" }}
-          onHide={() => setShowRemarks(false)}
+          onHide={() => setShowRemarksEditor(false)}
         >
           <Editor
             value={props.responseRemarks}
@@ -247,7 +291,7 @@ const ChataiProjectResponsePage = (props) => {
               text
               type="submit"
               label="Save"
-              onClick={() =>
+              onClick={() => {
                 props.patchResponse(
                   {
                     currentPromptId: urlParams.promptId || props.response?._id,
@@ -255,12 +299,24 @@ const ChataiProjectResponsePage = (props) => {
                   },
                   "Saved user Remarks",
                   "Failed to save remarks"
-                )
-              }
+                );
+                setShowRemarksEditor(false);
+              }}
             />
           </div>
         </Dialog>
-      </>
+        <Dialog
+          header="Remarks"
+          visible={showRemarks}
+          style={{ width: "fit-content", maxWidth: '80vw', height : 'fit-content', maxHeight: '80vh' }}
+          onHide={() => setShowRemarks(false)}
+        >
+          <p
+            className="ml-8 line-height-4 white-space-normal"
+            dangerouslySetInnerHTML={{ __html: props.data.userRemarks }}
+          ></p>
+        </Dialog>
+      </div>
     );
   };
 

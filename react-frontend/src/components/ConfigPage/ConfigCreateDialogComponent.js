@@ -51,7 +51,7 @@ const ConfigCreateDialogComponent = (props) => {
     };
 
     setLoading(true);
-    if(input) _data = input;
+    if (input) _data = input;
     try {
       const result = await client.service("config").create(_data);
       const eagerResult = await client.service("config").find({
@@ -252,8 +252,6 @@ const ConfigCreateDialogComponent = (props) => {
   );
 };
 
-
-
 const mapState = (state) => {
   const { user } = state.auth;
   return { user };
@@ -263,4 +261,3 @@ const mapDispatch = (dispatch) => ({
 });
 
 export default connect(mapState, mapDispatch)(ConfigCreateDialogComponent);
-

@@ -9,7 +9,7 @@ import moment from "moment";
 
 const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   const dt = useRef(null);
-  const [refresh, setRefresh] = useState("loading");
+  const [refresh, setRefresh] = useState(false);
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.sessionid}</p>;
   const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate2 = (rowData, { rowIndex }) => <p>{rowData.configid?.name}</p>;
@@ -33,9 +33,13 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
     </p>
   );
   const tickTemplate15 = (rowData, { rowIndex }) => (
-    <i className={`flex justify-content-center pi ${rowData.status ? "pi-check" : "pi-times"}`}></i>
+    <i
+      className={`flex justify-content-center pi ${rowData.status ? "pi-check" : "pi-times"}`}
+    ></i>
   );
-  const pTemplate16 = (rowData, { rowIndex }) => <p>{rowData.error ? rowData.error : "none"}</p>;
+  const pTemplate16 = (rowData, { rowIndex }) => (
+    <p>{rowData.error ? rowData.error : "none"}</p>
+  );
 
   const editTemplate = (rowData, { rowIndex }) => (
     <Button
@@ -68,7 +72,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
       type="button"
       icon="pi pi-refresh"
       text
-      onClick={() => setRefresh("")}
+      onClick={() => setRefresh(!refresh)}
     />
   );
   const paginatorRight = (
@@ -176,7 +180,6 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
         style={{ minWidth: "8rem" }}
       />
       <Column
-        
         field="outputTokens"
         header="outputTokens"
         body={badgeTemplate13}

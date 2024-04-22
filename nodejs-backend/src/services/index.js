@@ -10,6 +10,7 @@ const refConfig = require("./refConfig/refConfig.service.js");
 const refFaDocs = require("./refFaDocs/refFaDocs.service.js");
 const refBanks = require("./refBanks/refBanks.service.js");
 const refFacilities = require("./refFacilities/refFacilities.service.js");
+const userInvitations = require("./userInvitations/userInvitations.service.js");
 // ~cb-add-require-service-name~
 
 // eslint-disable-next-line no-unused-vars
@@ -26,5 +27,6 @@ module.exports = function (app) {
   app.configure(refFaDocs);
   app.configure(refBanks);
   app.configure(refFacilities);
+  app.configure(userInvitations);
   // ~cb-add-configure-service-name~
 };

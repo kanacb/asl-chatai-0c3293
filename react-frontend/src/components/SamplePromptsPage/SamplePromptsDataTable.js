@@ -12,7 +12,7 @@ const SamplePromptsDataTable = ({
   onRowDelete,
   onRowClick,
 }) => {
-  const [refresh, setRefresh] = useState("loading");
+  const [refresh, setRefresh] = useState(false);
   const dt = useRef(null);
   const pTemplate0 = (rowData, { rowIndex }) => <p>{rowData.chatAiId?.name}</p>;
   const pTemplate1 = (rowData, { rowIndex }) => <p>{rowData.prompts}</p>;
@@ -48,7 +48,7 @@ const SamplePromptsDataTable = ({
       type="button"
       icon="pi pi-refresh"
       text
-      onClick={() => setRefresh("")}
+      onClick={() => setRefresh(!refresh)}
     />
   );
   const paginatorRight = (

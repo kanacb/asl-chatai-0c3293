@@ -24,11 +24,10 @@ const App = () => {
     const location = useLocation();
     return (
         <Provider store={store}>
-            {location.pathname === '/login' ? null : <AppTopbar />}
+            {location.pathname === '/login' ? null : <AppTopbar showSideMenuButton={true}/>}
             <MainLayout>
                 <MyRouter />
                 <AppFooter />
-                
             </MainLayout>
 
             <LoadingWrapper />

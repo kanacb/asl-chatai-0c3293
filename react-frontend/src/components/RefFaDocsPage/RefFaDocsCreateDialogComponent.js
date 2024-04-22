@@ -190,73 +190,81 @@ const RefFaDocsCreateDialogComponent = (props) => {
       resizable={false}
     >
       <div role="refFaDocs-create-dialog-component">
-        <div>
-          <p className="m-0">Filename:</p>
-          <InputText
-            className="w-full mb-3"
-            value={_entity?.filename}
-            onChange={(e) => setValByKey("filename", e.target.value)}
-          />
+        <div className="grid flex">
+          <div className="col-6">
+            <p className="m-0">Filename:</p>
+            <InputText
+              className="w-full mb-3"
+              value={_entity?.filename}
+              onChange={(e) => setValByKey("filename", e.target.value)}
+            />
+          </div>
+          <div className="col-3">
+            <p className="m-0">Version:</p>
+            <InputText
+              type="number"
+              className="w-full mb-3"
+              length={5}
+              value={_entity?.version}
+              onChange={(e) => setValByKey("version", e.target.value)}
+            />
+          </div>
+
+          <div className="col-6">
+            <p className="m-0">Relations:</p>
+            <Dropdown
+              value={_entity?.bankId?._id}
+              optionLabel="name"
+              optionValue="value"
+              options={bankIdOptions}
+              onChange={(e) => setValByKey("bankId", { _id: e.value })}
+            />
+          </div>
+          <div className="col-6">
+            <p className="m-0">Document Type:</p>
+            <Dropdown
+              value={_entity?.facilityid?._id}
+              optionLabel="name"
+              optionValue="value"
+              options={facilityidOptions}
+              onChange={(e) => setValByKey("facilityid", { _id: e.value })}
+            />
+          </div>
+
+          <div className="col-6">
+            <p className="m-0">Start Date:</p>
+            <Calendar
+              dateFormat="dd/mm/yy"
+              placeholder={"dd/mm/yy"}
+              value={new Date(_entity?.startDate)}
+              onChange={(e) =>
+                setValByKey("startDate", new Date(e.target.value))
+              }
+              showIcon
+              showButtonBar
+            ></Calendar>
+          </div>
+          <div className="col-6">
+            <p className="m-0">End Date:</p>
+            <Calendar
+              dateFormat="dd/mm/yy"
+              placeholder={"dd/mm/yy"}
+              value={new Date(_entity?.endDate)}
+              onChange={(e) => setValByKey("endDate", new Date(e.target.value))}
+              showIcon
+              showButtonBar
+            ></Calendar>
+          </div>
         </div>
-        <div>
-          <p className="m-0">Bank:</p>
-          <Dropdown
-            value={_entity?.bankId?._id}
-            optionLabel="name"
-            optionValue="value"
-            options={bankIdOptions}
-            onChange={(e) => setValByKey("bankId", { _id: e.value })}
-          />
-        </div>
-        <div>
-          <p className="m-0">Facility Type:</p>
-          <Dropdown
-            value={_entity?.facilityid?._id}
-            optionLabel="name"
-            optionValue="value"
-            options={facilityidOptions}
-            onChange={(e) => setValByKey("facilityid", { _id: e.value })}
-          />
-        </div>
-        <div>
-          <p className="m-0">Start Date:</p>
-          <Calendar
-            dateFormat="dd/mm/yy"
-            placeholder={"dd/mm/yy"}
-            value={new Date(_entity?.startDate)}
-            onChange={(e) => setValByKey("startDate", new Date(e.target.value))}
-            showIcon
-            showButtonBar
-          ></Calendar>
-        </div>
-        <div>
-          <p className="m-0">End Date:</p>
-          <Calendar
-            dateFormat="dd/mm/yy"
-            placeholder={"dd/mm/yy"}
-            value={new Date(_entity?.endDate)}
-            onChange={(e) => setValByKey("endDate", new Date(e.target.value))}
-            showIcon
-            showButtonBar
-          ></Calendar>
-        </div>
-        <div>
-          <p className="m-0">Version:</p>
-          <InputText
-            type="number"
-            className="w-80 mb-3"
-            value={_entity?.version}
-            onChange={(e) => setValByKey("version", e.target.value)}
-          />
-        </div>
-        <div>
+
+        {/* <div>
           <p className="m-0">S3 Link:</p>
           <InputText
             className="w-full mb-3"
             value={_entity?.s3Link}
             onChange={(e) => setValByKey("s3Link", e.target.value)}
           />
-        </div>
+        </div> */}
         <small className="p-error">
           {Array.isArray(error)
             ? error.map((e, i) => (

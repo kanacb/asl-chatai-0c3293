@@ -1,12 +1,15 @@
-import React, { useRef } from "react";
+import React, { useContext, useRef } from "react";
 import { connect } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "primereact/button";
 import { Menu } from "primereact/menu";
+import { LayoutContext } from "./context/LayoutContext";
 
 const AppTopbar = (props) => {
   const navigate = useNavigate();
   const userMenuRef = useRef(null);
+  const { layoutConfig, layoutState, onMenuToggle, showProfileSidebar } =
+    useContext(LayoutContext);
 
   const showMenu = (e) => {
     if (userMenuRef?.current) userMenuRef.current.show(e);
@@ -60,11 +63,11 @@ const AppTopbar = (props) => {
         </div>
       </Link>
 
-      {props.showSideMenuButton ? (
+      {!props.showSideMenuButton ? (
         <button
           type="button"
           className="p-link  layout-menu-button layout-topbar-button"
-          onClick={props.onToggleMenuClick}
+          onClick={onMenuToggle}
         >
           <i className="pi pi-bars" />
         </button>

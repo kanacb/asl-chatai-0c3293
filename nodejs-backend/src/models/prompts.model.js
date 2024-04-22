@@ -19,6 +19,7 @@ module.exports = function (app) {
       type: { type: String, unique: false, lowercase: false, default: "" },
       role: { type: String, unique: false, lowercase: false, default: "" },
       model: { type: String, unique: false, lowercase: false, default: "" },
+      params: { type: String },
       stopReason: {
         type: String,
         unique: false,

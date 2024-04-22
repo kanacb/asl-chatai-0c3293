@@ -52,6 +52,25 @@ export const auth = {
             });
         },
         /////////////////////////
+        //// LOGIN FOR OAUTH //// 
+        /////////////////////////
+        async loginForOAuth(data, reduxState) {
+            return new Promise(async (resolve, reject) => {
+                dispatch.loading.show();
+
+                try {
+                    let loginResponse = await client.authenticate({ ...data, strategy: 'local' });
+                    this.update({ isLoggedIn: true, user: loginResponse.user });
+                    resolve();
+                } catch (error) {
+                    console.log('error', { error });
+                    dispatch.toast.alert({ type: 'error', message: 'First, you have to sign up!' });
+                    reject(error);
+                }
+                dispatch.loading.hide();
+            });
+        },
+        /////////////////////////
         //// RE-AUTHENTICATE ////
         /////////////////////////
         async reAuth(data, reduxState) {
@@ -109,6 +128,32 @@ export const auth = {
                 }
                 dispatch.loading.hide();
             });
-        }
+        },
+        ///////////////////////////////
+        //// CREATE USER FOR OAUTH ////
+        ///////////////////////////////
+        async createUserForOauth(data, reduxState) {
+            return new Promise(async (resolve, reject) => {
+                dispatch.loading.show();
+                try {
+                    const results = await client.service('users').create(data);
+                    const userProfileData = {
+                        userId: results._id,
+                        imageUrl: data.imageUrl, 
+                        uId: data.uId, 
+                        provider: data.provider 
+                    };
+        
+                    await client.service('usersProfile').create(userProfileData);
+                    dispatch.toast.alert({ type: 'success', title: 'Sign Up', message: 'Successful' });
+                    resolve();
+                } catch (error) {
+                    console.log('error', { error });
+                    dispatch.toast.alert({ type: 'error', title: 'Sign Up', message: 'You are already signed in!' });
+                    reject(error);
+                }
+                dispatch.loading.hide();
+            });
+        },
     })
 };

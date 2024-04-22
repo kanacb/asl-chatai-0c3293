@@ -63,7 +63,7 @@ const ConfigCreateDialogComponent = (props) => {
       preamble: _entity.preamble,
     };
 
-    if(input) _data = input;
+    if (input) _data = input;
 
     setLoading(true);
     try {

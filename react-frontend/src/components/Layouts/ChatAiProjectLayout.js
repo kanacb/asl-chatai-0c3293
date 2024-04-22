@@ -62,11 +62,8 @@ const ChatAiProjectLayout = (props) => {
   const userPrompts = client.service("prompts");
   userPrompts.on("created", (newPrompt) => {
     setPrompts((prevPrompts) => {
-      if(!Array.isArray(prevPrompts)) return [];
-      if (
-        prevPrompts?.length > 0 &&
-        !prevPrompts?.includes(newPrompt)
-      )
+      if (!Array.isArray(prevPrompts)) return [];
+      if (prevPrompts?.length > 0 && !prevPrompts?.includes(newPrompt))
         return [newPrompt, ...prevPrompts];
       else return prevPrompts;
     });
@@ -134,14 +131,14 @@ const ChatAiProjectLayout = (props) => {
       element.className = element.className.replace(
         new RegExp(
           "(^|\\b)" + className.split(" ").join("|") + "(\\b|$)",
-          "gi"
+          "gi",
         ),
-        " "
+        " ",
       );
   };
 
   return (
-    <div className="">
+    <div key="sideChatAi" className="">
       <div
         className={`layout-sidebar my-custom-scroll-bar my-custom-scroll-bar-margin overflow-x-hidden`}
         style={props.menuOpen ? leftMenuStyle.open : leftMenuStyle.close}
@@ -164,8 +161,8 @@ const ChatAiProjectLayout = (props) => {
         />
         <small className="font-bold">My GenAi Chats</small>
         {prompts?.map((prompt, i) => (
-          <div className="w-full">
-            <div className="flex justify-content-end">
+          <div className="w-full" key={`prompt-${i}`}>
+            <div className="flex justify-content-end" key={`moment-${i}`}>
               <small className="text-500">
                 {prompts[i - 1] &&
                 moment(prompt.createdAt).fromNow() !=
@@ -177,7 +174,7 @@ const ChatAiProjectLayout = (props) => {
               </small>
               <br></br>
             </div>
-            <Link key={prompt?._id} to={`/chataiProject/${prompt?._id}`}>
+            <Link key={`link-${i}`} to={`/chataiProject/${prompt?._id}`}>
               {i + 1}. {prompt?.prompt}
             </Link>
           </div>

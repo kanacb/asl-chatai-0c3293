@@ -127,10 +127,10 @@ const UserLayout = (props) => {
           to: `/users`,
         },
         {
-          label: "Sessions",
-          icon: "pi pi-fw pi-globe",
-          to: `/sessions`,
-        },
+          label: "Invitees",
+          icon: "pi pi-fw pi-user-plus",
+          to: `/invitees`,
+        }
       ],
     },
   ];
@@ -146,14 +146,14 @@ const UserLayout = (props) => {
       element.className = element.className.replace(
         new RegExp(
           "(^|\\b)" + className.split(" ").join("|") + "(\\b|$)",
-          "gi"
+          "gi",
         ),
-        " "
+        " ",
       );
   };
 
   return (
-    <div className="">
+    <div key="userProjectaLayout" className="">
       <div
         className={`layout-sidebar my-custom-scroll-bar my-custom-scroll-bar-margin overflow-x-hidden`}
         style={props.menuOpen ? leftMenuStyle.open : leftMenuStyle.close}

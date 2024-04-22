@@ -1,18 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
-import client from "../../services/restClient";
 import { Chip } from "primereact/chip";
 import { Slider } from "primereact/slider";
 
 const ChataiProjectActionTemperaturPage = (props) => {
-  const [temperature, setTemperature] = useState(50);
-  const [topP, setTopP] = useState(50);
-  const [topK, setTopK] = useState(50);
-  const [maxLength, setMaxLength] = useState(50);
+
 
   return (
     <div className="card grid grid-nogutter " style={{ maxWidth: "300px" }}>
-      <h3>Control Temperature</h3>
+      <h3>The parameters</h3>
       <div className="col-12">
         <label
           id="label_temperature"
@@ -81,5 +77,5 @@ const mapDispatch = (dispatch) => ({
 
 export default connect(
   mapState,
-  mapDispatch
+  mapDispatch,
 )(ChataiProjectActionTemperaturPage);

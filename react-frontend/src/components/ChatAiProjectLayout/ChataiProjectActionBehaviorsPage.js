@@ -6,7 +6,6 @@ import { InputTextarea } from "primereact/inputtextarea";
 import { Button } from "primereact/button";
 
 const ChataiProjectActionBehaviorsPage = (props) => {
-  const [refUserConfig, setRefUserConfig] = useState([]);
   const [maxCount, setMaxCount] = useState(0);
   const [count, setCount] = useState(0);
   const [saveAs, setSaveAs] = useState("");
@@ -28,11 +27,11 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     const currentCount = count - 1;
     if (currentCount <= 0) {
       setCount(0);
-      setBehaviorForm(refUserConfig[0]);
+      setBehaviorForm(props.refUserConfig[0]);
       props.setNumConfig(0);
     } else {
       setCount(currentCount);
-      setBehaviorForm(refUserConfig[currentCount]);
+      setBehaviorForm(props.refUserConfig[currentCount]);
       props.setNumConfig(currentCount);
     }
   };
@@ -41,11 +40,11 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     const currentCount = count + 1;
     if (currentCount > maxCount - 1) {
       setCount(0);
-      setBehaviorForm(refUserConfig[0]);
+      setBehaviorForm(props.refUserConfig[0]);
       props.setNumConfig(0);
     } else {
       setCount(currentCount);
-      setBehaviorForm(refUserConfig[currentCount]);
+      setBehaviorForm(props.refUserConfig[currentCount]);
       props.setNumConfig(currentCount);
     }
   };
@@ -81,7 +80,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
       .then((res) => {
         const results = res.data;
         if (results && results.length > 0) {
-          setRefUserConfig(results);
+          props.setRefUserConfig(results);
           setBehaviorForm(results[0]);
           setMaxCount(results.length);
           props.setNumConfig(count + 1);
@@ -93,7 +92,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
       .catch((error) => {
         console.log({ error });
         props.alert({
-          title: "fa docs",
+          title: "documents",
           type: "error",
           message: error.message || "Failed get ref config",
         });
@@ -107,7 +106,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
       .then((res) => {
         const results = res.data;
         if (results && results.length > 0) {
-          setRefUserConfig(results);
+          props.setRefUserConfig(results);
           setBehaviorForm(results[0]);
           setMaxCount(results.length);
         }
@@ -115,7 +114,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
       .catch((error) => {
         console.log({ error });
         props.alert({
-          title: "fa docs",
+          title: "documents",
           type: "error",
           message: error.message || "Failed get user config",
         });
@@ -124,8 +123,8 @@ const ChataiProjectActionBehaviorsPage = (props) => {
 
   const onSaveAs = () => {
     const serviceName = "config";
-    const selectedConfigObjectAry = refUserConfig.filter(
-      (conf) => conf._id === props.selectedConfigId
+    const selectedConfigObjectAry = props.refUserConfig.filter(
+      (conf) => conf._id === props.selectedConfigId,
     );
     const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);
     console.log("selectedConfigObject", selectedConfigObject);
@@ -147,8 +146,8 @@ const ChataiProjectActionBehaviorsPage = (props) => {
 
   const onPatch = () => {
     const serviceName = "config";
-    const selectedConfigObjectAry = refUserConfig.filter(
-      (conf) => conf._id === props.selectedConfigId
+    const selectedConfigObjectAry = props.refUserConfig.filter(
+      (conf) => conf._id === props.selectedConfigId,
     );
 
     const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);
@@ -172,11 +171,11 @@ const ChataiProjectActionBehaviorsPage = (props) => {
   return (
     <div className="card grid grid-nogutter flex" style={{ width: "40vw" }}>
       <div className="col-6">
-        <h3>Control behaviors </h3>
+        <h3>The prompt behavior</h3>
       </div>
       <div className="col-6 flex justify-content-end">
         <i className="pi pi-fw pi-angle-left mt-4" onClick={() => onBack()}></i>
-        <span className="mt-4">{`item ${count + 1} of ${refUserConfig?.length} `}</span>
+        <span className="mt-4">{`item ${count + 1} of ${props.refUserConfig?.length} `}</span>
         <i
           className="pi pi-fw pi-angle-right mt-4"
           onClick={() => onFront()}
