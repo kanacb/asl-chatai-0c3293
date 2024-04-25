@@ -3,8 +3,8 @@ import React from "react";
 const AppFooter = (props) => {
   const upd = process.env.REACT_APP_LAST_UPDATED;
   return (
-    <div className="layout-footer">
-      <small className="mr-8">
+    <div className="layout-footer p-3">
+      <small className="mr-7">
         <b>developed by</b> Cloud Basha Sdn Bhd
       </small>
       <small className="mr-2">powered by</small>

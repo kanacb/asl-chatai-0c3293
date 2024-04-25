@@ -50,7 +50,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
   };
 
   const setBehaviorForm = (config) => {
-    setName(config.name);
+    config.name ? setName(config.name) : setName("none");
     setHuman(config?.human);
     setNoCondition(config?.noCondition);
     setYesCondition(config?.yesCondition);
@@ -66,10 +66,9 @@ const ChataiProjectActionBehaviorsPage = (props) => {
     config.noCondition = noCondition;
     config.yesCondition = yesCondition;
     config.task = task;
-    config.example = example;
+    config.example = Array.isArray(example) ? example?.join("\\n") : "";
     config.preamble = preamble;
     config.updatedBy = props.user._id;
-    config._id = null;
     return config;
   };
 
@@ -109,6 +108,9 @@ const ChataiProjectActionBehaviorsPage = (props) => {
           props.setRefUserConfig(results);
           setBehaviorForm(results[0]);
           setMaxCount(results.length);
+          let newConfig = results[0];
+          newConfig._id = null;
+          client.service("config").create(newConfig);
         }
       })
       .catch((error) => {
@@ -124,7 +126,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
   const onSaveAs = () => {
     const serviceName = "config";
     const selectedConfigObjectAry = props.refUserConfig.filter(
-      (conf) => conf._id === props.selectedConfigId,
+      (conf) => conf._id === props.selectedConfigId
     );
     const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);
     console.log("selectedConfigObject", selectedConfigObject);
@@ -147,7 +149,7 @@ const ChataiProjectActionBehaviorsPage = (props) => {
   const onPatch = () => {
     const serviceName = "config";
     const selectedConfigObjectAry = props.refUserConfig.filter(
-      (conf) => conf._id === props.selectedConfigId,
+      (conf) => conf._id === props.selectedConfigId
     );
 
     const selectedConfigObject = getBehaviorForm(selectedConfigObjectAry[0]);

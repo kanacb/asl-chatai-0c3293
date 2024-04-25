@@ -164,7 +164,7 @@ const ChataiPage = (props) => {
   ];
 
   return (
-    <div className="mt-5">
+    <div className="mt-5" style={{minHeight : 'calc(90vh - 9rem)'}}>
       <div className="grid">
         <div className="col-6 flex justify-content-start">
           <h3 className="mb-0 ml-2">Chatai </h3>

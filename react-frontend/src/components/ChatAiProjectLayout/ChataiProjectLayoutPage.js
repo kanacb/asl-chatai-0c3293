@@ -13,6 +13,8 @@ import ChataiProjectPromptPage from "./ChataiProjectPromptPage";
 import requestObjectJson from "./requestObject.json";
 // import responseObject from "./responseObject.json";
 import { ProgressSpinner } from "primereact/progressspinner";
+//What are the obligations of the Borrower regarding taxes, fees, and other governmental charges under the terms and conditions of the Agreement? Which are the relevant clauses?
+
 
 const ChataiProjectLayoutPage = (props) => {
   const [data, setData] = useState();
@@ -90,7 +92,7 @@ const ChataiProjectLayoutPage = (props) => {
   useEffect(() => {
     //on mount
 
-    if (urlParams?.promptId) {
+    if (urlParams?.promptId && urlParams?.promptId !== "") {
       client
         .service("prompts")
         .find({ query: { $limit: 10000, _id: urlParams.promptId } })
@@ -118,13 +120,15 @@ const ChataiProjectLayoutPage = (props) => {
             message: error.message || "Failed get chatai",
           });
         });
-    } else getUserConfig();
+    } 
+    getUserConfig();
   }, [urlParams?.promptId]);
 
   const getUserConfig = () => {
+    
     client
       .service("config")
-      .find({ query: { $limit: 10000, createdBy: props.user._id } })
+      .find({ query: { $limit: 10000 } })
       .then((res) => {
         const results = res.data;
         setRefUserConfig(results);
@@ -263,9 +267,9 @@ const ChataiProjectLayoutPage = (props) => {
     const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3haiku";
     // Define the properties and data for the API request
     let requestObject = refUserConfig[numConfig];
-    requestObject["documents"] = requestObjectJson.documents;
-    requestObject["no_condition"] = requestObject.noCondition;
-    requestObject["yes_condition"] = requestObject.yesCondition;
+    requestObject["documents"] = requestObjectJson?.documents;
+    requestObject["no_condition"] = requestObject?.noCondition;
+    requestObject["yes_condition"] = requestObject?.yesCondition;
     requestObject.params = getParamsClaude3Haiku("object");
     // console.log(numConfig, refUserConfig, requestObject);
     // return;

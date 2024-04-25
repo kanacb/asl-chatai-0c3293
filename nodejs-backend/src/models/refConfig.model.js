@@ -37,6 +37,7 @@ module.exports = function (app) {
         lowercase: false,
         default: "",
       },
+      documents: [{type : String, default : ""}],
       format: { type: String, unique: false, lowercase: false, default: "" },
       example: { type: String, unique: false, lowercase: false, default: "" },
       preamble: { type: String, unique: false, lowercase: false, default: "" },

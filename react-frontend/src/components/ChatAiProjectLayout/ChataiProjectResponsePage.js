@@ -14,7 +14,7 @@ const ChataiProjectResponsePage = (props) => {
   const [down, setDown] = useState(props.data?.thumbsDown || false);
   const [showRemarks, setShowRemarks] = useState(false);
   const [showRemarksEditor, setShowRemarksEditor] = useState(false);
-  const [remarks, setRemarks] = useState(props.data?.userRemarks);
+  const [remarks, setRemarks] = useState(props.data?.userRemarks || "");
   const urlParams = useParams();
 
   useEffect(() => {
@@ -113,12 +113,14 @@ const ChataiProjectResponsePage = (props) => {
               size="small"
               iconPos="left"
               text
-              disabled={!props.data.prompt}
+              disabled={!props.data?.prompt}
               severity="primary"
               aria-label="ReRun"
               onClick={() => {
-                props.setPrompt(props.data.prompt);
-                props.scrollToBottom();
+                if(props.data?.prompt){
+                  props.setPrompt(props.data.prompt);
+                  props.scrollToBottom();
+                }
               }}
             ></Button>
 
@@ -214,7 +216,7 @@ const ChataiProjectResponsePage = (props) => {
               size="small"
               iconPos="left"
               text
-              disabled={!props.data.userRemarks}
+              disabled={!props.data?.userRemarks || true}
               severity="primary"
               aria-label="Rem"
               onClick={() => {
@@ -328,7 +330,7 @@ const ChataiProjectResponsePage = (props) => {
         >
           <p
             className="ml-8 line-height-4 white-space-normal"
-            dangerouslySetInnerHTML={{ __html: props.data.userRemarks }}
+            dangerouslySetInnerHTML={{ __html: props.data?.userRemarks }}
           ></p>
         </Dialog>
       </div>

@@ -75,7 +75,10 @@ const DivServices = (props) => {
         const _agg = {
           count: results.length,
           countYesterday: countYesterday,
-          cost: cost.toFixed(2),
+          cost: cost.toFixed(2)
+          .toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+          }),
           costLatest: ((costlastWeek / cost) * 100)
             .toFixed(2)
             .toLocaleString("en-US", {

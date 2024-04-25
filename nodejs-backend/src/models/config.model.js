@@ -7,7 +7,6 @@ module.exports = function (app) {
       name: {
         type: String,
         required: true,
-        unique: true,
         lowercase: false,
         default: "",
       },
@@ -38,10 +37,10 @@ module.exports = function (app) {
         lowercase: false,
         default: "",
       },
+      documents: [{type : String, default : ""}],
       format: { type: String, unique: false, lowercase: false, default: "" },
       example: { type: String, unique: false, lowercase: false, default: "" },
       preamble: { type: String, unique: false, lowercase: false, default: "" },
-
       createdBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
       updatedBy: { type: Schema.Types.ObjectId, ref: "users", required: true },
     },
