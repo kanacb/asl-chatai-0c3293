@@ -195,8 +195,9 @@ const ChataiProjectActionPage = (props) => {
           style={{ maxWidth: "fit-content" }}
         />
         <Button
-          icon="pi pi-fw pi-refresh"
+          icon="pi pi-fw pi-plus"
           className="ml-3 mt-1"
+          label="new question"
           size="small"
           rounded
           text

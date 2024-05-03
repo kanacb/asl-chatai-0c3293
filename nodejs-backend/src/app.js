@@ -17,6 +17,8 @@ const authentication = require("./authentication");
 const mongoose = require("./mongoose");
 const app = express(feathers());
 const claude3Haiku = require("./routes/genAi/claude3Haiku");
+const claude3sonnet = require("./routes/genAi/claude3sonnet");
+const claude3Opus = require("./routes/genAi/claude3Opus");
 
 // Load app socketio
 app.configure(socketio());
@@ -49,11 +51,26 @@ app.configure(authentication);
 app.configure(services);
 // Set up event channels (see channels.js)
 app.configure(channels);
+// claude3haiku
 app.post(
   "/claude3haiku",
   express.raw({ type: "application/json" }),
   claude3Haiku,
 );
+// claude3sonnet
+app.post(
+  "/claude3sonnet",
+  express.raw({ type: "application/json" }),
+  claude3sonnet,
+);
+// claude3Opus
+app.post(
+  "/claude3Opus",
+  express.raw({ type: "application/json" }),
+  claude3Opus,
+);
+
+
 // Configure a middleware for 404s and the error handler
 app.use(express.notFound());
 app.use(express.errorHandler({ logger }));

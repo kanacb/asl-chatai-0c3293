@@ -20,11 +20,11 @@ const ChataiProjectResponsePage = (props) => {
   useEffect(() => {
     setDown(false);
     setUp(false);
-    if(props?.data){
-      if(props?.data.thumbsUp) setUp(true);
-      if(props?.data.thumbsDown) setDown(true);
+    if (props?.data) {
+      if (props?.data.thumbsUp) setUp(true);
+      if (props?.data.thumbsDown) setDown(true);
     }
-  },[urlParams.promptId])
+  }, [urlParams.promptId]);
 
   const emailToFunction = () => {
     const userEmail = props.user.email;
@@ -105,7 +105,7 @@ const ChataiProjectResponsePage = (props) => {
     return (
       <div>
         <div className="grid p-0">
-          <div className="col-1 vertical-align-middle">
+          <div className="col-2 vertical-align-middle">
             <Button
               label="Re-Run"
               icon="pi pi-play-circle"
@@ -117,13 +117,12 @@ const ChataiProjectResponsePage = (props) => {
               severity="primary"
               aria-label="ReRun"
               onClick={() => {
-                if(props.data?.prompt){
+                if (props.data?.prompt) {
                   props.setPrompt(props.data.prompt);
                   props.scrollToBottom();
                 }
               }}
             ></Button>
-
           </div>
           <div className="col-10">
             <div
@@ -136,9 +135,7 @@ const ChataiProjectResponsePage = (props) => {
               </p>
             </div>
           </div>
-          <div className="col-offset-1"></div>
-
-          <div className="col-1 vertical-align-middle">
+          <div className="col-12 flex justify-content-between">
             <Button
               key={`${urlParams.promptId || props?.currentPromptId}-up-button`}
               label="Up"
@@ -208,7 +205,7 @@ const ChataiProjectResponsePage = (props) => {
                 setShowRemarksEditor(true);
               }}
             />
-                        <Button
+            <Button
               key={`${urlParams.promptId || props?.currentPromptId}-remarks-button`}
               label="View"
               icon="pi pi-arrows-alt"
@@ -216,7 +213,7 @@ const ChataiProjectResponsePage = (props) => {
               size="small"
               iconPos="left"
               text
-              disabled={!props.data?.userRemarks || true}
+              disabled={props.data?.userRemarks === ""}
               severity="primary"
               aria-label="Rem"
               onClick={() => {
@@ -277,14 +274,14 @@ const ChataiProjectResponsePage = (props) => {
               </a>
             </div> */}
           </div>
-          <div className="col-10 ml-2 border-x-2 border-round-3xl border-red-500">
+          <div className="col-12 ml-3">
             <div
               id="response"
               className="scrollable line-height-4 white-space-normal list-decimal"
               dangerouslySetInnerHTML={{ __html: props.response }}
             ></div>
           </div>
-          <div className="col-offset-1"></div>
+
         </div>
 
         <Dialog

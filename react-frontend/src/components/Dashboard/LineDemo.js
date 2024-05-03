@@ -1,49 +1,55 @@
 import React, { useState, useEffect } from "react";
+import { Skeleton } from 'primereact/skeleton';
 import { Chart } from "primereact/chart";
 import { ChartService } from "../../services/chartService";
 
 export default function LineDemo() {
   const [chartData, setChartData] = useState({});
   const [chartOptions, setChartOptions] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const documentStyle = getComputedStyle(document.documentElement);
     const textColor = documentStyle.getPropertyValue("--text-color");
-    const textColorSecondary = documentStyle.getPropertyValue(
-      "--text-color-secondary",
-    );
+    const textColorSecondary = documentStyle.getPropertyValue("--text-color-secondary");
     const surfaceBorder = documentStyle.getPropertyValue("--surface-border");
+    setLoading(true);
     ChartService("prompts", "days", [
       "cost",
       "inputTokens",
-      "outputTokens",
+      "outputTokens"
     ]).then((chartService) => {
       // console.log(chartService);
       const data = {
         labels: chartService.labels,
         datasets: [
           {
+            type : "line",
             label: "Cost",
-            data: chartService.datasets[0].points,
+            data: chartService.datasets["cost"].points,
             fill: false,
             yAxisID: "y",
             borderColor: documentStyle.getPropertyValue("--red-500"),
             tension: 0.4,
           },
           {
+            type : "bar",
             label: "Input",
-            data: chartService.datasets[1].points,
+            data: chartService.datasets["inputTokens"].points,
             fill: false,
             yAxisID: "y1",
             borderColor: documentStyle.getPropertyValue("--blue-500"),
+            borderWidth: 2,
             tension: 0.4,
           },
           {
+            type : "bar",
             label: "Output",
-            data: chartService.datasets[2].points,
+            data: chartService.datasets["outputTokens"].points,
             fill: false,
             yAxisID: "y2",
             borderColor: documentStyle.getPropertyValue("--green-500"),
+            borderWidth: 2,
             tension: 0.4,
           },
         ],
@@ -152,17 +158,20 @@ export default function LineDemo() {
       };
       setChartData(data);
       setChartOptions(options);
+    }).finally(() => {
+      setLoading(false)
     });
   }, []);
 
   return (
     <div className="card chart-container">
+      {loading ? <Skeleton width="100%" height="150px"></Skeleton> :
       <Chart
         type="line"
         className="max-h-15rem"
         data={chartData}
         options={chartOptions}
-      />
+      />}
     </div>
   );
 }

@@ -30,7 +30,6 @@ const ChataiProjectLayoutPage = (props) => {
   const [responseRemarks, setResponseRemarks] = useState("");
   const [error, setError] = useState(null);
   const [currentPromptId, setCurrentPromptId] = useState(null);
-  const urlParams = useParams();
   const [documents, setDocuments] = useState([]);
   const [numConfig, setNumConfig] = useState(0);
   const [refUserConfig, setRefUserConfig] = useState([]);
@@ -39,6 +38,7 @@ const ChataiProjectLayoutPage = (props) => {
   const [topK, setTopK] = useState(250);
   const [maxLength, setMaxLength] = useState(2048);
   const [showBottomScroller, setBottomScroller] = useState(false);
+  const urlParams = useParams();
   const sample =
     'Relevant extracts: [1] "The Borrower must pay interest on all principal sums of moneys lent or advanced by the Bank to the Borrower or otherwise owing or payable by the Borrower to the Bank under each Facility. Such interest will, except where otherwise provided in this Agreement or decided by the Bank pursuant to this Agreement, be calculated (as well after as before any court order or judgment and even if the banker-customer relationship between the Bank and the Borrower has ceased or been terminated): (a) at the prescribed interest rate for that Facility stated in the relevant Letter of Offer, or if not stated in the relevant Letter of Offer, at such interest rate for that Facility as may be prescribed by the Bank in its discretion from time to time; (b) with daily or monthly or other rest periods stated in the Letter of Offer, or if not stated in the relevant Letter of Offer, with such rest periods as the Bank may from time to time decide in its discretion; and (c) in accordance with the Bank\'s usual practice from time to time or otherwise in such manner as the Bank may from time to time decide, having regard to, amongst other things, the nature of that Facility." [2] "Regardless of the prescribed interest rate for each Facility stated or mentioned in the relevant Letter of Offer or decided by the Bank from time to time pursuant to this Agreement and regardless of whatever else stated or implied in this Agreement or any Letter of Offer, the Bank is entitled at any time and from time to time, to vary the prescribed interest rate for any Facility as the Bank thinks fit in its discretion, whether: (a) by varying the Base Rate or Base Lending Rate or any other reference rate (if any) used in determining the prescribed interest rate for that Facility, as the case may be; (b) by varying the interest margin/spread comprised in the prescribed interest rate for that Facility; (c) by changing the reference rate used in determining the prescribed interest rate for that Facility (for example, if the reference rate for determining the prescribed interest rate for that Facility is the Base Lending Rate, by changing such reference rate from the Base Lending Rate to the Base Rate or the Effective Cost of Funds (defined below) as the Bank deems fit in its discretion, or vice versa); (d) by a combination of any two or more of the above." Answers with citation: The interest rate on the Facilities is determined based on the prescribed interest rate stated in the Letter of Offer, or if not stated in the Letter of Offer, the interest rate prescribed by the Bank at its discretion. [1] The Bank has the absolute right to vary the prescribed interest rate at any time for any Facility by changing the Base Rate, Base Lending Rate, interest margin, or reference rate used to determine the rate. [2] The Bank can make these variations in its sole discretion. [2]';
   const pageEndRef = useRef(null);
@@ -93,6 +93,7 @@ const ChataiProjectLayoutPage = (props) => {
     //on mount
 
     if (urlParams?.promptId && urlParams?.promptId !== "") {
+      setLoading(true);
       client
         .service("prompts")
         .find({ query: { $limit: 10000, _id: urlParams.promptId } })
@@ -111,6 +112,7 @@ const ChataiProjectLayoutPage = (props) => {
           setResponse(stringToHTML(results[0]?.responseText));
           setResponsePrompt(results[0]?.prompt);
           setResponseRemarks(results[0]?.userRemarks);
+          setLoading(false);
         })
         .catch((error) => {
           console.log({ error });
@@ -119,6 +121,7 @@ const ChataiProjectLayoutPage = (props) => {
             type: "error",
             message: error.message || "Failed get chatai",
           });
+          setLoading(false);
         });
     } 
     getUserConfig();
@@ -135,7 +138,7 @@ const ChataiProjectLayoutPage = (props) => {
       });
   };
 
-  const getParamsClaude3Haiku = (type = "string") => {
+  const getParams = (type = "string") => {
     const paramObj = {
       temperature,
       top_k: topK,
@@ -270,7 +273,7 @@ const ChataiProjectLayoutPage = (props) => {
     requestObject["documents"] = requestObjectJson?.documents;
     requestObject["no_condition"] = requestObject?.noCondition;
     requestObject["yes_condition"] = requestObject?.yesCondition;
-    requestObject.params = getParamsClaude3Haiku("object");
+    requestObject.params = getParams("object");
     // console.log(numConfig, refUserConfig, requestObject);
     // return;
     requestObject["preamble"] =
@@ -289,6 +292,140 @@ const ChataiProjectLayoutPage = (props) => {
     setLoading(true);
     setResponse("");
     setResponsePrompt(prompt);
+
+    // convert the body to string of JSON format
+    // console.log(JSON.stringify(JSON.stringify(requestObject)));
+
+
+    try {
+      const responseText = await axios(requestOptions);
+      setLoading(false);
+      const responseObject = responseText.data;
+      // displayLikeChatGPT(responseObject["response_text"]);
+      setResponse(stringToHTML(responseObject["response_text"]));
+      createPropmtSuccessRecord(responseObject);
+      // displayLikeChatGPT(sample);
+      props.alert({
+        type: "success",
+        title: "Succesful response from Legal GenAi",
+        message: "prompt sent successfully",
+      });
+    } catch (error) {
+      // Add error class to the paragraph element and set error text
+      setError(error?.message);
+      createPropmtFailureRecord(error?.message);
+      props.alert({
+        type: "error",
+        title: "Sending request to Chat Ai error",
+        message: error?.message,
+      });
+      setResponse(
+        "Oops! Something went wrong while retrieving the response. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getClaude3SonnetResponse = async () => {
+    const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3sonnet";
+    // Define the properties and data for the API request
+    let requestObject = refUserConfig[numConfig];
+    requestObject["documents"] = requestObjectJson?.documents;
+    requestObject["no_condition"] = requestObject?.noCondition;
+    requestObject["yes_condition"] = requestObject?.yesCondition;
+    requestObject.params = getParams("object");
+    // console.log(numConfig, refUserConfig, requestObject);
+    // return;
+
+    let thePrompt = prompt;
+    if(thePrompt==="") return;
+    if(!prompt.match(/\?$/)) thePrompt =+ "?"; 
+    requestObject["preamble"] =
+      `Here are the questions: ${thePrompt} \\n Assistant:`;
+
+    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
+    const requestOptions = {
+      method: "post",
+      url: API_URL,
+      data: requestObject,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    setLoading(true);
+    setResponse("");
+    setResponsePrompt(prompt);
+
+    // convert the body to string of JSON format
+    // console.log(JSON.stringify(JSON.stringify(requestObject)));
+
+
+    try {
+      const responseText = await axios(requestOptions);
+      setLoading(false);
+      const responseObject = responseText.data;
+      // displayLikeChatGPT(responseObject["response_text"]);
+      setResponse(stringToHTML(responseObject["response_text"]));
+      createPropmtSuccessRecord(responseObject);
+      // displayLikeChatGPT(sample);
+      props.alert({
+        type: "success",
+        title: "Succesful response from Legal GenAi",
+        message: "prompt sent successfully",
+      });
+    } catch (error) {
+      // Add error class to the paragraph element and set error text
+      setError(error?.message);
+      createPropmtFailureRecord(error?.message);
+      props.alert({
+        type: "error",
+        title: "Sending request to Chat Ai error",
+        message: error?.message,
+      });
+      setResponse(
+        "Oops! Something went wrong while retrieving the response. Please try again."
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const getClaude3OpusResponse = async () => {
+    const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3Opus";
+    // Define the properties and data for the API request
+    let requestObject = refUserConfig[numConfig];
+    requestObject["documents"] = requestObjectJson?.documents;
+    requestObject["no_condition"] = requestObject?.noCondition;
+    requestObject["yes_condition"] = requestObject?.yesCondition;
+    requestObject.params = getParams("object");
+    // console.log(numConfig, refUserConfig, requestObject);
+    // return;
+
+    let thePrompt = prompt;
+    if(thePrompt==="") return;
+    if(!prompt.match(/\?$/)) thePrompt =+ "?"; 
+    requestObject["preamble"] =
+      `Here are the questions: ${thePrompt} \\n Assistant:`;
+
+    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
+    const requestOptions = {
+      method: "post",
+      url: API_URL,
+      data: requestObject,
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    setLoading(true);
+    setResponse("");
+    setResponsePrompt(prompt);
+
+    // convert the body to string of JSON format
+    // console.log(JSON.stringify(JSON.stringify(requestObject)));
+
 
     try {
       const responseText = await axios(requestOptions);
@@ -434,7 +571,7 @@ const ChataiProjectLayoutPage = (props) => {
               key="prompt"
               setPrompt={setPrompt}
               prompt={prompt}
-              getChatAiResponse={getClaude3HaikuResponse}
+              getChatAiResponse={getClaude3SonnetResponse}
               patchResponse={patchResponse}
             />
           </div>

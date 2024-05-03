@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import { Skeleton } from 'primereact/skeleton';
 import client from "../../services/restClient";
 import welcomeImg from "../../assets/media/welcome-banner.png";
 import LineDemo from "./LineDemo";
+import DoughnutDemo from "./DoughnutDemo";
 
 const DivServices = (props) => {
   const [data, setData] = useState([]);
   const [agg, setAgg] = useState({});
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     //on mount
+    setLoading(true)
     client
       .service("prompts")
       .find({
@@ -72,15 +76,15 @@ const DivServices = (props) => {
               : 0,
           0,
         );
+        setLoading(false);
         const _agg = {
           count: results.length,
           countYesterday: countYesterday,
-          cost: cost.toFixed(2)
-          .toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-          }),
+          cost: cost
+            .toLocaleString("en-US", 
+              {style:"currency", currency:"MYR"}
+            ),
           costLatest: ((costlastWeek / cost) * 100)
-            .toFixed(2)
             .toLocaleString("en-US", {
               minimumFractionDigits: 2,
             }),
@@ -101,6 +105,7 @@ const DivServices = (props) => {
       })
       .catch((error) => {
         console.log({ error });
+        setLoading(false);
         props.alert({
           title: "Prompts",
           type: "error",
@@ -129,6 +134,9 @@ const DivServices = (props) => {
           </div>
         </Link>
       </div>
+      {/* <div className="col-12 lg:col-6 xl:col-4">
+        <DoughnutDemo></DoughnutDemo>
+      </div> */}
       {/* ~cb-add-services-card~ */}
 
       <div className="grid mt-2">
@@ -137,7 +145,7 @@ const DivServices = (props) => {
             <div className="flex justify-content-between mb-3">
               <div>
                 <span className="block text-500 font-medium mb-3">Prompts</span>
-                <div className="text-900 font-medium text-xl">{agg?.count}</div>
+                <div className="text-900 font-medium text-xl">{loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.count}</div>
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -158,7 +166,7 @@ const DivServices = (props) => {
               <div>
                 <span className="block text-500 font-medium mb-3">Cost</span>
                 <div className="text-900 font-medium text-xl">
-                  RM{agg?.cost}
+                {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : `${agg?.cost}`}
                 </div>
               </div>
               <div
@@ -182,7 +190,7 @@ const DivServices = (props) => {
                   Input total
                 </span>
                 <div className="text-900 font-medium text-xl">
-                  {agg?.inputTokens}
+                  {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.inputTokens}
                 </div>
               </div>
               <div
@@ -206,7 +214,7 @@ const DivServices = (props) => {
                   Output total
                 </span>
                 <div className="text-900 font-medium text-xl">
-                  {agg?.outputTokens}
+                {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.outputTokens}
                 </div>
               </div>
               <div
@@ -257,7 +265,7 @@ const Dashboard = (props) => {
   const env = process.env.REACT_APP_ENV;
   const navbarHeight = "100px";
   const footerHeight = "60px";
-  if (!props.isLoggedIn) localStorage.clear();
+  // if (!props.isLoggedIn) localStorage.clear();
 
   return (
     <div

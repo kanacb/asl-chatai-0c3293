@@ -43,7 +43,7 @@ module.exports = function (app) {
         lowercase: false,
         default: "",
       },
-      thumbsUp: { type: Boolean, default: null },
+      thumbsUp: { type: Boolean, default: true },
       thumbsDown: { type: Boolean, default: null },
       copied: { type: Boolean, default: null },
       emailed: { type: Boolean, default: null },

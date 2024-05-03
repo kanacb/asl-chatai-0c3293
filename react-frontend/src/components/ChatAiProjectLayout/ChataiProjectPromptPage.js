@@ -83,7 +83,7 @@ const ChataiProjectPromptPage = (props) => {
         }}
       />
 
-      <FileUpload
+      {/*<FileUpload
         mode="basic"
         chooseLabel="upload image"
         className="mt-3"
@@ -94,8 +94,8 @@ const ChataiProjectPromptPage = (props) => {
         maxFileSize={1000000}
         onUpload={() => onUpload()}
         disabled={true}
-      />
-      <Mention
+      />*/}
+      {/*<Mention
         value={value}
         onChange={(e) => setValue(e.target.value)}
         suggestions={suggestions}
@@ -107,7 +107,7 @@ const ChataiProjectPromptPage = (props) => {
         cols={30}
         disabled={true}
         itemTemplate={itemTemplate}
-      />
+    />*/}
     </div>
   );
 };
