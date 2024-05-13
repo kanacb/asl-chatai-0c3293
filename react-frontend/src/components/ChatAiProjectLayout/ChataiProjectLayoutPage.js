@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { useParams } from "react-router-dom";
 import client from "../../services/restClient";
-import _ from "lodash";
+import _, { create } from "lodash";
 import axios from "axios";
 import { Dialog } from "primereact/dialog";
 import ProjectLayout from "../Layouts/ChatAiProjectLayout";
@@ -14,7 +14,6 @@ import requestObjectJson from "./requestObject.json";
 // import responseObject from "./responseObject.json";
 import { ProgressSpinner } from "primereact/progressspinner";
 //What are the obligations of the Borrower regarding taxes, fees, and other governmental charges under the terms and conditions of the Agreement? Which are the relevant clauses?
-
 
 const ChataiProjectLayoutPage = (props) => {
   const [data, setData] = useState();
@@ -52,13 +51,13 @@ const ChataiProjectLayoutPage = (props) => {
   };
 
   useEffect(() => {
-    const scrollHeight = pageEndRef.current.scrollHeight;
-    const height = pageEndRef.current.clientHeight;
+    const scrollHeight = pageEndRef.current.scrollHeight || 0;
+    const height = pageEndRef.current.clientHeight || 0;
     setBottomScroller(scrollHeight > height);
   }, []);
 
   function stringToHTML(inputText) {
-    const ind = inputText.indexOf("Answers with citation:");
+    const ind = inputText?.indexOf("Answers with citation:");
     let textSwapped;
     textSwapped =
       ind !== -1
@@ -67,7 +66,7 @@ const ChataiProjectLayoutPage = (props) => {
     const responseText = textSwapped
       .replaceAll("\n\n", "<br/><br/>")
       .replaceAll("\n", "<br/>")
-      .replaceAll("] ", "]<br/><br/>")
+      // .replaceAll("] ", "]<br/><br/>")
       // .replaceAll(": and (", ":<br/><br/> and (")
       // .replaceAll(": (", ":<br/><br/>(")
       // .replaceAll("; and (", ";<br/><br/> and (")/
@@ -123,12 +122,11 @@ const ChataiProjectLayoutPage = (props) => {
           });
           setLoading(false);
         });
-    } 
+    }
     getUserConfig();
   }, [urlParams?.promptId]);
 
   const getUserConfig = () => {
-    
     client
       .service("config")
       .find({ query: { $limit: 10000 } })
@@ -173,7 +171,7 @@ const ChataiProjectLayoutPage = (props) => {
         responseObject["input_tokens"] * 0.001,
       status: true,
       error: null,
-      params: getParamsClaude3Haiku(),
+      params: getParams(),
       createdBy: props.user._id,
       updatedBy: props.user._id,
     };
@@ -200,26 +198,28 @@ const ChataiProjectLayoutPage = (props) => {
       });
   };
 
-  const createPropmtFailureRecord = (error) => {
+  const createPropmtFailureRecord = (error, responseObject) => {
     let _data = {
       sessionId: "1",
       chatAiId: "660a84ff899a21d9afef0b29",
       configid: "660a8b94899a21d9afef0c77",
-      prompt: "",
+      prompt: prompt,
       ref_docs: documents,
-      response_text: "",
-      system_id: "",
-      type: "",
-      role: "",
-      model: "",
-      stop_reason: "",
-      stop_sequence: "",
-      input_tokens: 0,
-      output_tokens: 0,
-      cost: 0,
+      responseText: responseObject?.messages[0]?.content[0]?.text,
+      systemId: "none",
+      type: responseObject?.messages[0]?.content[0]?.type,
+      role: responseObject?.messages[0]?.role,
+      model: responseObject["anthropic_version"],
+      stopReason: "",
+      stopSequence: "",
+      inputTokens: 1000000,
+      outputTokens: 0,
+      cost: 1000000 * 0.005 + 0 * 0.001,
       status: false,
       error: error.message,
-      params: getParamsClaude3Haiku(),
+      params: getParams(),
+      createdBy: props.user?._id,
+      updatedBy: props.user?._id,
     };
 
     client
@@ -266,150 +266,39 @@ const ChataiProjectLayoutPage = (props) => {
       });
   };
 
-  const getClaude3HaikuResponse = async () => {
-    const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3haiku";
-    // Define the properties and data for the API request
-    let requestObject = refUserConfig[numConfig];
-    requestObject["documents"] = requestObjectJson?.documents;
-    requestObject["no_condition"] = requestObject?.noCondition;
-    requestObject["yes_condition"] = requestObject?.yesCondition;
-    requestObject.params = getParams("object");
-    // console.log(numConfig, refUserConfig, requestObject);
-    // return;
-    requestObject["preamble"] =
-      `Here is the first question: ${prompt} \\n Assistant:`;
-
-    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
-    const requestOptions = {
-      method: "post",
-      url: API_URL,
-      data: requestObject,
-      headers: {
-        "Content-Type": "application/json",
-      },
+  const responseFailure = (error) => {
+    // Add error class to the paragraph element and set error text
+    const responseObject = {
+      anthropic_version: "bedrock-2023-05-31",
+      max_tokens: getParams().max_tokens_to_sample,
+      messages: [{ role: "user", content: [{ type: "text", text: prompt }] }],
     };
-
-    setLoading(true);
-    setResponse("");
-    setResponsePrompt(prompt);
-
-    // convert the body to string of JSON format
-    // console.log(JSON.stringify(JSON.stringify(requestObject)));
-
-
-    try {
-      const responseText = await axios(requestOptions);
-      setLoading(false);
-      const responseObject = responseText.data;
-      // displayLikeChatGPT(responseObject["response_text"]);
-      setResponse(stringToHTML(responseObject["response_text"]));
-      createPropmtSuccessRecord(responseObject);
-      // displayLikeChatGPT(sample);
-      props.alert({
-        type: "success",
-        title: "Succesful response from Legal GenAi",
-        message: "prompt sent successfully",
-      });
-    } catch (error) {
-      // Add error class to the paragraph element and set error text
-      setError(error?.message);
-      createPropmtFailureRecord(error?.message);
-      props.alert({
-        type: "error",
-        title: "Sending request to Chat Ai error",
-        message: error?.message,
-      });
-      setResponse(
-        "Oops! Something went wrong while retrieving the response. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getClaude3SonnetResponse = async () => {
-    const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3sonnet";
-    // Define the properties and data for the API request
-    let requestObject = refUserConfig[numConfig];
-    requestObject["documents"] = requestObjectJson?.documents;
-    requestObject["no_condition"] = requestObject?.noCondition;
-    requestObject["yes_condition"] = requestObject?.yesCondition;
-    requestObject.params = getParams("object");
-    // console.log(numConfig, refUserConfig, requestObject);
-    // return;
-
-    let thePrompt = prompt;
-    if(thePrompt==="") return;
-    if(!prompt.match(/\?$/)) thePrompt =+ "?"; 
-    requestObject["preamble"] =
-      `Here are the questions: ${thePrompt} \\n Assistant:`;
-
-    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
-    const requestOptions = {
-      method: "post",
-      url: API_URL,
-      data: requestObject,
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    setLoading(true);
-    setResponse("");
-    setResponsePrompt(prompt);
-
-    // convert the body to string of JSON format
-    // console.log(JSON.stringify(JSON.stringify(requestObject)));
-
-
-    try {
-      const responseText = await axios(requestOptions);
-      setLoading(false);
-      const responseObject = responseText.data;
-      // displayLikeChatGPT(responseObject["response_text"]);
-      setResponse(stringToHTML(responseObject["response_text"]));
-      createPropmtSuccessRecord(responseObject);
-      // displayLikeChatGPT(sample);
-      props.alert({
-        type: "success",
-        title: "Succesful response from Legal GenAi",
-        message: "prompt sent successfully",
-      });
-    } catch (error) {
-      // Add error class to the paragraph element and set error text
-      setError(error?.message);
-      createPropmtFailureRecord(error?.message);
-      props.alert({
-        type: "error",
-        title: "Sending request to Chat Ai error",
-        message: error?.message,
-      });
-      setResponse(
-        "Oops! Something went wrong while retrieving the response. Please try again."
-      );
-    } finally {
-      setLoading(false);
-    }
+    setError(error?.message);
+    createPropmtFailureRecord(error?.message, responseObject);
+    props.alert({
+      type: "error",
+      title: "Sending request to Chat Ai error",
+      message: error?.message,
+    });
+    setResponse(
+      "Oops! Something went wrong while retrieving the response. Please try again."
+    );
   };
 
   const getClaude3OpusResponse = async () => {
     const API_URL = process.env.REACT_APP_SERVER_URL + "/claude3Opus";
     // Define the properties and data for the API request
-    let requestObject = refUserConfig[numConfig];
-    requestObject["documents"] = requestObjectJson?.documents;
-    requestObject["no_condition"] = requestObject?.noCondition;
-    requestObject["yes_condition"] = requestObject?.yesCondition;
+    // let requestObject = refUserConfig[numConfig];
+    let requestObject = requestObjectJson;
     requestObject.params = getParams("object");
     // console.log(numConfig, refUserConfig, requestObject);
     // return;
 
     let thePrompt = prompt;
-    if(thePrompt==="") return;
-    if(!prompt.match(/\?$/)) thePrompt =+ "?"; 
-    requestObject["preamble"] =
-      `Here are the questions: ${thePrompt} \\n Assistant:`;
+    if (thePrompt === "") return;
+    // if (!prompt.match(/\?$/)) thePrompt = +"?";
+    requestObject["question"] = thePrompt;
 
-    // ,"params":{"max_tokens_to_sample":4096,"temperature":0.5,"top_k":250,"top_p":1,"stop_sequences":["Human"]
     const requestOptions = {
       method: "post",
       url: API_URL,
@@ -426,32 +315,16 @@ const ChataiProjectLayoutPage = (props) => {
     // convert the body to string of JSON format
     // console.log(JSON.stringify(JSON.stringify(requestObject)));
 
-
     try {
       const responseText = await axios(requestOptions);
       setLoading(false);
+      console.log(responseText);
       const responseObject = responseText.data;
-      // displayLikeChatGPT(responseObject["response_text"]);
+      console.log(responseObject["response_text"]);
       setResponse(stringToHTML(responseObject["response_text"]));
       createPropmtSuccessRecord(responseObject);
-      // displayLikeChatGPT(sample);
-      props.alert({
-        type: "success",
-        title: "Succesful response from Legal GenAi",
-        message: "prompt sent successfully",
-      });
     } catch (error) {
-      // Add error class to the paragraph element and set error text
-      setError(error?.message);
-      createPropmtFailureRecord(error?.message);
-      props.alert({
-        type: "error",
-        title: "Sending request to Chat Ai error",
-        message: error?.message,
-      });
-      setResponse(
-        "Oops! Something went wrong while retrieving the response. Please try again."
-      );
+      responseFailure(error);
     } finally {
       setLoading(false);
     }
@@ -571,7 +444,7 @@ const ChataiProjectLayoutPage = (props) => {
               key="prompt"
               setPrompt={setPrompt}
               prompt={prompt}
-              getChatAiResponse={getClaude3SonnetResponse}
+              getChatAiResponse={getClaude3OpusResponse}
               patchResponse={patchResponse}
             />
           </div>

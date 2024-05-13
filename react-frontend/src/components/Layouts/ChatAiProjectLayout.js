@@ -175,9 +175,10 @@ const ChatAiProjectLayout = (props) => {
               </small>
               <br></br>
             </div>
-            <Link key={`link-${i}`} to={`/chataiProject/${prompt?._id}` } className={urlParams.promptId === prompt?._id ? 'font-bold' : ""}>
+            { prompt?.status === true ?
+            <Link key={`link-${i}`}  to={`/chataiProject/${prompt?._id}` } className={urlParams.promptId === prompt?._id ? 'font-bold' : "" }>
               {i + 1}. {prompt?.prompt} 
-            </Link>
+            </Link> : <span className="text-red-400">{i + 1}. {prompt?.prompt} </span>}
           </div>
         ))}
       </div>

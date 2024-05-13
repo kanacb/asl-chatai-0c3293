@@ -29,7 +29,7 @@ const PromptsDataTable = ({ items, onEditRow, onRowDelete, onRowClick }) => {
   );
   const pTemplate14 = (rowData, { rowIndex }) => (
     <p className=" flex justify-content-end mr-5">
-      RM{rowData.cost.toFixed(2)}
+      RM{rowData.cost?.toFixed(2)}
     </p>
   );
   const tickTemplate15 = (rowData, { rowIndex }) => (

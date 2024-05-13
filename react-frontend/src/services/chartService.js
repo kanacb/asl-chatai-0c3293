@@ -5,7 +5,6 @@ const query = async (serviceName) =>
     .service(serviceName)
     .find({ query: { $limit: 10000, $sort: { createdAt: 1 } } });
 
-
 const getDaysArray = (start, end) => {
   for (
     var arr = [], dt = new Date(start);
@@ -93,10 +92,10 @@ const labels = (results, interval) => {
   const start = new Date(data[0]?.createdAt);
   const end = new Date(data[data?.length - 1]?.createdAt);
   const difDays = parseInt((end - start) / (1000 * 60 * 60 * 24), 10);
-  // console.log("start", start, "end", end, difDays, total);
+  // console.log("start", start, "end", end, difDays);
   interval = dynaInternal(difDays);
 
-  if (difDays <= 31) {
+  if (difDays <= 95) {
     labels = getDaysArray(start, end);
   } else if (difDays <= 365) {
     if (interval === "days") labels = getDaysArray(start, end);
@@ -147,12 +146,13 @@ const pieCharter = (field, data) => {
   const values = data.map((m) => m[field]);
   const classes = new Set(values);
   let sets = {};
-  classes.forEach(async (set) => {
-    sets[set] = data.reduce(
-      (acc, val) => (val[field] === set ? acc + 1 : acc),
-      0
-    );
-  });
+  if (classes)
+    classes.forEach(async (set) => {
+      sets[set] = data.reduce(
+        (acc, val) => (val[field] === set ? acc + 1 : acc),
+        0
+      );
+    });
   // console.log(sets);
   return sets;
 };
@@ -161,37 +161,36 @@ const ChartService = async (serviceName, interval, fields) => {
   let datasets = {};
   const results = await query(serviceName);
   const theLabels = labels(results, interval);
+  console.log(theLabels);
   const total = results.total;
   const data = results.data;
   const start = new Date(data[0]?.createdAt);
   const end = new Date(data[data?.length - 1]?.createdAt);
   const difDays = parseInt((end - start) / (1000 * 60 * 60 * 24), 10);
   const isValue = (val) => {
-    return val && typeof val === "number";
+    return typeof val === "number";
   };
 
-  if (difDays <= 31) interval = "days";
-
-  fields.forEach((field) => {
+  if (difDays <= 62) interval = "days";
+  fields?.forEach((field) => {
     const max = data.every((v) => isValue(v[field]))
-      ? data.reduce(
-          (acc, val) => (isValue(val[field]) ? acc + val[field] : acc),
-          0
-        )
+      ? data.reduce((acc, val) => {
+          if (!isValue(val[field])) return acc;
+          return acc + val[field];
+        }, 0)
       : pieCharter(field, data);
 
     let points = [];
     let counter = [];
-    theLabels.forEach((endDate) => {
+    theLabels?.forEach((endDate) => {
       const condition = (e) =>
         new Date(e?.createdAt).getDate() === endDate.getDate() &&
         new Date(e?.createdAt).getMonth() === endDate.getMonth() &&
         new Date(e?.createdAt).getFullYear() === endDate.getFullYear();
       const idx = data.filter((e) => condition(e));
       const agg = data.reduce((acc, val) => {
-        return isValue(val[field]) && new Date(val?.createdAt) <= endDate
-          ? acc + val[field]
-          : acc;
+        if (!isValue(val[field])) return acc;
+        return new Date(val?.createdAt) <= endDate ? acc + val[field] : acc;
       }, 0);
 
       counter.push(idx.length);
@@ -206,11 +205,9 @@ const ChartService = async (serviceName, interval, fields) => {
     };
   });
 
-  console.log(datasets);
-
   return {
     datasets,
-    labels: theLabels.map((dt) => {
+    labels: theLabels?.map((dt) => {
       const ndt = new Date(dt);
       return ndt.toLocaleDateString();
     }),

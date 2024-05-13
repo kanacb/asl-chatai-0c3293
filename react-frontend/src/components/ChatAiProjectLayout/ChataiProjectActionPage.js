@@ -246,7 +246,7 @@ const ChataiProjectActionPage = (props) => {
           </span>
           <small>&#8451;</small>
         </Button>
-        <Button
+        {/* <Button
           icon="pi pi-fw pi-cog"
           className="mb-1"
           size="small"
@@ -262,7 +262,7 @@ const ChataiProjectActionPage = (props) => {
           <span>
             <Badge value={props.numConfig + 1} severity="warning"></Badge>
           </span>
-        </Button>
+        </Button> */}
       </div>
       <OverlayPanel
         ref={opFACDocsConfig}

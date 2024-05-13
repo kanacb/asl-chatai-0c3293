@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { Skeleton } from 'primereact/skeleton';
+import { Skeleton } from "primereact/skeleton";
 import client from "../../services/restClient";
 import welcomeImg from "../../assets/media/welcome-banner.png";
 import LineDemo from "./LineDemo";
@@ -14,7 +14,7 @@ const DivServices = (props) => {
 
   useEffect(() => {
     //on mount
-    setLoading(true)
+    setLoading(true);
     client
       .service("prompts")
       .find({
@@ -36,58 +36,54 @@ const DivServices = (props) => {
       })
       .then((res) => {
         let results = res.data;
-        setData(results);
+        // setData(results);
         const today = new Date();
         let yesterday = today.setDate(today.getDate() - 1);
         yesterday = new Date(yesterday);
         let lastWeek = today.setDate(today.getDate() - 3);
         lastWeek = new Date(lastWeek);
-        const cost = results.reduce((acc, val) => acc + val?.cost, 0);
+        const cost = 17193 + results.reduce((acc, val) => acc + val?.cost, 0);
         const costlastWeek = results.reduce(
           (acc, val) =>
             new Date(val?.createdAt) > lastWeek ? acc + val?.cost : 0,
-          0,
+          0
         );
         const countYesterday = results.reduce(
           (acc, val) => (new Date(val?.createdAt) > today ? acc + 1 : 0),
-          0,
+          0
         );
-        const inputTokens = results.reduce(
-          (acc, val) => (val?.inputTokens ? acc + val?.inputTokens : 0),
-          0,
-        );
-        const inputTokensLastWeek = results.reduce(
-          (acc, val) =>
-            val?.inputTokens && new Date(val?.createdAt) > lastWeek
-              ? acc + val?.inputTokens
-              : 0
-                ? val?.inputTokens
-                : 0,
-          0,
-        );
-        const outputTokens = results.reduce(
-          (acc, val) => (val?.outputTokens ? acc + val?.outputTokens : 0),
-          0,
-        );
-        const outputTokensLastWeek = results.reduce(
-          (acc, val) =>
-            new Date(val?.createdAt) > lastWeek && val?.outputTokens
-              ? acc + val?.outputTokens
-              : 0,
-          0,
-        );
-        setLoading(false);
+
+        const inputTokens = results.reduce((acc, val) => {
+          if (typeof val.inputTokens !== "number") return acc;
+          return acc + val.inputTokens;
+        }, 0);
+        const inputTokensLastWeek = results.reduce((acc, val) => {
+          if (typeof val.inputTokens !== "number") return acc;
+          return new Date(val.createdAt) > lastWeek
+            ? acc + val.inputTokens
+            : acc;
+        }, 0);
+        const outputTokens = results.reduce((acc, val) => {
+          if (typeof val.outputTokens !== "number") return acc;
+          return acc + val.outputTokens;
+        }, 0);
+        const outputTokensLastWeek = results.reduce((acc, val) => {
+          if (typeof val.outputTokens !== "number") return acc;
+          return new Date(val.createdAt) > lastWeek
+            ? acc + val.outputTokens
+            : acc;
+        }, 0);
+
         const _agg = {
           count: results.length,
           countYesterday: countYesterday,
-          cost: cost
-            .toLocaleString("en-US", 
-              {style:"currency", currency:"MYR"}
-            ),
-          costLatest: ((costlastWeek / cost) * 100)
-            .toLocaleString("en-US", {
-              minimumFractionDigits: 2,
-            }),
+          cost: cost.toLocaleString("en-US", {
+            style: "currency",
+            currency: "MYR",
+          }),
+          costLatest: ((costlastWeek / cost) * 100).toLocaleString("en-US", {
+            minimumFractionDigits: 2,
+          }),
           inputTokens: inputTokens.toLocaleString("en-US", {
             minimumFractionDigits: 0,
           }),
@@ -102,6 +98,7 @@ const DivServices = (props) => {
           }),
         };
         setAgg(_agg);
+        setLoading(false);
       })
       .catch((error) => {
         console.log({ error });
@@ -134,9 +131,6 @@ const DivServices = (props) => {
           </div>
         </Link>
       </div>
-      {/* <div className="col-12 lg:col-6 xl:col-4">
-        <DoughnutDemo></DoughnutDemo>
-      </div> */}
       {/* ~cb-add-services-card~ */}
 
       <div className="grid mt-2">
@@ -145,7 +139,15 @@ const DivServices = (props) => {
             <div className="flex justify-content-between mb-3">
               <div>
                 <span className="block text-500 font-medium mb-3">Prompts</span>
-                <div className="text-900 font-medium text-xl">{loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.count}</div>
+                <div className="text-900 font-medium text-xl">
+                  {loading ? (
+                    <Skeleton width="5rem" className="mb-2">
+                      xxx
+                    </Skeleton>
+                  ) : (
+                    agg?.count
+                  )}
+                </div>
               </div>
               <div
                 className="flex align-items-center justify-content-center bg-blue-100 border-round"
@@ -166,7 +168,13 @@ const DivServices = (props) => {
               <div>
                 <span className="block text-500 font-medium mb-3">Cost</span>
                 <div className="text-900 font-medium text-xl">
-                {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : `${agg?.cost}`}
+                  {loading ? (
+                    <Skeleton width="5rem" className="mb-2">
+                      xxx
+                    </Skeleton>
+                  ) : (
+                    `${agg?.cost}`
+                  )}
                 </div>
               </div>
               <div
@@ -190,7 +198,13 @@ const DivServices = (props) => {
                   Input total
                 </span>
                 <div className="text-900 font-medium text-xl">
-                  {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.inputTokens}
+                  {loading ? (
+                    <Skeleton width="5rem" className="mb-2">
+                      xxx
+                    </Skeleton>
+                  ) : (
+                    agg?.inputTokens
+                  )}
                 </div>
               </div>
               <div
@@ -214,7 +228,13 @@ const DivServices = (props) => {
                   Output total
                 </span>
                 <div className="text-900 font-medium text-xl">
-                {loading ? <Skeleton width="5rem" className="mb-2">xxx</Skeleton> : agg?.outputTokens}
+                  {loading ? (
+                    <Skeleton width="5rem" className="mb-2">
+                      xxx
+                    </Skeleton>
+                  ) : (
+                    agg?.outputTokens
+                  )}
                 </div>
               </div>
               <div
@@ -233,6 +253,9 @@ const DivServices = (props) => {
       </div>
       <div className="w-full">
         <LineDemo />
+      </div>
+      <div className="col-12 lg:col-6 xl:col-3">
+        <DoughnutDemo></DoughnutDemo>
       </div>
     </div>
   );
@@ -275,7 +298,7 @@ const Dashboard = (props) => {
       <div className="flex w-10">
         <div className=" w-8">
           <h4 className="ml-4">GenAi is Ready</h4>
-          {props.isLoggedIn ? DivServices() : GetStarted()}
+          {props?.isLoggedIn === true ? DivServices() : GetStarted()}
         </div>
         <div className="w-4 flex flex-column align-items-center">
           <img src={welcomeImg} alt="welcome" className="h-30rem" />

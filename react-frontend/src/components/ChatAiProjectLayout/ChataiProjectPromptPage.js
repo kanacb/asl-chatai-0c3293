@@ -63,8 +63,7 @@ const ChataiProjectPromptPage = (props) => {
           value={props.prompt}
           onChange={(e) => props.setPrompt(e.target.value)}
           placeholder="Prompt the GenAi here ..."
-          rows={1}
-          cols={80}
+          cols={100}
         />
       </div>
       <Button

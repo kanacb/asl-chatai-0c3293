@@ -107,7 +107,7 @@ const ChataiProjectResponsePage = (props) => {
         <div className="grid p-0">
           <div className="col-2 vertical-align-middle">
             <Button
-              label="Re-Run"
+              label="Re-Prompt"
               icon="pi pi-play-circle"
               className="m-2"
               size="small"
